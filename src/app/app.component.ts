@@ -1,13 +1,10 @@
-import { Component } from '@angular/core'
-import { RouterOutlet } from '@angular/router'
+import { Component } from '@angular/core';
 
 @Component({
-  imports: [RouterOutlet],
   selector: 'app-root',
-  standalone: true,
   styleUrl: './app.component.scss',
   templateUrl: './app.component.html',
 })
-export class AppComponent {
-  title = 'youtube'
+export default class AppComponent {
+  title = 'youtube';
 }

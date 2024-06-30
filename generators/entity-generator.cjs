@@ -1,19 +1,19 @@
-const { execSync } = require('child_process')
-const inquirer = require('inquirer')
+const { execSync } = require('child_process');
+const inquirer = require('inquirer');
 
-const entities = ['component', 'interface', 'directive', 'module', 'guard', 'enum', 'pipe']
+const entities = ['component', 'interface', 'directive', 'module', 'guard', 'enum', 'pipe'];
 
 const generateEntity = (type, name) => {
-  const command = `ng generate ${type} ${name}`
+  const command = `ng generate ${type} ${name}`;
 
   try {
-    execSync(command, { stdio: 'inherit' })
+    execSync(command, { stdio: 'inherit' });
 
-    console.log(`${type} ${name} created successfully!`)
+    console.log(`${type} ${name} created successfully!`);
   } catch (error) {
-    console.error(`error creating ${type}: ${error}`)
+    console.error(`error creating ${type}: ${error}`);
   }
-}
+};
 
 const showMenu = () => {
   const questions = [
@@ -37,27 +37,27 @@ const showMenu = () => {
       message: 'Enter the name or path (folderName/*/entityName):',
       validate: function (input) {
         if (!input) {
-          return 'Please provide a name.'
+          return 'Please provide a name.';
         }
-        return true
+        return true;
       },
     },
-  ]
+  ];
 
   inquirer.prompt(questions).then(function (answers) {
-    const command = answers.command
-    const name = answers.name
+    const command = answers.command;
+    const name = answers.name;
 
     if (entities.includes(command)) {
-      generateEntity(command, name)
+      generateEntity(command, name);
     } else {
-      console.error('Invalid entity.')
+      console.error('Invalid entity.');
     }
-  })
-}
+  });
+};
 
 module.exports = {
   showMenu,
-}
+};
 
-showMenu()
+showMenu();
