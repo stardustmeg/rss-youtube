@@ -1,7 +1,7 @@
 const { execSync } = require('child_process');
 const inquirer = require('inquirer');
 
-const entities = ['component', 'interface', 'directive', 'module', 'guard', 'enum', 'pipe'];
+const entities = ['component', 'interface', 'directive', 'module', 'guard', 'enum', 'pipe', 'service'];
 
 const generateEntity = (type, name) => {
   const command = `ng generate ${type} ${name}`;
@@ -29,6 +29,7 @@ const showMenu = () => {
         { name: 'Guard', value: 'guard' },
         { name: 'Enum', value: 'enum' },
         { name: 'Pipe', value: 'pipe' },
+        { name: 'Service', value: 'service' },
       ],
     },
     {
