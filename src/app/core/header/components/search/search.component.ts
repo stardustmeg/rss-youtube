@@ -1,14 +1,13 @@
-import { ButtonComponent } from '@/app/shared/components/button/button.component';
+import { CustomButtonComponent } from '@/app/shared/components/custom-button/custom-button.component';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
-  imports: [FormsModule, ButtonComponent],
+  imports: [FormsModule, CustomButtonComponent, MatIconModule],
   selector: 'app-search',
   standalone: true,
   styleUrl: './search.component.scss',
   templateUrl: './search.component.html',
 })
-export class SearchComponent {
-  value = 'Clear me';
-}
+export class SearchComponent {}

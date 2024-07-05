@@ -1,0 +1,7 @@
+<button mat-raised-button [class]="'button'">
+  @if (icon) {
+    <mat-icon>{{ icon }}</mat-icon>
+  }
+
+  <ng-content></ng-content>
+</button>
