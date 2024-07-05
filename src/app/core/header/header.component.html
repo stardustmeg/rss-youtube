@@ -4,13 +4,21 @@
       <a mat-fab class="to-main-link" routerLink="/">
         <mat-icon>play_arrow</mat-icon>
       </a>
-
       <app-search></app-search>
-
-      <app-filter></app-filter>
-      <app-sort></app-sort>
+      <app-custom-button
+        icon="tune"
+        customClass="filter-button"
+        (click)="toggleSortVisibility()"
+        (onKeyUp)="handleKeyAction()"
+      ></app-custom-button>
     </div>
 
     <app-user></app-user>
   </div>
+
+  @if (isSortVisible) {
+    <div class="sort-container">
+      <app-sort></app-sort>
+    </div>
+  }
 </header>

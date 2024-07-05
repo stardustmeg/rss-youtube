@@ -1,6 +1,27 @@
 @import '../../../styles/numbers.module';
 
 .button {
-  height: $standart-px * 1.2;
+  min-width: fit-content;
+  height: $standart-rem * 1.5;
+  border-radius: $border-radius;
+}
+
+.search-button {
   border-radius: 0 $border-radius $border-radius 0;
+}
+
+.user-button,
+.filter-button {
+  display: flex;
+  justify-content: center;
+
+  width: $standart-rem * 2;
+  height: $standart-rem * 2;
+  margin: 0;
+  padding: 0;
+  padding-left: $small-rem * 1.7;
+}
+
+.filter-button {
+  margin-left: $standart-rem;
 }

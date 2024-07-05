@@ -1,11 +1,12 @@
 @import '../../../../styles/numbers.module';
 
 .input {
-  max-width: $standart-px * 10;
-  height: $standart-px * 1.2;
+  min-width: $standart-px * 10;
+  max-width: $standart-px * 20;
+  height: $standart-rem * 1.5;
   padding: 0 $small-px;
 
-  font-size: 14px;
+  font-size: $smaller-font;
 
   border: none;
   border-radius: $border-radius 0 0 $border-radius;
@@ -13,4 +14,8 @@
   &:focus {
     outline: none;
   }
+}
+
+.search-button {
+  border-radius: 0 $border-radius $border-radius 0;
 }

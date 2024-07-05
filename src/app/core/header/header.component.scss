@@ -1,9 +1,12 @@
 @import '../../styles/numbers.module';
 
-.header {
+.header,
+.sort-container {
   width: 100%;
   height: max-content;
-  padding: 15px 0;
+  padding: ($small-rem * 1.5) 0;
+
+  text-align: center;
 
   background-color: #f0f0f0;
   border-bottom: 1px solid #f0f0f0;
@@ -18,11 +21,12 @@
 
 .header-controls {
   display: flex;
-  gap: 10px;
+  gap: $small-rem;
   align-items: center;
 }
 
 .to-main-link {
-  height: 36px;
+  height: $standart-rem * 2;
+  margin-right: $standart-rem;
   border-radius: $border-radius;
 }

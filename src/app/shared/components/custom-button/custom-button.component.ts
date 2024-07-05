@@ -10,7 +10,11 @@ import { MatIconModule } from '@angular/material/icon';
   templateUrl: './custom-button.component.html',
 })
 export class CustomButtonComponent {
-  @Input() class = '';
+  @Input() buttonType: 'mat-icon-button' | 'mat-raised-button' = 'mat-raised-button';
+
+  @Input() customClass = '';
+
+  @Input() defaultClass = 'button';
 
   @Input() icon? = '';
 }

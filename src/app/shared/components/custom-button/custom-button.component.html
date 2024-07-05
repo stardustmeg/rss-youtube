@@ -1,4 +1,4 @@
-<button mat-raised-button [class]="'button'">
+<button mat-raised-button [class]="[customClass, defaultClass]">
   @if (icon) {
     <mat-icon>{{ icon }}</mat-icon>
   }
