@@ -1,0 +1,16 @@
+// REM
+
+$standart-rem: 1.25rem; // 20px
+$small-rem: calc($standart-rem / 2); // 10px
+$big-rem: $standart-rem * 2; // 40px
+
+// PX
+
+$standart-px: 20px;
+$small-px: calc($standart-px / 2);
+$big-px: $standart-px * 2;
+
+// BORDER
+
+$standart-border: 1px;
+$border-radius: 5px;

@@ -1,6 +1,17 @@
-<p>header works!</p>
-<app-filter></app-filter>
-<app-search></app-search>
-<app-sort></app-sort>
-<app-settings></app-settings>
-<app-user></app-user>
+<header class="header">
+  <div class="header-container">
+    <div class="header-controls">
+      <a mat-fab class="to-main-link" routerLink="/">
+        <mat-icon>play_arrow</mat-icon>
+      </a>
+
+      <app-search></app-search>
+
+      <app-filter></app-filter>
+      <app-settings></app-settings>
+      <app-sort></app-sort>
+    </div>
+
+    <app-user></app-user>
+  </div>
+</header>

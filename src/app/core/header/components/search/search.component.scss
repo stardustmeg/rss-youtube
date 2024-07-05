@@ -1,0 +1,16 @@
+@import '../../../../styles/numbers.module';
+
+.input {
+  max-width: $standart-px * 10;
+  height: $standart-px * 1.2;
+  padding: 0 $small-px;
+
+  font-size: 14px;
+
+  border: none;
+  border-radius: $border-radius 0 0 $border-radius;
+
+  &:focus {
+    outline: none;
+  }
+}
