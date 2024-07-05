@@ -1,0 +1,6 @@
+@import '../../../styles/numbers.module';
+
+.button {
+  height: $standart-px * 1.2;
+  border-radius: 0 $border-radius $border-radius 0;
+}
