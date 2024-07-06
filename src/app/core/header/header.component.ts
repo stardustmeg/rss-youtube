@@ -1,4 +1,5 @@
 import { CustomButtonComponent } from '@/app/shared/components/custom-button/custom-button.component';
+import { CustomLinkComponent } from '@/app/shared/components/custom-link/custom-link.component';
 import { Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -17,6 +18,7 @@ import { UserComponent } from './components/user/user.component';
     SortComponent,
     UserComponent,
     CustomButtonComponent,
+    CustomLinkComponent,
   ],
   selector: 'app-header',
   standalone: true,

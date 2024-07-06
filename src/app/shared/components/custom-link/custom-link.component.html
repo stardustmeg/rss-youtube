@@ -1,0 +1,6 @@
+<a mat-fab [class]="[customClass, defaultClass]">
+  @if (icon) {
+    <mat-icon>{{ icon }}</mat-icon>
+  }
+  <ng-content></ng-content>
+</a>

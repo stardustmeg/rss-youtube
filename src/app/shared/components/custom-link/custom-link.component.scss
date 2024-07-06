@@ -1,0 +1,12 @@
+@import '../../../styles/numbers.module';
+@import '../../../styles/colors.module';
+
+.link {
+  width: $standart-rem * 3.5;
+  height: $standart-rem * 2.5;
+  border-radius: $border-radius;
+}
+
+.to-main-link {
+  margin-right: $standart-rem;
+}

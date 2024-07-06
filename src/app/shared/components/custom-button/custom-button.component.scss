@@ -1,27 +1,28 @@
 @import '../../../styles/numbers.module';
+@import '../../../styles/colors.module';
 
 .button {
-  min-width: fit-content;
-  height: $standart-rem * 1.5;
   border-radius: $border-radius;
+}
+
+.raised-button {
+  height: $standart-rem * 1.5;
+}
+
+.fab-button {
+  width: $standart-rem * 3.5;
+  height: $standart-rem * 2.5;
+}
+
+.mini-fab-button {
+  color: $accent-color;
+  background-color: $background-color;
 }
 
 .search-button {
   border-radius: 0 $border-radius $border-radius 0;
 }
 
-.user-button,
-.filter-button {
-  display: flex;
-  justify-content: center;
-
-  width: $standart-rem * 2;
-  height: $standart-rem * 2;
-  margin: 0;
-  padding: 0;
-  padding-left: $small-rem * 1.7;
-}
-
-.filter-button {
+.settings-button {
   margin-left: $standart-rem;
 }
