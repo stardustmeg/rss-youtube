@@ -8,10 +8,7 @@
   height: max-content;
   padding: $standart-rem $standart-rem * 2;
 
-  text-align: center;
-
-  background-color: #f0f0f0;
-  border-bottom: 1px solid $accent-color;
+  background-color: $header-background;
 }
 
 .header-container {

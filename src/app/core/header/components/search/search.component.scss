@@ -1,9 +1,9 @@
 @import '../../../../styles/numbers.module';
 
 .input {
-  min-width: $standart-px * 10;
-  max-width: $standart-px * 20;
-  height: $standart-rem * 1.5;
+  min-width: $standart-px * 20;
+  max-width: $standart-px * 30;
+  height: $standart-rem * 2;
   padding: 0 $small-px;
 
   font-size: $smaller-font;

@@ -1,0 +1,12 @@
+@import '../../../../styles/numbers.module';
+
+.user-container {
+  display: flex;
+  gap: $small-rem;
+  align-items: center;
+  justify-content: center;
+
+  p {
+    margin: 0;
+  }
+}

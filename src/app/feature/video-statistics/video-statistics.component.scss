@@ -1,0 +1,30 @@
+@import '../../styles/numbers.module';
+@import '../../styles/colors.module';
+
+.statistics-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  max-width: max-content;
+  padding: $small-rem;
+}
+
+.statistics-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  max-width: max-content;
+  padding: $small-rem;
+
+  p {
+    margin: 0;
+    margin-left: $small-rem;
+  }
+}
+
+.icon {
+  display: flex;
+  color: $accent;
+}

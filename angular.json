@@ -23,7 +23,13 @@
             "polyfills": ["zone.js"],
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
-            "assets": ["src/assets"],
+            "assets": [
+              {
+                "glob": "**/*",
+                "input": "public"
+              },
+              "src/assets"
+            ],
             "styles": ["src/styles.scss", "@angular/material/prebuilt-themes/rose-red.css"],
             "scripts": []
           },
