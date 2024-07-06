@@ -1,7 +1,9 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { MatChipsModule } from '@angular/material/chips';
 
 @Component({
-  imports: [],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [MatChipsModule],
   selector: 'app-sort',
   standalone: true,
   styleUrl: './sort.component.scss',
