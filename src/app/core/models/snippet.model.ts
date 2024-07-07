@@ -9,8 +9,10 @@ interface Snippet {
   description: string;
   liveBroadcastContent: string;
   localized: Localization;
+  publishedAt: string;
   tags: string[];
   thumbnails: Thumbnails;
+  title: string;
 }
 
 export default Snippet;

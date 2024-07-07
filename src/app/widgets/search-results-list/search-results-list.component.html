@@ -1,2 +1,13 @@
-<p>search-results-list works!</p>
-<app-video-item-card></app-video-item-card>
+<div class="video-list">
+  <div class="video-card" *ngFor="let video of videos$ | async">
+    <app-video-item-card
+      [Title]="video.snippet.title"
+      [publicationDate]="video.snippet.publishedAt"
+      [image]="video.snippet.thumbnails.high.url"
+      [Views]="video.statistics.viewCount"
+      [Comments]="video.statistics.commentCount"
+      [Likes]="video.statistics.likeCount"
+      [Dislikes]="video.statistics.dislikeCount"
+    ></app-video-item-card>
+  </div>
+</div>

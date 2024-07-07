@@ -1,2 +1,16 @@
-<p>video-item-card works!</p>
-<app-video-statistics></app-video-statistics>
+<article class="video-card" appBorderColor [publicationDate]="publicationDate">
+  <div class="video-image-container">
+    <img class="video-image" alt="Video Cover" [src]="image" />
+  </div>
+  <div class="video-info-container">
+    <app-video-statistics
+      [Views]="Views"
+      [Likes]="Likes"
+      [Dislikes]="Dislikes"
+      [Comments]="Comments"
+    ></app-video-statistics>
+    <h2 class="video-title">{{ Title }}</h2>
+  </div>
+  <app-custom-button>more...</app-custom-button>
+  <div class="bottom-border"></div>
+</article>

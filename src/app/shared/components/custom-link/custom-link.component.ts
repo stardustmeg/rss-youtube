@@ -12,7 +12,5 @@ import { MatIconModule } from '@angular/material/icon';
 export class CustomLinkComponent {
   @Input() customClass = '';
 
-  @Input() defaultClass = 'link';
-
   @Input() icon = '';
 }
