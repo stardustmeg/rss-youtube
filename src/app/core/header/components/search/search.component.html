@@ -1,4 +1,4 @@
-<form (ngSubmit)="handleSubmit()">
-  <input type="search" class="input" placeholder="I want to find..." />
+<form (ngSubmit)="onSubmit()">
+  <input type="search" class="input" placeholder="I want to find..." [(ngModel)]="currentValue" name="searchTerm" />
   <app-custom-button customClass="search-button">search</app-custom-button>
 </form>

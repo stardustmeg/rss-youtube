@@ -6,12 +6,12 @@ import { Pipe, PipeTransform } from '@angular/core';
   standalone: true,
 })
 export class SortPipe implements PipeTransform {
-  transform(value: VideoItem[], criteria: string, direction: string): VideoItem[] {
-    if (!Array.isArray(value)) {
-      return value;
+  transform(videos: VideoItem[], criteria: string, direction: string): VideoItem[] {
+    if (!Array.isArray(videos)) {
+      return videos;
     }
 
-    return value.sort((a, b) => {
+    return videos.sort((a, b) => {
       let comparison = 0;
 
       if (criteria === 'date') {

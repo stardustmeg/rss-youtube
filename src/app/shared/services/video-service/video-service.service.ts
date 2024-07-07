@@ -13,7 +13,11 @@ export class VideoServiceService {
 
   constructor() {}
 
-  getVideos(): void {
-    this.videoItems.next(data.items);
+  getVideos(): VideoItem[] {
+    return data.items;
+  }
+
+  setVideos(data: VideoItem[]): void {
+    this.videoItems.next(data);
   }
 }
