@@ -1,5 +1,5 @@
 <div class="video-list">
-  <div class="video-card" *ngFor="let video of videos$ | async">
+  <div class="video-card" *ngFor="let video of videos">
     <app-video-item-card
       [Title]="video.snippet.title"
       [publicationDate]="video.snippet.publishedAt"

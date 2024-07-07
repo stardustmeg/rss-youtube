@@ -1,16 +1,19 @@
 import VideoItem from '@/app/core/models/video-item.model';
 import * as data from '@/assets/db/response.json';
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class VideoServiceService {
+  videoItems = new BehaviorSubject<VideoItem[]>([]);
+
+  videoItems$ = this.videoItems.asObservable();
+
   constructor() {}
 
-  getVideos(): Observable<VideoItem[]> {
-    const videos = data.items;
-    return of(videos);
+  getVideos(): void {
+    this.videoItems.next(data.items);
   }
 }
