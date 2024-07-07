@@ -7,17 +7,23 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root',
 })
 export class VideoServiceService {
-  videoItems = new BehaviorSubject<VideoItem[]>([]);
+  originalVideoItems: VideoItem[] = data.items;
 
-  videoItems$ = this.videoItems.asObservable();
+  updatedVideoItems = new BehaviorSubject<VideoItem[]>([]);
+
+  updatedVideoItems$ = this.updatedVideoItems.asObservable();
 
   constructor() {}
 
-  getVideos(): VideoItem[] {
-    return data.items;
+  getOriginalData(): VideoItem[] {
+    return this.originalVideoItems;
   }
 
-  setVideos(data: VideoItem[]): void {
-    this.videoItems.next(data);
+  getUpdatedData(): VideoItem[] {
+    return this.updatedVideoItems.getValue();
+  }
+
+  setUpdatedData(data: VideoItem[]): void {
+    this.updatedVideoItems.next(data);
   }
 }

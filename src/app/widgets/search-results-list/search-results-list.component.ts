@@ -18,7 +18,7 @@ export class SearchResultsListComponent implements OnInit {
   constructor(private videoService: VideoServiceService) {}
 
   ngOnInit(): void {
-    this.videoService.videoItems$.subscribe((items) => {
+    this.videoService.updatedVideoItems$.subscribe((items) => {
       this.videos = items;
     });
   }

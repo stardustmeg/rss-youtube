@@ -14,7 +14,7 @@ import { MatIconModule } from '@angular/material/icon';
   templateUrl: './search.component.html',
 })
 export class SearchComponent {
-  currentValue = '';
+  inputValue = '';
 
   searchPipe = inject(SearchPipe);
 
@@ -23,8 +23,8 @@ export class SearchComponent {
   constructor() {}
 
   onSubmit(): void {
-    const videoItems = this.videoService.getVideos();
-    const newItems = this.searchPipe.transform(videoItems, this.currentValue);
-    this.videoService.setVideos(newItems);
+    const videoItems = this.videoService.getOriginalData();
+    const newItems = this.searchPipe.transform(videoItems, this.inputValue);
+    this.videoService.setUpdatedData(newItems);
   }
 }

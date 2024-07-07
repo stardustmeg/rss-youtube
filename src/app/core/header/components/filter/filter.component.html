@@ -1,16 +1,8 @@
 <div class="filter-container">
-  <form class="form" (ngSubmit)="handleSubmit()">
+  <form class="form" (ngSubmit)="onSubmit()">
     <mat-form-field class="form-field">
       <mat-label class="form-label">by word or sentence</mat-label>
-      <input matInput [(ngModel)]="inputValue" name="inputValue" />
-      @if (inputValue) {
-        <app-custom-button
-          attributeType="mat-icon-button"
-          icon="close"
-          (click)="inputValue = ''"
-          class="clear-button"
-        ></app-custom-button>
-      }
+      <input type="search" matInput [(ngModel)]="inputValue" name="filterValue" />
     </mat-form-field>
   </form>
 </div>
