@@ -13,8 +13,8 @@
   margin: $small-rem;
   padding: $small-rem;
 
-  background-color: $header-background;
-  border-bottom: $small-rem solid $accent;
+  background-color: $header-background-color;
+  border-bottom: $small-rem solid $accent-color;
   border-radius: $border-radius;
 }
 
@@ -24,6 +24,10 @@
   flex-grow: 1;
   align-items: center;
   justify-content: flex-start;
+
+  .video-title {
+    align-self: flex-end;
+  }
 }
 
 .video-image,
@@ -37,5 +41,5 @@
 
   font-size: 18px;
   line-height: normal;
-  text-align: center;
+  text-align: right;
 }

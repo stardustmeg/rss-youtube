@@ -5,6 +5,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
 
+import { FilterComponent } from './components/filter/filter.component';
 import { SearchComponent } from './components/search/search.component';
 import { SortComponent } from './components/sort/sort.component';
 import { UserComponent } from './components/user/user.component';
@@ -19,6 +20,7 @@ import { UserComponent } from './components/user/user.component';
     UserComponent,
     CustomButtonComponent,
     CustomLinkComponent,
+    FilterComponent,
   ],
   selector: 'app-header',
   standalone: true,

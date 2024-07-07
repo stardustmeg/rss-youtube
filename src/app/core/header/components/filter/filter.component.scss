@@ -1,0 +1,22 @@
+@import '../../../../styles/numbers.module';
+@import '../../../../styles/colors.module';
+
+.form {
+  position: relative;
+  width: $standart-rem * 20;
+  max-width: $standart-rem * 20;
+  margin-left: $big-rem;
+}
+
+.clear-button {
+  position: absolute;
+  top: 25%;
+  right: $small-rem;
+
+  width: $standart-rem;
+  height: $standart-rem;
+}
+
+.form-label {
+  color: $accent-color;
+}
