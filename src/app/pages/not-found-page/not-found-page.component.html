@@ -1,4 +1,6 @@
 <div class="not-found-page">
-  <app-custom-link customClass="not-found" icon="sentiment_dissatisfied" routerLink="/"></app-custom-link>
   <h1 class="not-found-title">Sorry, this page does not exist</h1>
+  <app-custom-link [attributeType]="'mat-flat-button'" [customClass]="'to-main'" routerLink="/"
+    >Go back to Main</app-custom-link
+  >
 </div>

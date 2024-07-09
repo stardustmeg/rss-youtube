@@ -14,5 +14,3 @@ export const isSortCriteria = (value: unknown): value is SortCriteria => {
   const { criteria, direction } = value;
   return typeof criteria === 'string' && (direction === 'asc' || direction === 'desc');
 };
-
-// TBD: move to directive?

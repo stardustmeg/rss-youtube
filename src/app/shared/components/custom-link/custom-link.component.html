@@ -1,6 +1,39 @@
-<a mat-fab [class]="[customClass, 'link']">
-  @if (icon) {
-    <mat-icon class="mat-icon">{{ icon }}</mat-icon>
+@switch (attributeType) {
+  @case ('mat-icon-button') {
+    <a mat-icon-button [class]="[customClass, 'link']">
+      @if (icon) {
+        <mat-icon>{{ icon }}</mat-icon>
+      }
+    </a>
   }
-  <ng-content></ng-content>
-</a>
+  @case ('mat-mini-fab') {
+    <a mat-mini-fab [class]="[customClass, 'link']">
+      @if (icon) {
+        <mat-icon>{{ icon }}</mat-icon>
+      }
+    </a>
+  }
+  @case ('mat-fab') {
+    <a mat-fab [class]="[customClass, 'link']">
+      @if (icon) {
+        <mat-icon>{{ icon }}</mat-icon>
+      }
+    </a>
+  }
+  @case ('mat-raised-button') {
+    <a mat-raised-button [class]="[customClass, 'link']">
+      @if (icon) {
+        <mat-icon>{{ icon }}</mat-icon>
+      }
+      <ng-content></ng-content>
+    </a>
+  }
+  @default {
+    <a mat-flat-button [class]="[customClass, 'link']">
+      @if (icon) {
+        <mat-icon>{{ icon }}</mat-icon>
+      }
+      <ng-content></ng-content>
+    </a>
+  }
+}

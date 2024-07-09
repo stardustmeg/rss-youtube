@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 
-import { CustomButtonType, CustomButtonTypeType } from '../../constants/custom-button';
+import { MaterialButtonType, MaterialButtonTypeType } from '../../constants/custom-button';
 
 @Component({
   imports: [MatButtonModule, MatIconModule],
@@ -12,7 +12,7 @@ import { CustomButtonType, CustomButtonTypeType } from '../../constants/custom-b
   templateUrl: './custom-button.component.html',
 })
 export class CustomButtonComponent {
-  @Input() public attributeType: CustomButtonTypeType = CustomButtonType.RAISED;
+  @Input() public attributeType: MaterialButtonTypeType = MaterialButtonType.RAISED;
 
   @Input() public customClass = '';
 

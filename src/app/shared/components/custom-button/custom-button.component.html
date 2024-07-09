@@ -4,7 +4,6 @@
       @if (icon) {
         <mat-icon>{{ icon }}</mat-icon>
       }
-      <ng-content></ng-content>
     </button>
   }
   @case ('mat-mini-fab') {
@@ -12,11 +11,17 @@
       @if (icon) {
         <mat-icon>{{ icon }}</mat-icon>
       }
-      <ng-content></ng-content>
     </button>
   }
   @case ('mat-fab') {
     <button mat-fab [class]="[customClass, 'fab-button', 'button']">
+      @if (icon) {
+        <mat-icon>{{ icon }}</mat-icon>
+      }
+    </button>
+  }
+  @case ('mat-flat-button') {
+    <button mat-flat-button [class]="[customClass, 'flat-button', 'button']">
       @if (icon) {
         <mat-icon>{{ icon }}</mat-icon>
       }
