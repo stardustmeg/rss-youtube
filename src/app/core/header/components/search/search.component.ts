@@ -14,15 +14,15 @@ import { MatIconModule } from '@angular/material/icon';
   templateUrl: './search.component.html',
 })
 export class SearchComponent {
-  inputValue = '';
+  private searchPipe = inject(SearchPipe);
 
-  searchPipe = inject(SearchPipe);
+  private videoService = inject(VideoServiceService);
 
-  videoService = inject(VideoServiceService);
+  public inputValue = '';
 
-  constructor() {}
+  public constructor() {}
 
-  onSubmit(): void {
+  public onChange(): void {
     const videoItems = this.videoService.getOriginalData();
     const newItems = this.searchPipe.transform(videoItems, this.inputValue);
     this.videoService.setUpdatedData(newItems);

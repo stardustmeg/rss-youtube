@@ -12,9 +12,9 @@ import { CustomButtonType, CustomButtonTypeType } from '../../constants/custom-b
   templateUrl: './custom-button.component.html',
 })
 export class CustomButtonComponent {
-  @Input() attributeType: CustomButtonTypeType = CustomButtonType.RAISED;
+  @Input() public attributeType: CustomButtonTypeType = CustomButtonType.RAISED;
 
-  @Input() customClass = '';
+  @Input() public customClass = '';
 
-  @Input() icon = '';
+  @Input() public icon = '';
 }

@@ -1,8 +1,8 @@
 <div class="filter-container">
-  <form class="form" (ngSubmit)="onSubmit()">
+  <form class="form">
     <mat-form-field class="form-field">
       <mat-label class="form-label">by word or sentence</mat-label>
-      <input type="search" matInput [(ngModel)]="inputValue" name="filterValue" />
+      <input type="search" matInput [(ngModel)]="inputValue" name="filterValue" (input)="onChange()" />
     </mat-form-field>
   </form>
 </div>

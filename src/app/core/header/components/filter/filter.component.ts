@@ -16,15 +16,15 @@ import { MatInputModule } from '@angular/material/input';
   templateUrl: './filter.component.html',
 })
 export class FilterComponent {
-  FilterPipe = inject(FilterPipe);
+  private FilterPipe = inject(FilterPipe);
 
-  inputValue = '';
+  private videoService = inject(VideoServiceService);
 
-  videoService = inject(VideoServiceService);
+  public inputValue = '';
 
-  constructor() {}
+  public constructor() {}
 
-  onSubmit(): void {
+  public onChange(): void {
     const videoItems = this.videoService.getOriginalData();
     const newItems = this.FilterPipe.transform(videoItems, this.inputValue);
     this.videoService.setUpdatedData(newItems);

@@ -13,11 +13,11 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './search-results-list.component.html',
 })
 export class SearchResultsListComponent implements OnInit {
-  videos: VideoItem[] = [];
+  public videos: VideoItem[] = [];
 
-  constructor(private videoService: VideoServiceService) {}
+  public constructor(private videoService: VideoServiceService) {}
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.videoService.updatedVideoItems$.subscribe((items) => {
       this.videos = items;
     });

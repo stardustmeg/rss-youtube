@@ -28,13 +28,13 @@ import { UserComponent } from './components/user/user.component';
   templateUrl: './header.component.html',
 })
 export class HeaderComponent {
-  isSortVisible = false;
+  public isSortVisible = false;
 
-  handleKeyAction(): void {
+  public handleKeyAction(): void {
     this.isSortVisible = !this.isSortVisible;
   }
 
-  toggleSortVisibility(): void {
+  public toggleSortVisibility(): void {
     this.isSortVisible = !this.isSortVisible;
   }
 }

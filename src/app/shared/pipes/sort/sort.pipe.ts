@@ -6,7 +6,7 @@ import { Pipe, PipeTransform } from '@angular/core';
   standalone: true,
 })
 export class SortPipe implements PipeTransform {
-  transform(videos: VideoItem[], criteria: string, direction: string): VideoItem[] {
+  public transform(videos: VideoItem[], criteria: string, direction: string): VideoItem[] {
     if (!Array.isArray(videos)) {
       return videos;
     }

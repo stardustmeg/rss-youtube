@@ -9,9 +9,9 @@ import stringTemplate from '../../utils/string-template';
   standalone: true,
 })
 export class BorderColorDirective {
-  @Input() publicationDate = '';
+  @Input() public publicationDate = '';
 
-  constructor(private el: ElementRef) {}
+  public constructor(private el: ElementRef<HTMLElement>) {}
 
   private setBorderColor(date: string): void {
     const now = new Date();
@@ -32,7 +32,7 @@ export class BorderColorDirective {
     this.el.nativeElement.style.borderBottom = stringTemplate(BORDER_COLOR, { color });
   }
 
-  @HostBinding('style.borderBottom') get borderColor(): void {
+  @HostBinding('style.borderBottom') public get borderColor(): void {
     return this.setBorderColor(this.publicationDate);
   }
 }

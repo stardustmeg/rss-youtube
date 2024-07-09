@@ -6,7 +6,7 @@ import { Pipe, PipeTransform } from '@angular/core';
   standalone: true,
 })
 export class FilterPipe implements PipeTransform {
-  transform(videos: VideoItem[], searchTerm: string): VideoItem[] {
+  public transform(videos: VideoItem[], searchTerm: string): VideoItem[] {
     if (!videos || !searchTerm) {
       return videos;
     }

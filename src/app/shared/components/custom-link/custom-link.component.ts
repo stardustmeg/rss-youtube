@@ -10,7 +10,7 @@ import { MatIconModule } from '@angular/material/icon';
   templateUrl: './custom-link.component.html',
 })
 export class CustomLinkComponent {
-  @Input() customClass = '';
+  @Input() public customClass = '';
 
-  @Input() icon = '';
+  @Input() public icon = '';
 }

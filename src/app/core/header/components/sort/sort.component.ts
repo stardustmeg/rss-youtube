@@ -4,6 +4,8 @@ import { VideoServiceService } from '@/app/shared/services/video-service/video-s
 import { ChangeDetectionStrategy, Component, OnInit, inject } from '@angular/core';
 import { MatChipListboxChange, MatChipsModule } from '@angular/material/chips';
 
+import { isSortCriteria } from './helper/isSortCriteria.helper';
+
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [MatChipsModule, SortPipe],
@@ -14,27 +16,30 @@ import { MatChipListboxChange, MatChipsModule } from '@angular/material/chips';
   templateUrl: './sort.component.html',
 })
 export class SortComponent implements OnInit {
-  sortCriterion = '';
+  private sortPipe = inject(SortPipe);
 
-  sortDirection = '';
+  private videoItems: VideoItem[] = [];
 
-  sortPipe = inject(SortPipe);
+  private videoService = inject(VideoServiceService);
 
-  videoItems: VideoItem[] = [];
+  public sortCriterion = '';
 
-  videoService = inject(VideoServiceService);
+  public sortDirection = '';
 
-  constructor() {}
+  public constructor() {}
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.videoService.updatedVideoItems$.subscribe((items) => {
       this.videoItems = items;
     });
   }
 
-  onSortChange(event: MatChipListboxChange): void {
-    this.sortCriterion = event.value.criteria;
-    this.sortDirection = event.value.direction;
-    this.sortPipe.transform(this.videoItems, this.sortCriterion, this.sortDirection);
+  public onSortChange(event: MatChipListboxChange): void {
+    const value: unknown = event.value;
+    if (isSortCriteria(value)) {
+      this.sortCriterion = value.criteria;
+      this.sortDirection = value.direction;
+      this.sortPipe.transform(this.videoItems, this.sortCriterion, this.sortDirection);
+    }
   }
 }

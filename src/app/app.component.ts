@@ -12,5 +12,5 @@ import { MainPageComponent } from './pages/main-page/main-page.component';
   templateUrl: './app.component.html',
 })
 export default class AppComponent {
-  title = 'youtube';
+  public title = 'youtube';
 }

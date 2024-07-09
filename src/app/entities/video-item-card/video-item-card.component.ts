@@ -12,17 +12,17 @@ import { Component, Input } from '@angular/core';
   templateUrl: './video-item-card.component.html',
 })
 export class VideoItemCardComponent {
-  @Input() Comments!: string;
+  @Input() public Comments!: string;
 
-  @Input() Dislikes!: string;
+  @Input() public Dislikes!: string;
 
-  @Input() Likes!: string;
+  @Input() public Likes!: string;
 
-  @Input() Title!: string;
+  @Input() public Title!: string;
 
-  @Input() Views!: string;
+  @Input() public Views!: string;
 
-  @Input() image!: string;
+  @Input() public image!: string;
 
-  @Input() publicationDate!: string;
+  @Input() public publicationDate!: string;
 }

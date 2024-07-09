@@ -9,11 +9,11 @@ import { MatIcon } from '@angular/material/icon';
   templateUrl: './video-statistics.component.html',
 })
 export class VideoStatisticsComponent {
-  @Input() Comments = '';
+  @Input() public Comments = '';
 
-  @Input() Dislikes = '';
+  @Input() public Dislikes = '';
 
-  @Input() Likes = '';
+  @Input() public Likes = '';
 
-  @Input() Views = '';
+  @Input() public Views = '';
 }
