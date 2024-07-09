@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
 import { HeaderComponent } from './core/header/header.component';
-import { MainPageComponent } from './pages/main-page/main-page.component';
+import { MainPageComponent } from './youtube/pages/main-page/main-page.component';
 
 @Component({
   imports: [HeaderComponent, RouterOutlet, MainPageComponent],
