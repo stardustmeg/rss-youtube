@@ -1,0 +1,16 @@
+@import '../../styles/numbers.module';
+
+.not-found-page {
+  display: flex;
+  flex-direction: row;
+  flex-grow: 1;
+  align-items: center;
+  justify-content: center;
+
+  height: 80vh;
+}
+
+.not-found-title {
+  margin-left: $standart-rem;
+  font-size: $standart-rem;
+}
