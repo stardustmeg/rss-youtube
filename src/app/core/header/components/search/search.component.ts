@@ -26,5 +26,6 @@ export class SearchComponent {
     const videoItems = this.videoService.getOriginalData();
     const newItems = this.searchPipe.transform(videoItems, this.inputValue);
     this.videoService.setUpdatedData(newItems);
+    this.videoService.setFoundData(newItems);
   }
 }

@@ -25,7 +25,7 @@ export class FilterComponent {
   public constructor() {}
 
   public onChange(): void {
-    const videoItems = this.videoService.getOriginalData();
+    const videoItems = this.videoService.getFoundData();
     const newItems = this.FilterPipe.transform(videoItems, this.inputValue);
     this.videoService.setUpdatedData(newItems);
   }
