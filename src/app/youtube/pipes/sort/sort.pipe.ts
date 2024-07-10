@@ -1,5 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
+import { sortingCriterion, sortingDirection } from '../../constants/sort-option';
 import VideoItem from '../../models/video-item.model';
 
 @Pipe({
@@ -15,17 +16,17 @@ export class SortPipe implements PipeTransform {
     return videos.sort((a, b) => {
       let comparison = 0;
 
-      if (criteria === 'date') {
+      if (criteria === sortingCriterion.DATE) {
         const dateA = new Date(a.snippet.publishedAt).getTime();
         const dateB = new Date(b.snippet.publishedAt).getTime();
         comparison = dateA - dateB;
-      } else if (criteria === 'viewCount') {
+      } else if (criteria === sortingCriterion.VIEW_COUNT) {
         const viewCountA = parseInt(a.statistics.viewCount, 10);
         const viewCountB = parseInt(b.statistics.viewCount, 10);
         comparison = viewCountA - viewCountB;
       }
 
-      return direction === 'desc' ? -comparison : comparison;
+      return direction === sortingDirection.DESC ? -comparison : comparison;
     });
   }
 }

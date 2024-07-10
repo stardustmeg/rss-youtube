@@ -1,10 +1,11 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { MatChipListboxChange, MatChipsModule } from '@angular/material/chips';
 
+import { BASIC_SORT_OPTION } from '../../constants/sort-option';
 import VideoItem from '../../models/video-item.model';
 import { SortPipe } from '../../pipes/sort/sort.pipe';
 import { VideoServiceService } from '../../services/video-service/video-service.service';
-import { SortCriteria, isSortCriteria } from './helper/isSortCriteria.helper';
+import { SortOptionType, isSortOptionType } from './helper/isSortCriteria.helper';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -16,7 +17,7 @@ import { SortCriteria, isSortCriteria } from './helper/isSortCriteria.helper';
   templateUrl: './sort.component.html',
 })
 export class SortComponent implements OnInit {
-  selectedSortOption: SortCriteria = { criteria: '', direction: '' };
+  selectedSortOption: SortOptionType = BASIC_SORT_OPTION;
 
   sortCriterion = '';
 
@@ -37,7 +38,7 @@ export class SortComponent implements OnInit {
 
   onSortChange(event: MatChipListboxChange): void {
     const value: unknown = event.value;
-    if (isSortCriteria(value)) {
+    if (isSortOptionType(value)) {
       this.selectedSortOption = value;
       this.sortCriterion = value.criteria;
       this.sortDirection = value.direction;

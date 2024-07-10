@@ -29,10 +29,6 @@ import { RouterLink } from '@angular/router';
 export class HeaderComponent {
   isSortVisible = false;
 
-  handleKeyAction(): void {
-    this.isSortVisible = !this.isSortVisible;
-  }
-
   toggleSortVisibility(): void {
     this.isSortVisible = !this.isSortVisible;
   }

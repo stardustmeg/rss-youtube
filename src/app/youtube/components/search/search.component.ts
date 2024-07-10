@@ -17,11 +17,10 @@ import { VideoServiceService } from '../../services/video-service/video-service.
 export class SearchComponent {
   inputValue = '';
 
-  searchPipe = inject(SearchPipe);
-
-  videoService = inject(VideoServiceService);
-
-  constructor() {}
+  constructor(
+    private searchPipe: SearchPipe = inject(SearchPipe),
+    private videoService: VideoServiceService = inject(VideoServiceService),
+  ) {}
 
   onChange(): void {
     const videoItems = this.videoService.getOriginalData();

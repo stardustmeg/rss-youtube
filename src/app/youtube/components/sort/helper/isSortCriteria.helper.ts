@@ -1,9 +1,11 @@
-export interface SortCriteria {
-  criteria: string;
-  direction: string;
+// TBD: check typing
+
+export interface SortOptionType {
+  criteria: '' | 'date' | 'viewCount';
+  direction: '' | 'asc' | 'desc';
 }
 
-export const isSortCriteria = (value: unknown): value is SortCriteria => {
+export const isSortOptionType = (value: unknown): value is SortOptionType => {
   if (typeof value !== 'object' || value === null) {
     return false;
   }
