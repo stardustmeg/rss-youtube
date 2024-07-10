@@ -1,0 +1,25 @@
+@import '../../../styles/numbers.module';
+@import '../../../styles/colors.module';
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: $small-rem;
+  align-items: center;
+
+  min-width: $standart-rem * 14;
+  margin: auto;
+  padding: $standart-rem * 2;
+
+  background-color: $pale-background-color;
+  border-radius: $border-radius;
+
+  mat-form-field {
+    cursor: text;
+    width: 100%;
+
+    input {
+      cursor: text;
+    }
+  }
+}

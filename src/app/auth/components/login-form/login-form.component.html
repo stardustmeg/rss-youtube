@@ -1,0 +1,30 @@
+<form class="login-form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+  <mat-form-field appearance="outline" class="form-field">
+    <mat-label>Name</mat-label>
+    <input id="name" type="text" matInput placeholder="Jane Doe" formControlName="name" />
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="form-field">
+    <mat-label>Password</mat-label>
+    <input
+      [type]="hidePassword ? 'password' : 'text'"
+      id="password"
+      matInput
+      placeholder="password123"
+      formControlName="password"
+    />
+    <button
+      mat-icon-button
+      matSuffix
+      type="button"
+      aria-label="Toggle password visibility"
+      (click)="togglePasswordVisibility()"
+    >
+      <mat-icon>{{ hidePassword ? 'visibility' : 'visibility_off' }}</mat-icon>
+    </button>
+  </mat-form-field>
+
+  <app-custom-button type="submit" [customClass]="'login-button'" [disabled]="!loginForm.valid"
+    >Login</app-custom-button
+  >
+</form>
