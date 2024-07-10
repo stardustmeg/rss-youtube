@@ -27,13 +27,13 @@ import { RouterLink } from '@angular/router';
   templateUrl: './header.component.html',
 })
 export class HeaderComponent {
-  public isSortVisible = false;
+  isSortVisible = false;
 
-  public handleKeyAction(): void {
+  handleKeyAction(): void {
     this.isSortVisible = !this.isSortVisible;
   }
 
-  public toggleSortVisibility(): void {
+  toggleSortVisibility(): void {
     this.isSortVisible = !this.isSortVisible;
   }
 }

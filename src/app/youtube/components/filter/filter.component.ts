@@ -17,15 +17,15 @@ import { VideoServiceService } from '../../services/video-service/video-service.
   templateUrl: './filter.component.html',
 })
 export class FilterComponent {
-  private FilterPipe = inject(FilterPipe);
+  FilterPipe = inject(FilterPipe);
 
-  private videoService = inject(VideoServiceService);
+  inputValue = '';
 
-  public inputValue = '';
+  videoService = inject(VideoServiceService);
 
-  public constructor() {}
+  constructor() {}
 
-  public onChange(): void {
+  onChange(): void {
     const videoItems = this.videoService.getFoundData();
     const newItems = this.FilterPipe.transform(videoItems, this.inputValue);
     this.videoService.setUpdatedData(newItems);

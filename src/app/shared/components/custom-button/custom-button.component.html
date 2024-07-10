@@ -20,16 +20,8 @@
       }
     </button>
   }
-  @case ('mat-flat-button') {
-    <button mat-flat-button [class]="[customClass, 'flat-button', 'button']">
-      @if (icon) {
-        <mat-icon>{{ icon }}</mat-icon>
-      }
-      <ng-content></ng-content>
-    </button>
-  }
   @default {
-    <button mat-raised-button [class]="[customClass, 'raised-button', 'button']">
+    <button mat-flat-button [class]="[customClass, 'flat-button', 'button']" [disabled]="disabled">
       @if (icon) {
         <mat-icon>{{ icon }}</mat-icon>
       }

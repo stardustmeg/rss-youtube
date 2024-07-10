@@ -1,10 +1,10 @@
-import { ChangeDetectionStrategy, Component, OnInit, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { MatChipListboxChange, MatChipsModule } from '@angular/material/chips';
 
 import VideoItem from '../../models/video-item.model';
 import { SortPipe } from '../../pipes/sort/sort.pipe';
 import { VideoServiceService } from '../../services/video-service/video-service.service';
-import { isSortCriteria } from './helper/isSortCriteria.helper';
+import { SortCriteria, isSortCriteria } from './helper/isSortCriteria.helper';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -16,27 +16,29 @@ import { isSortCriteria } from './helper/isSortCriteria.helper';
   templateUrl: './sort.component.html',
 })
 export class SortComponent implements OnInit {
-  private sortPipe = inject(SortPipe);
+  selectedSortOption: SortCriteria = { criteria: '', direction: '' };
 
-  private videoItems: VideoItem[] = [];
+  sortCriterion = '';
 
-  private videoService = inject(VideoServiceService);
+  sortDirection = '';
 
-  public sortCriterion = '';
+  videoItems: VideoItem[] = [];
 
-  public sortDirection = '';
+  constructor(
+    private videoService: VideoServiceService,
+    private sortPipe: SortPipe,
+  ) {}
 
-  public constructor() {}
-
-  public ngOnInit(): void {
+  ngOnInit(): void {
     this.videoService.updatedVideoItems$.subscribe((items) => {
       this.videoItems = items;
     });
   }
 
-  public onSortChange(event: MatChipListboxChange): void {
+  onSortChange(event: MatChipListboxChange): void {
     const value: unknown = event.value;
     if (isSortCriteria(value)) {
+      this.selectedSortOption = value;
       this.sortCriterion = value.criteria;
       this.sortDirection = value.direction;
       this.sortPipe.transform(this.videoItems, this.sortCriterion, this.sortDirection);

@@ -24,12 +24,12 @@
       ],
       "rules": {
         "@typescript-eslint/no-explicit-any": "error",
-        "@typescript-eslint/explicit-member-accessibility": "error",
         "curly": ["error", "all"],
         "max-lines-per-function": ["error", { "max": 40, "skipBlankLines": true, "skipComments": true }],
         "no-shadow": "off",
         "no-useless-constructor": "off",
         "prefer-destructuring": "off",
+        "@typescript-eslint/explicit-member-accessibility": "off",
         "class-methods-use-this": ["error", { "exceptMethods": ["transform"] }],
         "dot-notation": "off",
         "no-empty-function": ["error", { "allow": ["constructors"] }],

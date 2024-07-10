@@ -13,17 +13,17 @@ import { VideoStatisticsComponent } from '../../../video-statistics/video-statis
   templateUrl: './video-item-card.component.html',
 })
 export class VideoItemCardComponent {
-  @Input() public Comments!: string;
+  @Input() Comments!: string;
 
-  @Input() public Dislikes!: string;
+  @Input() Dislikes!: string;
 
-  @Input() public Likes!: string;
+  @Input() Likes!: string;
 
-  @Input() public Title!: string;
+  @Input() Title!: string;
 
-  @Input() public Views!: string;
+  @Input() Views!: string;
 
-  @Input() public image!: string;
+  @Input() image!: string;
 
-  @Input() public publicationDate!: string;
+  @Input() publicationDate!: string;
 }

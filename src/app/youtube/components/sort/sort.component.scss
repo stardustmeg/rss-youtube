@@ -1,0 +1,6 @@
+@import '../../../styles/colors.module';
+
+.disabled-chip {
+  pointer-events: none;
+  background-color: $pale-color !important;
+}

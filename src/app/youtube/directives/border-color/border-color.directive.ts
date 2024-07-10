@@ -9,11 +9,11 @@ import { BORDER_COLOR, BorderColorOption, BorderColorOptionType } from '../../co
   standalone: true,
 })
 export class BorderColorDirective {
-  @Input() public publicationDate = '';
+  @Input() publicationDate = '';
 
-  public constructor(private el: ElementRef<HTMLElement>) {}
+  constructor(private el: ElementRef<HTMLElement>) {}
 
-  private setBorderColor(date: string): void {
+  setBorderColor(date: string): void {
     const now = new Date();
     const publicationDate = parseISO(date);
     const daysDifference = differenceInDays(now, publicationDate);

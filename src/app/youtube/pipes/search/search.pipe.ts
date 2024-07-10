@@ -7,7 +7,7 @@ import VideoItem from '../../models/video-item.model';
   standalone: true,
 })
 export class SearchPipe implements PipeTransform {
-  public transform(videos: VideoItem[], searchTerm: string): VideoItem[] {
+  transform(videos: VideoItem[], searchTerm: string): VideoItem[] {
     if (!videos || !searchTerm) {
       return videos;
     }

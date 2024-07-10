@@ -1,6 +1,6 @@
 export interface SortCriteria {
   criteria: string;
-  direction: 'asc' | 'desc';
+  direction: string;
 }
 
 export const isSortCriteria = (value: unknown): value is SortCriteria => {

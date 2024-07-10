@@ -8,33 +8,33 @@ import VideoItem from '../../models/video-item.model';
   providedIn: 'root',
 })
 export class VideoServiceService {
-  private foundVideoItems: VideoItem[] = [];
+  foundVideoItems: VideoItem[] = [];
 
-  private originalVideoItems: VideoItem[] = data.items;
+  originalVideoItems: VideoItem[] = data.items;
 
-  private updatedVideoItems = new BehaviorSubject<VideoItem[]>([]);
+  updatedVideoItems = new BehaviorSubject<VideoItem[]>([]);
 
-  public updatedVideoItems$ = this.updatedVideoItems.asObservable();
+  updatedVideoItems$ = this.updatedVideoItems.asObservable();
 
-  private constructor() {}
+  constructor() {}
 
-  public getFoundData(): VideoItem[] {
+  getFoundData(): VideoItem[] {
     return this.foundVideoItems;
   }
 
-  public getOriginalData(): VideoItem[] {
+  getOriginalData(): VideoItem[] {
     return this.originalVideoItems;
   }
 
-  public getUpdatedData(): VideoItem[] {
+  getUpdatedData(): VideoItem[] {
     return this.updatedVideoItems.getValue();
   }
 
-  public setFoundData(data: VideoItem[]): void {
+  setFoundData(data: VideoItem[]): void {
     this.foundVideoItems = data;
   }
 
-  public setUpdatedData(data: VideoItem[]): void {
+  setUpdatedData(data: VideoItem[]): void {
     this.updatedVideoItems.next(data);
   }
 }

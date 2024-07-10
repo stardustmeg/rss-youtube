@@ -8,6 +8,11 @@ export const routes: Routes = [
     title: 'Youtube | main',
   },
   {
+    loadComponent: () => import('./auth/pages/login-page/login-page.component').then((m) => m.LoginPageComponent),
+    path: 'login',
+    title: 'Youtube | login',
+  },
+  {
     loadComponent: () => import('./core/not-found-page/not-found-page.component').then((m) => m.NotFoundPageComponent),
     path: '404',
     title: 'Youtube | 404',

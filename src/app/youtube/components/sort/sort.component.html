@@ -1,17 +1,49 @@
 <mat-chip-listbox aria-label="select a shirt size" class="sort-chips-container" (change)="onSortChange($event)">
-  <mat-chip-option [value]="{ criteria: 'date', direction: 'asc' }">
-    <img class="image" matChipAvatar src="../../../../../assets/img/svg/arrow-up.svg" alt="Arrow Up" />
-    Date</mat-chip-option
+  <mat-chip-option
+    [value]="{ criteria: 'date', direction: 'asc' }"
+    [disabled]="selectedSortOption && selectedSortOption.criteria === 'date' && selectedSortOption.direction === 'asc'"
+    [class]="{
+      'disabled-chip':
+        selectedSortOption && selectedSortOption.criteria === 'date' && selectedSortOption.direction === 'asc',
+    }"
   >
-  <mat-chip-option [value]="{ criteria: 'date', direction: 'desc' }">
+    <img class="image" matChipAvatar src="../../../../../assets/img/svg/arrow-up.svg" alt="Arrow Up" />
+    Date
+  </mat-chip-option>
+  <mat-chip-option
+    [value]="{ criteria: 'date', direction: 'desc' }"
+    [disabled]="selectedSortOption && selectedSortOption.criteria === 'date' && selectedSortOption.direction === 'desc'"
+    [class]="{
+      'disabled-chip':
+        selectedSortOption && selectedSortOption.criteria === 'date' && selectedSortOption.direction === 'desc',
+    }"
+  >
     <img class="image" matChipAvatar src="../../../../../assets/img/svg/arrow-down.svg" alt="Arrow Down" />
     Date
   </mat-chip-option>
-  <mat-chip-option [value]="{ criteria: 'viewCount', direction: 'asc' }">
+  <mat-chip-option
+    [value]="{ criteria: 'viewCount', direction: 'asc' }"
+    [disabled]="
+      selectedSortOption && selectedSortOption.criteria === 'viewCount' && selectedSortOption.direction === 'asc'
+    "
+    [class]="{
+      'disabled-chip':
+        selectedSortOption && selectedSortOption.criteria === 'viewCount' && selectedSortOption.direction === 'asc',
+    }"
+  >
     <img class="image" matChipAvatar src="../../../../../assets/img/svg/arrow-up.svg" alt="Arrow Up" />
     View Count
   </mat-chip-option>
-  <mat-chip-option [value]="{ criteria: 'viewCount', direction: 'desc' }">
+  <mat-chip-option
+    [value]="{ criteria: 'viewCount', direction: 'desc' }"
+    [disabled]="
+      selectedSortOption && selectedSortOption.criteria === 'viewCount' && selectedSortOption.direction === 'desc'
+    "
+    [class]="{
+      'disabled-chip':
+        selectedSortOption && selectedSortOption.criteria === 'viewCount' && selectedSortOption.direction === 'desc',
+    }"
+  >
     <img class="image" matChipAvatar src="../../../../../assets/img/svg/arrow-down.svg" alt="Arrow Down" />
     View Count
   </mat-chip-option>

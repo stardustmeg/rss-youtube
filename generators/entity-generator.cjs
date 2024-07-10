@@ -35,7 +35,7 @@ const showMenu = () => {
     {
       type: 'input',
       name: 'name',
-      message: 'Enter the name or path (folderName/*/entityName):',
+      message: 'Enter the name or path (src/app/<folderName>/*/<entityName>):',
       validate: function (input) {
         if (!input) {
           return 'Please provide a name.';

@@ -12,9 +12,9 @@ import { MaterialButtonType, MaterialButtonTypeType } from '../../constants/cust
   templateUrl: './custom-link.component.html',
 })
 export class CustomLinkComponent {
-  @Input() public attributeType: MaterialButtonTypeType = MaterialButtonType.FAB;
+  @Input() attributeType: MaterialButtonTypeType = MaterialButtonType.FAB;
 
-  @Input() public customClass = '';
+  @Input() customClass = '';
 
-  @Input() public icon = '';
+  @Input() icon = '';
 }
