@@ -1,16 +1,10 @@
-<article class="video-card" appBorderColor [publicationDate]="publicationDate">
+<article class="video-card" appChangeColor [publicationDate]="video.snippet.publishedAt">
   <div class="video-image-container">
-    <img class="video-image" alt="Video Cover" [src]="image" />
+    <img class="video-image" alt="Video Cover" [src]="video.snippet.thumbnails.high.url" />
   </div>
   <div class="video-info-container">
-    <app-video-statistics
-      [Views]="Views"
-      [Likes]="Likes"
-      [Dislikes]="Dislikes"
-      [Comments]="Comments"
-    ></app-video-statistics>
-    <h2 class="video-title">{{ Title }}</h2>
+    <app-video-statistics [video]="video"></app-video-statistics>
+    <h2 class="video-title">{{ video.snippet.title }}</h2>
   </div>
-  <app-custom-button>more...</app-custom-button>
-  <div class="bottom-border"></div>
+  <app-custom-button (click)="moreButtonHandler()">more...</app-custom-button>
 </article>

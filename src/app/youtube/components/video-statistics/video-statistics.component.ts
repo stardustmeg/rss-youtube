@@ -1,6 +1,8 @@
 import { Component, Input } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
 
+import { VideoItem } from '../../models/video-item.model';
+
 @Component({
   imports: [MatIcon],
   selector: 'app-video-statistics',
@@ -9,11 +11,5 @@ import { MatIcon } from '@angular/material/icon';
   templateUrl: './video-statistics.component.html',
 })
 export class VideoStatisticsComponent {
-  @Input() Comments = '';
-
-  @Input() Dislikes = '';
-
-  @Input() Likes = '';
-
-  @Input() Views = '';
+  @Input() video!: VideoItem;
 }

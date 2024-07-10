@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { MatChipListboxChange, MatChipsModule } from '@angular/material/chips';
 
 import { BASIC_SORT_OPTION } from '../../constants/sort-option';
-import VideoItem from '../../models/video-item.model';
+import { VideoItem } from '../../models/video-item.model';
 import { SortPipe } from '../../pipes/sort/sort.pipe';
 import { VideoDataService } from '../../services/video-data/video-data.service';
 import { SortOptionType, isSortOptionType } from './helper/isSortCriteria.helper';
