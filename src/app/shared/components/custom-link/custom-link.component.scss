@@ -2,9 +2,12 @@
 @import '../../../styles/colors.module';
 
 .link {
+  border-radius: $border-radius;
+}
+
+.fab-link {
   width: $standart-rem * 3.5;
   height: $standart-rem * 2.5;
-  border-radius: $border-radius;
 }
 
 .to-main-link {
@@ -14,6 +17,11 @@
 .mat-icon {
   width: $macro-rem;
   height: $macro-rem;
+}
+
+.mini-fab-link {
+  color: $accent-color;
+  background-color: $background-color;
 }
 
 .material-icons {

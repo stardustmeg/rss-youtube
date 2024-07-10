@@ -1,8 +1,9 @@
-import { CustomButtonComponent } from '@/app/shared/components/custom-button/custom-button.component';
+import { CustomLinkComponent } from '@/app/shared/components/custom-link/custom-link.component';
 import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
 
 @Component({
-  imports: [CustomButtonComponent],
+  imports: [CustomLinkComponent, RouterLink],
   selector: 'app-user',
   standalone: true,
   styleUrl: './user.component.scss',

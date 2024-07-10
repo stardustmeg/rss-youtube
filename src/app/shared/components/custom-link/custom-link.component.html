@@ -1,27 +1,27 @@
 @switch (attributeType) {
   @case ('mat-icon-button') {
-    <a mat-icon-button [class]="[customClass, 'link']">
+    <a mat-icon-button [class]="[customClass, 'icon-link', 'link']">
       @if (icon) {
         <mat-icon>{{ icon }}</mat-icon>
       }
     </a>
   }
   @case ('mat-mini-fab') {
-    <a mat-mini-fab [class]="[customClass, 'link']">
+    <a mat-mini-fab [class]="[customClass, 'mini-fab-link', 'link']">
       @if (icon) {
         <mat-icon>{{ icon }}</mat-icon>
       }
     </a>
   }
   @case ('mat-fab') {
-    <a mat-fab [class]="[customClass, 'link']">
+    <a mat-fab [class]="[customClass, 'fab-link', 'link']">
       @if (icon) {
         <mat-icon>{{ icon }}</mat-icon>
       }
     </a>
   }
   @case ('mat-raised-button') {
-    <a mat-raised-button [class]="[customClass, 'link']">
+    <a mat-raised-button [class]="[customClass, 'raised-link', 'link']">
       @if (icon) {
         <mat-icon>{{ icon }}</mat-icon>
       }
@@ -29,7 +29,7 @@
     </a>
   }
   @default {
-    <a mat-flat-button [class]="[customClass, 'link']">
+    <a mat-flat-button [class]="[customClass, 'flat-link', 'link']">
       @if (icon) {
         <mat-icon>{{ icon }}</mat-icon>
       }
