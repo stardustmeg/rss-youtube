@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 
 import { SearchPipe } from '../../pipes/search/search.pipe';
-import { VideoServiceService } from '../../services/video-service/video-service.service';
+import { VideoDataService } from '../../services/video-data/video-data.service';
 
 @Component({
   imports: [FormsModule, CustomButtonComponent, MatIconModule, SearchPipe],
@@ -19,7 +19,7 @@ export class SearchComponent {
 
   constructor(
     private searchPipe: SearchPipe = inject(SearchPipe),
-    private videoService: VideoServiceService = inject(VideoServiceService),
+    private videoService: VideoDataService = inject(VideoDataService),
   ) {}
 
   onChange(): void {

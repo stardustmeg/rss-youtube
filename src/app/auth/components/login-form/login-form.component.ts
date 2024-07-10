@@ -1,4 +1,5 @@
 /* eslint-disable no-console */
+import { appRoute } from '@/app/shared/constants/routes';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -41,11 +42,7 @@ export class LoginFormComponent {
   async onSubmit(): Promise<void> {
     if (this.loginForm.valid) {
       try {
-        const navigationResult = await this.router.navigate(['/main']);
-        if (navigationResult) {
-          this.loginForm.reset();
-          this.hidePassword = true; // TBD: check later if needed
-        }
+        await this.router.navigate([appRoute.MAIN]);
       } catch (error) {
         console.error(error); // TBD: replace with user message
       }

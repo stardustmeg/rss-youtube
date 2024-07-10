@@ -4,7 +4,7 @@ import { MatChipListboxChange, MatChipsModule } from '@angular/material/chips';
 import { BASIC_SORT_OPTION } from '../../constants/sort-option';
 import VideoItem from '../../models/video-item.model';
 import { SortPipe } from '../../pipes/sort/sort.pipe';
-import { VideoServiceService } from '../../services/video-service/video-service.service';
+import { VideoDataService } from '../../services/video-data/video-data.service';
 import { SortOptionType, isSortOptionType } from './helper/isSortCriteria.helper';
 
 @Component({
@@ -26,7 +26,7 @@ export class SortComponent implements OnInit {
   videoItems: VideoItem[] = [];
 
   constructor(
-    private videoService: VideoServiceService,
+    private videoService: VideoDataService,
     private sortPipe: SortPipe,
   ) {}
 

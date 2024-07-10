@@ -7,7 +7,7 @@ import VideoItem from '../../models/video-item.model';
 @Injectable({
   providedIn: 'root',
 })
-export class VideoServiceService {
+export class VideoDataService {
   foundVideoItems: VideoItem[] = [];
 
   originalVideoItems: VideoItem[] = data.items;

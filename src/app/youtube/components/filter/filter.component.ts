@@ -6,7 +6,7 @@ import { MatIcon } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 
 import { FilterPipe } from '../../pipes/filter/filter.pipe';
-import { VideoServiceService } from '../../services/video-service/video-service.service';
+import { VideoDataService } from '../../services/video-data/video-data.service';
 
 @Component({
   imports: [MatFormFieldModule, MatInputModule, FormsModule, MatIcon, CustomButtonComponent, FilterPipe],
@@ -21,7 +21,7 @@ export class FilterComponent {
 
   constructor(
     private filterPipe: FilterPipe = inject(FilterPipe),
-    private videoService: VideoServiceService = inject(VideoServiceService),
+    private videoService: VideoDataService = inject(VideoDataService),
   ) {}
 
   onChange(): void {
