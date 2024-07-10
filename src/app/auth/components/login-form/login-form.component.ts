@@ -1,9 +1,11 @@
+/* eslint-disable no-console */
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { Router } from '@angular/router';
 
 import { CustomButtonComponent } from '../../../shared/components/custom-button/custom-button.component';
 
@@ -26,17 +28,27 @@ export class LoginFormComponent {
 
   loginForm: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+  ) {
     this.loginForm = this.fb.group({
       name: ['', Validators.required.bind(this)],
       password: ['', Validators.required.bind(this)],
     });
   }
 
-  onSubmit(): void {
+  async onSubmit(): Promise<void> {
     if (this.loginForm.valid) {
-      this.loginForm.reset();
-      this.hidePassword = true; // TBD: check later if needed
+      try {
+        const navigationResult = await this.router.navigate(['/main']);
+        if (navigationResult) {
+          this.loginForm.reset();
+          this.hidePassword = true; // TBD: check later if needed
+        }
+      } catch (error) {
+        console.error(error); // TBD: replace with user message
+      }
     }
   }
 
