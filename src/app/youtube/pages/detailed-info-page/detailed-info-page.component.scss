@@ -1,0 +1,70 @@
+@import '../../../styles/numbers.module';
+@import '../../../styles/colors.module';
+
+.detailed-info-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.video-card {
+  position: relative;
+
+  display: flex;
+  flex-wrap: wrap;
+  align-self: center;
+  justify-content: space-between;
+
+  max-width: $big-rem * 30;
+  margin: $big-rem auto;
+  padding: $standart-rem;
+
+  background-color: $pale-background-color;
+  border-radius: $border-radius;
+}
+
+.link-back {
+  position: absolute;
+  top: 0;
+  left: -$standart-rem * 2.4;
+
+  width: $standart-rem * 2.4;
+  height: $standart-rem * 2.4;
+
+  border-radius: $border-radius 0 0 $border-radius;
+}
+
+.video-image-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 45%;
+  padding: $small-rem;
+}
+
+.video-info-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+
+  width: 50%;
+  padding: $small-rem;
+}
+
+.video-description {
+  display: flex;
+  flex-grow: 1;
+  align-self: center;
+}
+
+.video-statistics {
+  margin: 0 auto;
+}
+
+.video-publication-date {
+  align-self: flex-end;
+  font-size: $font-size-xxs;
+  color: $accent-color;
+}

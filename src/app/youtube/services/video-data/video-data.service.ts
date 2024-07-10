@@ -2,7 +2,7 @@ import * as data from '@/assets/db/response.json';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
-import VideoItem from '../../models/video-item.model';
+import { VideoItem } from '../../models/video-item.model';
 
 @Injectable({
   providedIn: 'root',
@@ -29,6 +29,10 @@ export class VideoDataService {
   getUpdatedData(): VideoItem[] {
     return this.updatedVideoItems.getValue();
   }
+
+  getVideoById(id: string): VideoItem {
+    return this.originalVideoItems.find((item) => item.id === id) || this.foundVideoItems[0];
+  } // TBD: remove eith fetch by ID
 
   setFoundData(data: VideoItem[]): void {
     this.foundVideoItems = data;

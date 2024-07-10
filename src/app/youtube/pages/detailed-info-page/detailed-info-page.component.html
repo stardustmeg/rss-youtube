@@ -1,1 +1,23 @@
-<p>detailed-info-page works!</p>
+<div class="detailed-info-page">
+  <article class="video-card" appChangeColor [publicationDate]="video.snippet.publishedAt">
+    <app-custom-link
+      [attributeType]="'mat-icon-button'"
+      [customClass]="'link-back'"
+      class="link-back"
+      [icon]="'undo'"
+      appChangeColor
+      [publicationDate]="video.snippet.publishedAt"
+      [type]="'background'"
+      routerLink="/"
+    ></app-custom-link>
+    <div class="video-image-container">
+      <img class="video-image" alt="Video Cover" [src]="video.snippet.thumbnails.high.url" />
+    </div>
+    <div class="video-info-container">
+      <p class="video-publication-date">{{ videoPublicationDate }}</p>
+      <h2 class="video-title">{{ video.snippet.title }}</h2>
+      <p class="video-description">{{ video.snippet.description }}</p>
+      <app-video-statistics [video]="video" class="video-statistics"></app-video-statistics>
+    </div>
+  </article>
+</div>

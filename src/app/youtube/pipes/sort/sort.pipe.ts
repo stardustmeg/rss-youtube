@@ -1,7 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 import { sortingCriterion, sortingDirection } from '../../constants/sort-option';
-import VideoItem from '../../models/video-item.model';
+import { VideoItem } from '../../models/video-item.model';
 
 @Pipe({
   name: 'sort',
