@@ -2,7 +2,6 @@
   <div class="header-container">
     <div class="header-controls">
       <app-custom-link customClass="to-main-link" icon="play_arrow" routerLink="/"></app-custom-link>
-
       <app-search></app-search>
       <app-custom-button
         attributeType="mat-mini-fab"
@@ -13,7 +12,9 @@
       ></app-custom-button>
     </div>
 
-    <app-user></app-user>
+    @if (isLoggedIn) {
+      <app-user></app-user>
+    }
   </div>
 
   @if (isSortVisible) {
