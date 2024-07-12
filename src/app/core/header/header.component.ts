@@ -5,11 +5,10 @@ import { CustomLinkComponent } from '@/app/shared/components/custom-link/custom-
 import { FilterComponent } from '@/app/youtube/components/filter/filter.component';
 import { SearchComponent } from '@/app/youtube/components/search/search.component';
 import { SortComponent } from '@/app/youtube/components/sort/sort.component';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
-import { Subscription } from 'rxjs';
 
 @Component({
   imports: [
@@ -28,26 +27,12 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./header.component.scss'],
   templateUrl: './header.component.html',
 })
-export class HeaderComponent implements OnInit, OnDestroy {
-  private loginSubscription: Subscription | undefined;
-
-  isLoggedIn = false;
-
+export class HeaderComponent {
   isSortVisible = false;
 
-  constructor(private loginService: LoginService) {}
+  loginService = inject(LoginService);
 
-  ngOnDestroy(): void {
-    if (this.loginSubscription) {
-      this.loginSubscription.unsubscribe();
-    }
-  }
-
-  ngOnInit(): void {
-    this.loginSubscription = this.loginService.isLoggedIn$.subscribe((status) => {
-      this.isLoggedIn = status;
-    });
-  }
+  constructor() {}
 
   toggleSortVisibility(): void {
     this.isSortVisible = !this.isSortVisible;

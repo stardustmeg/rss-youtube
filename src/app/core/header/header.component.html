@@ -12,8 +12,10 @@
       ></app-custom-button>
     </div>
 
-    @if (isLoggedIn) {
-      <app-user></app-user>
+    @if (loginService.getIsLoggedIn()) {
+      <app-user [isLoggedIn]="true"></app-user>
+    } @else {
+      <app-user [isLoggedIn]="false"></app-user>
     }
   </div>
 

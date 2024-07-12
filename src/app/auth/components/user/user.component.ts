@@ -1,11 +1,11 @@
 import { CustomLinkComponent } from '@/app/shared/components/custom-link/custom-link.component';
 import { appRoute } from '@/app/shared/constants/routes';
 import { CommonModule } from '@angular/common';
-import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
-import { Subscription } from 'rxjs';
 
 import { LoginService } from '../../services/login/login.service';
+import { logoOption } from './constants/logo-options';
 
 @Component({
   imports: [CustomLinkComponent, RouterLink, CommonModule],
@@ -14,23 +14,20 @@ import { LoginService } from '../../services/login/login.service';
   styleUrls: ['./user.component.scss'],
   templateUrl: './user.component.html',
 })
-export class UserComponent implements OnInit, OnDestroy {
-  private loginSubscription: Subscription | undefined;
-
-  isLoggedIn!: boolean;
+export class UserComponent {
+  @Input() isLoggedIn = false;
 
   userName: null | string = null;
-
-  // TBD: check double init of user component
 
   constructor(
     private loginService: LoginService,
     private router: Router,
-    private cdr: ChangeDetectorRef,
-  ) {}
+  ) {
+    this.setUserName();
+  }
 
   getIcon(): string {
-    return this.isLoggedIn ? 'logout' : 'account_circle';
+    return this.isLoggedIn ? logoOption.LOGOUT : logoOption.USER;
   }
 
   async handleClick(): Promise<void> {
@@ -38,20 +35,6 @@ export class UserComponent implements OnInit, OnDestroy {
       this.loginService.logout();
       await this.router.navigate([appRoute.LOGIN]);
     }
-  }
-
-  ngOnDestroy(): void {
-    if (this.loginSubscription) {
-      this.loginSubscription.unsubscribe();
-    }
-  }
-
-  ngOnInit(): void {
-    this.loginSubscription = this.loginService.isLoggedIn$.subscribe((status) => {
-      this.isLoggedIn = status;
-      this.cdr.detectChanges(); // TBD: check false to true
-      this.setUserName();
-    });
   }
 
   setUserName(): void {
