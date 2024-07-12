@@ -28,13 +28,13 @@ import { RouterLink } from '@angular/router';
   templateUrl: './header.component.html',
 })
 export class HeaderComponent {
-  isSortVisible = false;
+  public isSortVisible = false;
 
-  loginService = inject(LoginService);
+  public loginService = inject(LoginService);
 
-  constructor() {}
+  public constructor() {}
 
-  toggleSortVisibility(): void {
+  public toggleSortVisibility(): void {
     this.isSortVisible = !this.isSortVisible;
   }
 }

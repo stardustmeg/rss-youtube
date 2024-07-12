@@ -16,11 +16,11 @@ import { VideoStatisticsComponent } from '../../../video-statistics/video-statis
   templateUrl: './video-item-card.component.html',
 })
 export class VideoItemCardComponent {
-  @Input() video!: VideoItem;
+  @Input() public video!: VideoItem;
 
-  constructor(private router: Router) {}
+  public constructor(private router: Router) {}
 
-  async moreButtonHandler(): Promise<void> {
+  public async moreButtonHandler(): Promise<void> {
     await this.router.navigate([appRoute.DETAILED], { queryParams: { id: this.video.id } });
   }
 }

@@ -12,11 +12,11 @@ import { MaterialButtonType, MaterialButtonTypeType } from '../../constants/cust
   templateUrl: './custom-button.component.html',
 })
 export class CustomButtonComponent {
-  @Input() attributeType: MaterialButtonTypeType = MaterialButtonType.RAISED;
+  @Input() public attributeType: MaterialButtonTypeType = MaterialButtonType.RAISED;
 
-  @Input() customClass = '';
+  @Input() public customClass = '';
 
-  @Input() disabled = false;
+  @Input() public disabled = false;
 
-  @Input() icon = '';
+  @Input() public icon = '';
 }

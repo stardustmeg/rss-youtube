@@ -15,14 +15,14 @@ import { VideoDataService } from '../../services/video-data/video-data.service';
   templateUrl: './search.component.html',
 })
 export class SearchComponent {
-  inputValue = '';
+  public inputValue = '';
 
-  constructor(
+  public constructor(
     private searchPipe: SearchPipe = inject(SearchPipe),
     private videoService: VideoDataService = inject(VideoDataService),
   ) {}
 
-  onChange(): void {
+  public onChange(): void {
     const videoItems = this.videoService.getOriginalData();
     const newItems = this.searchPipe.transform(videoItems, this.inputValue);
     this.videoService.setUpdatedData(newItems);

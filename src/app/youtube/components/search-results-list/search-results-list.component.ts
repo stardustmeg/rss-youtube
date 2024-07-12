@@ -14,11 +14,11 @@ import { VideoItemCardComponent } from './components/video-item-card/video-item-
   templateUrl: './search-results-list.component.html',
 })
 export class SearchResultsListComponent implements OnInit {
-  videos: VideoItem[] = [];
+  public videos: VideoItem[] = [];
 
-  constructor(private videoService: VideoDataService) {}
+  public constructor(private videoService: VideoDataService) {}
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.videoService.updatedVideoItems$.subscribe((items) => {
       this.videos = items;
     });

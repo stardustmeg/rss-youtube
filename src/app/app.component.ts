@@ -11,6 +11,4 @@ import { MainPageComponent } from './youtube/pages/main-page/main-page.component
   styleUrl: './app.component.scss',
   templateUrl: './app.component.html',
 })
-export default class AppComponent {
-  title = 'youtube';
-}
+export default class AppComponent {}

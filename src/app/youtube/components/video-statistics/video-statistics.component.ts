@@ -11,5 +11,5 @@ import { VideoItem } from '../../models/video-item.model';
   templateUrl: './video-statistics.component.html',
 })
 export class VideoStatisticsComponent {
-  @Input() video!: VideoItem;
+  @Input() public video!: VideoItem;
 }

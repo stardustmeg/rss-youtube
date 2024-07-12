@@ -1,5 +1,3 @@
-// TBD: check typing
-
 export interface SortOptionType {
   criteria: '' | 'date' | 'viewCount';
   direction: '' | 'asc' | 'desc';

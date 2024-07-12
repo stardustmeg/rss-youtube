@@ -17,14 +17,14 @@ import { VideoDataService } from '../../services/video-data/video-data.service';
   templateUrl: './detailed-info-page.component.html',
 })
 export class DetailedInfoPageComponent implements OnInit {
-  @Input() video!: VideoItem;
+  @Input() public video!: VideoItem;
 
-  constructor(
+  public constructor(
     private route: ActivatedRoute,
     private videoService: VideoDataService,
   ) {}
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.route.queryParams.subscribe((params: Params) => {
       const VIDEO_ID: unknown = params['id'];
 

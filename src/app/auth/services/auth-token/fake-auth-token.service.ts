@@ -4,9 +4,9 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class FakeAuthTokenService {
-  constructor() {}
+  private constructor() {}
 
-  generateToken(): string {
+  public generateToken(): string {
     return crypto.randomUUID();
   }
 }

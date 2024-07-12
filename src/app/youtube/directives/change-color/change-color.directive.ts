@@ -11,13 +11,23 @@ import { determineColor } from './helpers/determine-color';
   standalone: true,
 })
 export class ChangeColorDirective implements OnChanges {
-  @Input() publicationDate = '';
+  @Input() public publicationDate = '';
 
-  @Input() type: StyleChangeOptionType = styleChangeOption.BORDER;
+  @Input() public type: StyleChangeOptionType = styleChangeOption.BORDER;
 
-  constructor(private el: ElementRef<HTMLElement>) {}
+  public constructor(private el: ElementRef<HTMLElement>) {}
 
-  ngOnChanges(changes: SimpleChanges): void {
+  private setBackgroundColor(date: string): void {
+    const color = determineColor(date);
+    this.el.nativeElement.style.backgroundColor = stringTemplate(COLOR, { color });
+  }
+
+  private setBorderColor(date: string): void {
+    const color = determineColor(date);
+    this.el.nativeElement.style.borderBottom = stringTemplate(BORDER_COLOR, { color });
+  }
+
+  public ngOnChanges(changes: SimpleChanges): void {
     if (changes[changeOption.PUBLICATION_DATE] || changes[changeOption.TYPE]) {
       ((): void =>
         this.type === styleChangeOption.BORDER
@@ -26,17 +36,7 @@ export class ChangeColorDirective implements OnChanges {
     }
   }
 
-  setBackgroundColor(date: string): void {
-    const color = determineColor(date);
-    this.el.nativeElement.style.backgroundColor = stringTemplate(COLOR, { color });
-  }
-
-  setBorderColor(date: string): void {
-    const color = determineColor(date);
-    this.el.nativeElement.style.borderBottom = stringTemplate(BORDER_COLOR, { color });
-  }
-
-  @HostBinding(styleOption.BACKGROUND) get backgroundColor(): null | string {
+  @HostBinding(styleOption.BACKGROUND) public get backgroundColor(): null | string {
     if (this.type === styleChangeOption.BACKGROUND) {
       const color = determineColor(this.publicationDate);
       return stringTemplate(COLOR, { color });
@@ -44,7 +44,7 @@ export class ChangeColorDirective implements OnChanges {
     return null;
   }
 
-  @HostBinding(styleOption.BORDER_BOTTOM) get borderBottom(): null | string {
+  @HostBinding(styleOption.BORDER_BOTTOM) public get borderBottom(): null | string {
     if (this.type === styleChangeOption.BORDER) {
       const color = determineColor(this.publicationDate);
       return stringTemplate(BORDER_COLOR, { color });

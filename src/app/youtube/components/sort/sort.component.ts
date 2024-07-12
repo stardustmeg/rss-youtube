@@ -17,26 +17,26 @@ import { SortOptionType, isSortOptionType } from './helper/isSortCriteria.helper
   templateUrl: './sort.component.html',
 })
 export class SortComponent implements OnInit {
-  selectedSortOption: SortOptionType = BASIC_SORT_OPTION;
+  public selectedSortOption: SortOptionType = BASIC_SORT_OPTION;
 
-  sortCriterion = '';
+  public sortCriterion = '';
 
-  sortDirection = '';
+  public sortDirection = '';
 
-  videoItems: VideoItem[] = [];
+  public videoItems: VideoItem[] = [];
 
-  constructor(
+  public constructor(
     private videoService: VideoDataService,
     private sortPipe: SortPipe,
   ) {}
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.videoService.updatedVideoItems$.subscribe((items) => {
       this.videoItems = items;
     });
   }
 
-  onSortChange(event: MatChipListboxChange): void {
+  public onSortChange(event: MatChipListboxChange): void {
     const value: unknown = event.value;
     if (isSortOptionType(value)) {
       this.selectedSortOption = value;

@@ -8,11 +8,11 @@ import { RouterStateSnapshot, TitleStrategy } from '@angular/router';
   providedIn: 'root',
 })
 export class AppTitleService extends TitleStrategy {
-  constructor(private readonly title: Title) {
+  private constructor(private readonly title: Title) {
     super();
   }
 
-  override updateTitle(routerState: RouterStateSnapshot): void {
+  public override updateTitle(routerState: RouterStateSnapshot): void {
     const title = this.buildTitle(routerState);
     if (title !== undefined) {
       this.title.setTitle(stringTemplate(APP_TITLE, { title: title.toUpperCase() }));

@@ -27,11 +27,11 @@ import { LoginService } from '../../services/login/login.service';
   templateUrl: './login-form.component.html',
 })
 export class LoginFormComponent {
-  hidePassword = true;
+  public hidePassword = true;
 
-  loginForm: FormGroup;
+  public loginForm: FormGroup;
 
-  constructor(
+  public constructor(
     private fb: FormBuilder,
     private router: Router,
     private loginService: LoginService,
@@ -42,7 +42,7 @@ export class LoginFormComponent {
     });
   }
 
-  async onSubmit(): Promise<void> {
+  public async onSubmit(): Promise<void> {
     if (this.loginForm.valid) {
       try {
         const userName: unknown = this.loginForm.get('name')?.value;
@@ -56,7 +56,7 @@ export class LoginFormComponent {
     }
   }
 
-  togglePasswordVisibility(): void {
+  public togglePasswordVisibility(): void {
     this.hidePassword = !this.hidePassword;
   }
 }

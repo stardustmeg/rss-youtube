@@ -7,7 +7,7 @@ import { VideoItem } from '../../models/video-item.model';
   standalone: true,
 })
 export class FilterPipe implements PipeTransform {
-  transform(videos: VideoItem[], searchTerm: string): VideoItem[] {
+  public transform(videos: VideoItem[], searchTerm: string): VideoItem[] {
     if (!videos || !searchTerm) {
       return videos;
     }

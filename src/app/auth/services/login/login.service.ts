@@ -17,17 +17,17 @@ export class LoginService {
 
   public isLoggedIn$ = of(this.checkIsLoggedIn());
 
-  constructor() {}
+  public constructor() {}
 
-  checkIsLoggedIn(): boolean {
+  private checkIsLoggedIn(): boolean {
     return this.localStorageService.getItem(this.fakeTokenKey) !== null;
   }
 
-  getIsLoggedIn(): boolean {
+  public getIsLoggedIn(): boolean {
     return this.checkIsLoggedIn();
   }
 
-  getUserName(): null | string {
+  public getUserName(): null | string {
     const storedData = this.localStorageService.getItem(this.fakeTokenKey);
     if (!storedData) {
       return null;
@@ -39,18 +39,18 @@ export class LoginService {
     return null;
   }
 
-  login(name: string): void {
+  public login(name: string): void {
     const fakeToken = this.fakeAuthTokenService.generateToken();
     this.localStorageService.setItem(this.fakeTokenKey, JSON.stringify({ name, token: fakeToken }));
     this.isLoggedIn$ = of(true);
   }
 
-  logout(): void {
+  public logout(): void {
     this.localStorageService.removeItem(this.fakeTokenKey);
     this.isLoggedIn$ = of(false);
   }
 
-  get isLoggedIn(): Observable<boolean> {
+  public get isLoggedIn(): Observable<boolean> {
     return this.isLoggedIn$;
   }
 }
