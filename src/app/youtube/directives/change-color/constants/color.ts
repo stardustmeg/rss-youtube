@@ -1,3 +1,5 @@
+import { StyleChangeOptionType } from './style';
+
 export const colorOption = {
   BLUE: '#0096FF',
   GREEN: '#0BDA51',
@@ -7,12 +9,9 @@ export const colorOption = {
 
 export type ColorOptionType = (typeof colorOption)[keyof typeof colorOption];
 
-export const styleChangeOption = {
-  BACKGROUND: 'background',
-  BORDER: 'borderBottom',
+export const styleColorOption: Record<StyleChangeOptionType, string> = {
+  background: '{{color}}',
+  borderBottom: '10px solid {{color}}',
 } as const;
 
-export type StyleChangeOptionType = (typeof styleChangeOption)[keyof typeof styleChangeOption];
-
-export const BORDER_COLOR = '10px solid {{color}}';
-export const COLOR = '{{color}}';
+export type StyleColorOptionType = (typeof styleColorOption)[keyof typeof styleColorOption];
