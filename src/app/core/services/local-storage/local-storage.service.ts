@@ -1,17 +1,27 @@
 import { Injectable } from '@angular/core';
 
+import { isValidLocalStorageData } from './helpers/helper';
+
 @Injectable({
   providedIn: 'root',
 })
 export class LocalStorageService {
   private constructor() {}
 
-  public clear(): void {
-    localStorage.clear();
-  }
-
   public getItem(key: string): null | string {
     return localStorage.getItem(key);
+  }
+
+  public getUserName(key: string): null | string {
+    const storedData = this.getItem(key);
+    if (!storedData) {
+      return null;
+    }
+    const parsedData: unknown = JSON.parse(storedData);
+    if (isValidLocalStorageData(parsedData)) {
+      return parsedData.name;
+    }
+    return null;
   }
 
   public removeItem(key: string): void {

@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import { appRoute } from '@/app/shared/constants/routes';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -20,22 +20,23 @@ import { LoginService } from '../../services/login/login.service';
     MatIconModule,
     MatButtonModule,
   ],
-  providers: [LoginService],
   selector: 'app-login-form',
   standalone: true,
   styleUrls: ['./login-form.component.scss'],
   templateUrl: './login-form.component.html',
 })
 export class LoginFormComponent {
+  private fb = inject(FormBuilder);
+
+  private router = inject(Router);
+
   public hidePassword = true;
 
   public loginForm: FormGroup;
 
-  public constructor(
-    private fb: FormBuilder,
-    private router: Router,
-    private loginService: LoginService,
-  ) {
+  public loginService = inject(LoginService);
+
+  public constructor() {
     this.loginForm = this.fb.group({
       name: ['', Validators.required.bind(this)],
       password: ['', Validators.required.bind(this)],

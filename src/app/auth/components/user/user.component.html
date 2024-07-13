@@ -1,4 +1,7 @@
 <div class="user-container">
-  <p>{{ userName }}</p>
+  @if (isLoggedIn) {
+    <p>{{ getUserName() }}</p>
+  }
+
   <app-custom-link attributeType="mat-mini-fab" [icon]="getIcon()" (click)="handleClick()"></app-custom-link>
 </div>

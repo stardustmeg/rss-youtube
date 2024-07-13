@@ -12,11 +12,7 @@
       ></app-custom-button>
     </div>
 
-    @if (loginService.getIsLoggedIn()) {
-      <app-user [isLoggedIn]="true"></app-user>
-    } @else {
-      <app-user [isLoggedIn]="false"></app-user>
-    }
+    <app-user [isLoggedIn]="!!(loginService.isLoggedIn() | async)"></app-user>
   </div>
 
   @if (isSortVisible) {
