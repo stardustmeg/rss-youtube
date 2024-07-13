@@ -27,7 +27,7 @@ export class VideoDataService {
   }
 
   public getVideoById(id: string): VideoItem {
-    return this.originalVideoItems.find((item) => item.id === id) || this.foundVideoItems[0];
+    return this.originalVideoItems.find((item) => item.id === id) || this.originalVideoItems[0];
   } // TBD: remove with fetch by ID
 
   public setFoundData(data: VideoItem[]): void {

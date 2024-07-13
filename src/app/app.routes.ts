@@ -1,15 +1,18 @@
 import { Routes } from '@angular/router';
 
+import { authGuard } from './auth/guards/auth/auth.guard';
 import { appPath, appRoute } from './shared/constants/routes';
 
 export const routes: Routes = [
   { path: appPath.DEFAULT, pathMatch: 'full', redirectTo: appRoute.MAIN },
   {
+    canActivate: [authGuard],
     loadComponent: () => import('./youtube/pages/main-page/main-page.component').then((m) => m.MainPageComponent),
     path: appPath.MAIN,
     title: appPath.MAIN,
   },
   {
+    canActivate: [authGuard],
     loadComponent: () =>
       import('./youtube/pages/detailed-info-page/detailed-info-page.component').then(
         (m) => m.DetailedInfoPageComponent,

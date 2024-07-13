@@ -39,7 +39,7 @@ export class UserComponent {
       this.loginService.logout();
       await this.router.navigate([appRoute.LOGIN]);
     } else {
-      await this.router.navigate([appRoute.LOGIN]); // TBD: remove when guard is ready
+      await this.router.navigate([appRoute.LOGIN]);
     }
   }
 }
