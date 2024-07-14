@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { MatChipListboxChange, MatChipsModule } from '@angular/material/chips';
+import { MatChipListboxChange } from '@angular/material/chips';
 
 import { BASIC_SORT_OPTION } from '../../constants/sort-option';
 import { VideoItem } from '../../models/video-item.model';
@@ -9,10 +9,8 @@ import { SortOptionType, isSortOptionType } from './helper/isSortCriteria.helper
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [MatChipsModule, SortPipe],
   providers: [SortPipe],
   selector: 'app-sort',
-  standalone: true,
   styleUrl: './sort.component.scss',
   templateUrl: './sort.component.html',
 })

@@ -5,7 +5,6 @@ import { VideoItem } from '../../models/video-item.model';
 
 @Pipe({
   name: 'sort',
-  standalone: true,
 })
 export class SortPipe implements PipeTransform {
   public transform(videos: VideoItem[], criteria: string, direction: string): VideoItem[] {

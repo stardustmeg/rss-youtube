@@ -7,7 +7,6 @@ import { determineColor } from './helpers/determine-color';
 
 @Directive({
   selector: '[appChangeColor]',
-  standalone: true,
 })
 export class ChangeColorDirective {
   @Input() public publicationDate = '';

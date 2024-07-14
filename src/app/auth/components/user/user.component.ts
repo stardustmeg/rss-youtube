@@ -1,18 +1,14 @@
 import { LocalStorageService } from '@/app/core/services/local-storage/local-storage.service';
-import { CustomLinkComponent } from '@/app/shared/components/custom-link/custom-link.component';
 import { appRoute } from '@/app/shared/constants/routes';
-import { CommonModule } from '@angular/common';
 import { Component, Input, inject } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 
 import { LOGIN_KEY } from '../../services/login/constants/login-key';
 import { LoginService } from '../../services/login/login.service';
 import { logoOption } from './constants/logo-options';
 
 @Component({
-  imports: [CustomLinkComponent, RouterLink, CommonModule],
   selector: 'app-user',
-  standalone: true,
   styleUrls: ['./user.component.scss'],
   templateUrl: './user.component.html',
 })

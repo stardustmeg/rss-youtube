@@ -4,7 +4,6 @@ import { VideoItem } from '../../models/video-item.model';
 
 @Pipe({
   name: 'search',
-  standalone: true,
 })
 export class SearchPipe implements PipeTransform {
   public transform(videos: VideoItem[], searchTerm: string): VideoItem[] {

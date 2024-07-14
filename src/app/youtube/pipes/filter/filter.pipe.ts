@@ -4,7 +4,6 @@ import { VideoItem } from '../../models/video-item.model';
 
 @Pipe({
   name: 'filter',
-  standalone: true,
 })
 export class FilterPipe implements PipeTransform {
   public transform(videos: VideoItem[], searchTerm: string): VideoItem[] {
