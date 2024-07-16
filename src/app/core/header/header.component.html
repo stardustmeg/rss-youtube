@@ -2,14 +2,18 @@
   <div class="header-container">
     <div class="header-controls">
       <app-custom-link customClass="to-main-link" icon="play_arrow" routerLink="/"></app-custom-link>
-      <app-search></app-search>
-      <app-custom-button
-        attributeType="mat-mini-fab"
-        icon="tune"
-        customClass="settings-button"
-        (click)="toggleSortVisibility()"
-        (onKeyUp)="toggleSortVisibility()"
-      ></app-custom-button>
+
+      @if (isMainPage) {
+        <app-search></app-search>
+
+        <app-custom-button
+          attributeType="mat-mini-fab"
+          icon="tune"
+          customClass="settings-button"
+          (click)="toggleSortVisibility()"
+          (onKeyUp)="toggleSortVisibility()"
+        ></app-custom-button>
+      }
     </div>
 
     <app-user [isLoggedIn]="!!(loginService.isLoggedIn() | async)"></app-user>

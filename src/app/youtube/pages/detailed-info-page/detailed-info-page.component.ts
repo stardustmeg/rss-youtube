@@ -1,7 +1,9 @@
+/* eslint-disable no-console */
 import { CustomLinkComponent } from '@/app/shared/components/custom-link/custom-link.component';
+import { appRoute } from '@/app/shared/constants/routes';
 import { DatePipe } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
-import { ActivatedRoute, Params, RouterLink } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Params, Router, RouterLink } from '@angular/router';
 
 import { VideoStatisticsComponent } from '../../components/video-statistics/video-statistics.component';
 import { ChangeColorDirective } from '../../directives/change-color/change-color.directive';
@@ -17,10 +19,11 @@ import { VideoDataService } from '../../services/video-data/video-data.service';
   templateUrl: './detailed-info-page.component.html',
 })
 export class DetailedInfoPageComponent implements OnInit {
-  @Input() public video!: VideoItem;
+  public video!: VideoItem;
 
   public constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private videoService: VideoDataService,
   ) {}
 
@@ -30,7 +33,11 @@ export class DetailedInfoPageComponent implements OnInit {
 
       if (typeof VIDEO_ID === 'string') {
         const video = this.videoService.getVideoById(VIDEO_ID);
-        this.video = video;
+        if (!video) {
+          this.router.navigate([appRoute.NOT_FOUND]);
+        } else {
+          this.video = video;
+        }
       }
     });
   }
