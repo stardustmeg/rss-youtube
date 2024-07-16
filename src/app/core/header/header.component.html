@@ -16,10 +16,10 @@
       }
     </div>
 
-    <app-user [isLoggedIn]="!!(loginService.isLoggedIn() | async)"></app-user>
+    <app-user [isLoggedIn]="loginService.isLoggedIn() | async"></app-user>
   </div>
 
-  @if (isSortVisible) {
+  @if (isSortVisible && isMainPage) {
     <div class="sort-container">
       <app-sort></app-sort>
       <app-filter></app-filter>

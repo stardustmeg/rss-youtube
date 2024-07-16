@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, inject } from '@angular/core';
 import { MatChipListboxChange, MatChipsModule } from '@angular/material/chips';
 
 import { BASIC_SORT_OPTION } from '../../constants/sort-option';
@@ -17,6 +17,10 @@ import { SortOptionType, isSortOptionType } from './helper/isSortCriteria.helper
   templateUrl: './sort.component.html',
 })
 export class SortComponent implements OnInit {
+  private sortPipe = inject(SortPipe);
+
+  private videoService = inject(VideoDataService);
+
   public selectedSortOption: SortOptionType = BASIC_SORT_OPTION;
 
   public sortCriterion = '';
@@ -25,10 +29,7 @@ export class SortComponent implements OnInit {
 
   public videoItems: VideoItem[] = [];
 
-  public constructor(
-    private videoService: VideoDataService,
-    private sortPipe: SortPipe,
-  ) {}
+  public constructor() {}
 
   public ngOnInit(): void {
     this.videoService.updatedVideoItems$.subscribe((items) => {

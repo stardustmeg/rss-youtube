@@ -19,7 +19,7 @@ import { logoOption } from './constants/logo-options';
 export class UserComponent {
   private router = inject(Router);
 
-  @Input() public isLoggedIn = false;
+  @Input() public isLoggedIn: boolean | null = false;
 
   public localStorageService = inject(LocalStorageService);
 
