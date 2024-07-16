@@ -1,11 +1,9 @@
-import { LocalStorageService } from '@/app/core/services/local-storage/local-storage.service';
 import { CustomLinkComponent } from '@/app/shared/components/custom-link/custom-link.component';
 import { appRoute } from '@/app/shared/constants/routes';
 import { CommonModule } from '@angular/common';
 import { Component, Input, inject } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 
-import { LOGIN_KEY } from '../../services/login/constants/login-key';
 import { LoginService } from '../../services/login/login.service';
 import { logoOption } from './constants/logo-options';
 
@@ -21,8 +19,6 @@ export class UserComponent {
 
   @Input() public isLoggedIn: boolean | null = false;
 
-  public localStorageService = inject(LocalStorageService);
-
   public loginService = inject(LoginService);
 
   public constructor() {}
@@ -32,7 +28,7 @@ export class UserComponent {
   }
 
   public getUserName(): null | string {
-    return this.localStorageService.getUserName(LOGIN_KEY);
+    return this.loginService.getUserName();
   }
 
   public async handleClick(): Promise<void> {

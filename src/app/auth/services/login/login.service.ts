@@ -11,6 +11,8 @@ import { LOGIN_KEY } from './constants/login-key';
 export class LoginService {
   private fakeAuthTokenService = inject(FakeAuthTokenService);
 
+  private readonly localStorageKey = LOGIN_KEY;
+
   private localStorageService = inject(LocalStorageService);
 
   private loggedIn$: BehaviorSubject<boolean> = new BehaviorSubject(this.checkIsLoggedIn());
@@ -18,7 +20,11 @@ export class LoginService {
   public constructor() {}
 
   public checkIsLoggedIn(): boolean {
-    return this.localStorageService.getItem(LOGIN_KEY) !== null;
+    return this.localStorageService.getItem(this.localStorageKey) !== null;
+  }
+
+  public getUserName(): null | string {
+    return this.localStorageService.getUserName(this.localStorageKey) || null;
   }
 
   public isLoggedIn(): Observable<boolean> {
@@ -27,12 +33,12 @@ export class LoginService {
 
   public login(name: string): void {
     const fakeToken = this.fakeAuthTokenService.generateToken();
-    this.localStorageService.setItem(LOGIN_KEY, JSON.stringify({ name, token: fakeToken }));
+    this.localStorageService.setItem(this.localStorageKey, JSON.stringify({ name, token: fakeToken }));
     this.loggedIn$.next(true);
   }
 
   public logout(): void {
-    this.localStorageService.removeItem(LOGIN_KEY);
+    this.localStorageService.removeItem(this.localStorageKey);
     this.loggedIn$.next(false);
   }
 }
