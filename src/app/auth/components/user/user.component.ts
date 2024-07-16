@@ -1,20 +1,23 @@
 import { CustomLinkComponent } from '@/app/shared/components/custom-link/custom-link.component';
 import { appRoute } from '@/app/shared/constants/routes';
 import { CommonModule } from '@angular/common';
-import { Component, Input, inject } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit, inject } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 
 import { LoginService } from '../../services/login/login.service';
 import { logoOption } from './constants/logo-options';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [CustomLinkComponent, RouterLink, CommonModule],
   selector: 'app-user',
   standalone: true,
   styleUrls: ['./user.component.scss'],
   templateUrl: './user.component.html',
 })
-export class UserComponent {
+export class UserComponent implements OnInit {
+  private cdr: ChangeDetectorRef = inject(ChangeDetectorRef);
+
   private router = inject(Router);
 
   @Input() public isLoggedIn: boolean | null = false;
@@ -34,9 +37,14 @@ export class UserComponent {
   public handleClick(): void {
     if (this.isLoggedIn) {
       this.loginService.logout();
-      this.router.navigate([appRoute.LOGIN]);
-    } else {
-      this.router.navigate([appRoute.LOGIN]);
     }
+    this.router.navigate([appRoute.LOGIN]);
+  }
+
+  public ngOnInit(): void {
+    this.loginService.isLoggedIn().subscribe((isLoggedIn) => {
+      this.isLoggedIn = isLoggedIn;
+      this.cdr.markForCheck();
+    });
   }
 }

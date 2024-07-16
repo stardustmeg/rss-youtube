@@ -1,7 +1,8 @@
 <div class="user-container">
   @if (isLoggedIn) {
-    <p>{{ getUserName() }}</p>
+    <ng-container>
+      <p>{{ getUserName() }}</p>
+    </ng-container>
   }
-
   <app-custom-link attributeType="mat-mini-fab" [icon]="getIcon()" (click)="handleClick()"></app-custom-link>
 </div>
