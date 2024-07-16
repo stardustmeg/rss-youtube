@@ -1,6 +1,8 @@
-/* eslint-disable no-console */
 import { LoggerService } from '@/app/core/services/logger.service';
+import { userMessage } from '@/app/shared/components/snack-bar/constants/user-message';
+import { SnackBarComponent } from '@/app/shared/components/snack-bar/snack-bar.component';
 import { appRoute } from '@/app/shared/constants/routes';
+import { stringTemplate } from '@/app/shared/utils/string-template';
 import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -20,6 +22,7 @@ import { LoginService } from '../../services/login/login.service';
     MatInputModule,
     MatIconModule,
     MatButtonModule,
+    SnackBarComponent,
   ],
   selector: 'app-login-form',
   standalone: true,
@@ -32,6 +35,8 @@ export class LoginFormComponent {
   private logger = inject(LoggerService);
 
   private router = inject(Router);
+
+  private snackBar: SnackBarComponent = new SnackBarComponent();
 
   public hidePassword = true;
 
@@ -52,11 +57,11 @@ export class LoginFormComponent {
         const userName: unknown = this.loginForm.get('name')?.value;
         if (typeof userName === 'string') {
           this.loginService.login(userName);
-          this.logger.logMessage(`User ${userName} logged in`);
           this.router.navigate([appRoute.MAIN]);
+          this.logger.logMessage(stringTemplate(userMessage.LOGGER_LOGIN, { userName }));
         }
       } catch (error) {
-        console.error(error); // TBD: replace with user message
+        this.snackBar.openSnackBar(userMessage.ERROR);
       }
     }
   }

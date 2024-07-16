@@ -1,4 +1,7 @@
 import { LocalStorageService } from '@/app/core/services/local-storage/local-storage.service';
+import { userMessage } from '@/app/shared/components/snack-bar/constants/user-message';
+import { SnackBarComponent } from '@/app/shared/components/snack-bar/snack-bar.component';
+import { stringTemplate } from '@/app/shared/utils/string-template';
 import { Injectable, inject } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 
@@ -16,6 +19,8 @@ export class LoginService {
   private localStorageService = inject(LocalStorageService);
 
   private loggedIn$: BehaviorSubject<boolean> = new BehaviorSubject(this.checkIsLoggedIn());
+
+  private snackBar = new SnackBarComponent();
 
   public constructor() {}
 
@@ -35,10 +40,12 @@ export class LoginService {
     const fakeToken = this.fakeAuthTokenService.generateToken();
     this.localStorageService.setItem(this.localStorageKey, JSON.stringify({ name, token: fakeToken }));
     this.loggedIn$.next(true);
+    this.snackBar.openSnackBar(stringTemplate(userMessage.SUCCESSFUL_LOGIN, { name }));
   }
 
   public logout(): void {
     this.localStorageService.removeItem(this.localStorageKey);
     this.loggedIn$.next(false);
+    this.snackBar.openSnackBar(userMessage.LOGOUT);
   }
 }

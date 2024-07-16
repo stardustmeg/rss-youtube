@@ -1,5 +1,5 @@
 import { APP_TITLE } from '@/app/shared/constants/routes';
-import stringTemplate from '@/app/shared/utils/string-template';
+import { stringTemplate } from '@/app/shared/utils/string-template';
 import { Injectable } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { RouterStateSnapshot, TitleStrategy } from '@angular/router';

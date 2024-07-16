@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import stringTemplate from '@/app/shared/utils/string-template';
+import { stringTemplate } from '@/app/shared/utils/string-template';
 import { Injectable } from '@angular/core';
 
 import { LoggerService } from '../../logger.service';

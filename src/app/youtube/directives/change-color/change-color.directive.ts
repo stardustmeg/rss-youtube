@@ -1,4 +1,4 @@
-import stringTemplate from '@/app/shared/utils/string-template';
+import { stringTemplate } from '@/app/shared/utils/string-template';
 import { Directive, HostBinding, Input } from '@angular/core';
 
 import { styleColorOption } from './constants/color';
