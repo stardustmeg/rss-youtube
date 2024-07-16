@@ -2,7 +2,7 @@
   <form class="form">
     <mat-form-field class="form-field">
       <mat-label class="form-label">by word or sentence</mat-label>
-      <input type="search" matInput [(ngModel)]="inputValue" name="filterValue" (input)="onChange()" />
+      <input type="search" matInput [formControl]="filterControl" />
     </mat-form-field>
   </form>
 </div>

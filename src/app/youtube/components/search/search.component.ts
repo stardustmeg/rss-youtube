@@ -1,30 +1,39 @@
 import { CustomButtonComponent } from '@/app/shared/components/custom-button/custom-button.component';
-import { Component, inject } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { Component, OnInit, inject } from '@angular/core';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 
 import { SearchPipe } from '../../pipes/search/search.pipe';
 import { VideoDataService } from '../../services/video-data/video-data.service';
 
 @Component({
-  imports: [FormsModule, CustomButtonComponent, MatIconModule, SearchPipe],
+  imports: [FormsModule, CustomButtonComponent, MatIconModule, SearchPipe, ReactiveFormsModule],
   providers: [SearchPipe],
   selector: 'app-search',
   standalone: true,
   styleUrl: './search.component.scss',
   templateUrl: './search.component.html',
 })
-export class SearchComponent {
-  public inputValue = '';
+export class SearchComponent implements OnInit {
+  private searchPipe = inject(SearchPipe);
 
-  public constructor(
-    private searchPipe: SearchPipe = inject(SearchPipe),
-    private videoService: VideoDataService = inject(VideoDataService),
-  ) {}
+  private videoService = inject(VideoDataService);
 
-  public onChange(): void {
+  public searchForm = new FormGroup({
+    searchTerm: new FormControl(''),
+  });
+
+  public constructor() {}
+
+  public ngOnInit(): void {
+    this.searchForm.get('searchTerm')!.valueChanges.subscribe((value) => {
+      this.onChange(value);
+    });
+  }
+
+  public onChange(value: null | string): void {
     const videoItems = this.videoService.getOriginalData();
-    const newItems = this.searchPipe.transform(videoItems, this.inputValue);
+    const newItems = value ? this.searchPipe.transform(videoItems, value) : videoItems;
     this.videoService.setUpdatedData(newItems);
     this.videoService.setFoundData(newItems);
   }
