@@ -20,7 +20,7 @@ export class VideoItemCardComponent {
 
   public constructor(private router: Router) {}
 
-  public async moreButtonHandler(): Promise<void> {
-    await this.router.navigate([appRoute.DETAILED], { queryParams: { id: this.video.id } });
+  public moreButtonHandler(): void {
+    this.router.navigate([appRoute.DETAILED], { queryParams: { id: this.video.id } });
   }
 }

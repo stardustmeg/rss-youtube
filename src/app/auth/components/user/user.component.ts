@@ -31,12 +31,12 @@ export class UserComponent {
     return this.loginService.getUserName();
   }
 
-  public async handleClick(): Promise<void> {
+  public handleClick(): void {
     if (this.isLoggedIn) {
       this.loginService.logout();
-      await this.router.navigate([appRoute.LOGIN]);
+      this.router.navigate([appRoute.LOGIN]);
     } else {
-      await this.router.navigate([appRoute.LOGIN]);
+      this.router.navigate([appRoute.LOGIN]);
     }
   }
 }

@@ -46,14 +46,14 @@ export class LoginFormComponent {
     });
   }
 
-  public async onSubmit(): Promise<void> {
+  public onSubmit(): void {
     if (this.loginForm.valid) {
       try {
         const userName: unknown = this.loginForm.get('name')?.value;
         if (typeof userName === 'string') {
           this.loginService.login(userName);
           this.logger.logMessage(`User ${userName} logged in`);
-          await this.router.navigate([appRoute.MAIN]);
+          this.router.navigate([appRoute.MAIN]);
         }
       } catch (error) {
         console.error(error); // TBD: replace with user message
