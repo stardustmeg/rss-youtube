@@ -24,6 +24,7 @@
       ],
       "rules": {
         "@typescript-eslint/no-floating-promises": "off",
+        "@typescript-eslint/unbound-method": "off",
         "@typescript-eslint/no-explicit-any": "error",
         "curly": ["error", "all"],
         "max-lines-per-function": ["error", { "max": 40, "skipBlankLines": true, "skipComments": true }],

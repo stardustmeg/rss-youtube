@@ -17,9 +17,21 @@
   mat-form-field {
     cursor: text;
     width: 100%;
+    padding: $small-rem 0;
 
     input {
       cursor: text;
     }
+  }
+
+  mat-hint {
+    margin: 0;
+    font-size: $font-size-xxs;
+  }
+}
+
+.ng-invalid:not(form) {
+  mat-label {
+    color: $accent-color;
   }
 }

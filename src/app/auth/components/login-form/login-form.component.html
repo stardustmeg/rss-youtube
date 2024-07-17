@@ -1,7 +1,13 @@
 <form class="login-form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
   <mat-form-field appearance="outline" class="form-field">
-    <mat-label>Name</mat-label>
-    <input id="name" type="text" matInput placeholder="Jane Doe" formControlName="name" />
+    <mat-label>Email</mat-label>
+    <input id="email" type="text" matInput placeholder="jane_doe@example.com" formControlName="email" />
+    @if (loginForm.get('email')?.hasError('email')) {
+      <mat-hint>Please enter a valid email</mat-hint>
+    }
+    @if (loginForm.get('email')?.hasError('required')) {
+      <mat-hint>Please enter your email</mat-hint>
+    }
   </mat-form-field>
 
   <mat-form-field appearance="outline" class="form-field">
@@ -22,9 +28,30 @@
     >
       <mat-icon>{{ hidePassword ? 'visibility' : 'visibility_off' }}</mat-icon>
     </button>
+
+    @switch (true) {
+      @case (loginForm.get('password')?.hasError('required')) {
+        <mat-hint>Please enter a password</mat-hint>
+      }
+      @case (loginForm.get('password')?.errors?.['passwordStrength']?.lowerCase) {
+        <mat-hint>Password must contain lowercase letters</mat-hint>
+      }
+      @case (loginForm.get('password')?.errors?.['passwordStrength']?.upperCase) {
+        <mat-hint>Password must contain uppercase letters</mat-hint>
+      }
+      @case (loginForm.get('password')?.errors?.['passwordStrength']?.number) {
+        <mat-hint>Password must contain at least one number</mat-hint>
+      }
+      @case (loginForm.get('password')?.errors?.['passwordStrength']?.specialCharacter) {
+        <mat-hint>Password must contain at least one special character, e.g., ! "&#64;" # ?</mat-hint>
+      }
+      @case (loginForm.get('password')?.errors?.['passwordStrength']?.minLength) {
+        <mat-hint>Password must be at least 8 characters long</mat-hint>
+      }
+    }
   </mat-form-field>
 
-  <app-custom-button type="submit" [customClass]="'login-button'" [disabled]="!loginForm.valid"
-    >Login</app-custom-button
-  >
+  <app-custom-button type="submit" [customClass]="'login-button'" [disabled]="loginForm.invalid">
+    Login
+  </app-custom-button>
 </form>

@@ -3,10 +3,11 @@ import { userMessage } from '@/app/shared/components/snack-bar/constants/user-me
 import { SnackBarComponent } from '@/app/shared/components/snack-bar/snack-bar.component';
 import { appRoute } from '@/app/shared/constants/routes';
 import { stringTemplate } from '@/app/shared/utils/string-template';
-import { Component, inject } from '@angular/core';
+import { passwordStrengthValidator } from '@/app/shared/validators/validators';
+import { Component, OnInit, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
-import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatError, MatFormFieldModule, MatHint } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { Router } from '@angular/router';
@@ -23,13 +24,15 @@ import { LoginService } from '../../services/login/login.service';
     MatIconModule,
     MatButtonModule,
     SnackBarComponent,
+    MatError,
+    MatHint,
   ],
   selector: 'app-login-form',
   standalone: true,
   styleUrls: ['./login-form.component.scss'],
   templateUrl: './login-form.component.html',
 })
-export class LoginFormComponent {
+export class LoginFormComponent implements OnInit {
   private fb = inject(FormBuilder);
 
   private logger = inject(LoggerService);
@@ -40,25 +43,27 @@ export class LoginFormComponent {
 
   public hidePassword = true;
 
-  public loginForm: FormGroup;
+  public loginForm: FormGroup = new FormGroup({});
 
   public loginService = inject(LoginService);
 
-  public constructor() {
+  public constructor() {}
+
+  public ngOnInit(): void {
     this.loginForm = this.fb.group({
-      name: ['', Validators.required.bind(this)],
-      password: ['', Validators.required.bind(this)],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, passwordStrengthValidator]],
     });
   }
 
   public onSubmit(): void {
     if (this.loginForm.valid) {
       try {
-        const userName: unknown = this.loginForm.get('name')?.value;
-        if (typeof userName === 'string') {
-          this.loginService.login(userName);
+        const email: unknown = this.loginForm.get('email')?.value;
+        if (typeof email === 'string') {
+          this.loginService.login(email);
           this.router.navigate([appRoute.MAIN]);
-          this.logger.logMessage(stringTemplate(userMessage.LOGGER_LOGIN, { userName }));
+          this.logger.logMessage(stringTemplate(userMessage.LOGGER_LOGIN, { email }));
         }
       } catch (error) {
         this.snackBar.openSnackBar(userMessage.ERROR);
