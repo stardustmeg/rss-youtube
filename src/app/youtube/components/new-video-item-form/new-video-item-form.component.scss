@@ -1,0 +1,28 @@
+@import '../../../styles/numbers.module';
+
+.page-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.form-button {
+  border-radius: $border-radius;
+}
+
+.form-buttons-wrapper {
+  display: flex;
+  align-self: flex-end;
+  margin-right: 0;
+  margin-left: auto;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  margin: $standart-rem auto;
+}

@@ -31,3 +31,12 @@
   width: $standart-rem * 14;
   margin-top: $standart-rem;
 }
+
+.form-reset-button,
+.form-submit-button {
+  margin-top: $standart-rem;
+}
+
+.form-reset-button {
+  margin-right: $standart-rem;
+}

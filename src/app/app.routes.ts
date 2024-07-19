@@ -26,6 +26,12 @@ export const routes: Routes = [
     title: appPath.LOGIN,
   },
   {
+    canActivate: [authGuard],
+    loadComponent: () => import('./youtube/pages/admin-page/admin-page.component').then((m) => m.AdminPageComponent),
+    path: appPath.ADMIN,
+    title: appPath.ADMIN,
+  },
+  {
     loadComponent: () => import('./core/not-found-page/not-found-page.component').then((m) => m.NotFoundPageComponent),
     path: appPath.NOT_FOUND,
     title: appPath.NOT_FOUND,

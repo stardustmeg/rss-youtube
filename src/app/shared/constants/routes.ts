@@ -1,4 +1,5 @@
 export const appPath = {
+  ADMIN: 'admin',
   DEFAULT: '',
   DETAILED: 'detailed',
   LOGIN: 'login',
@@ -8,6 +9,7 @@ export const appPath = {
 } as const;
 
 export const appRoute = {
+  ADMIN: `/${appPath.ADMIN}`,
   DETAILED: `/${appPath.DETAILED}`,
   LOGIN: `/${appPath.LOGIN}`,
   MAIN: `/${appPath.MAIN}`,

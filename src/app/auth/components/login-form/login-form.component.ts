@@ -7,7 +7,7 @@ import { passwordStrengthValidator } from '@/app/shared/validators/validators';
 import { Component, OnInit, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
-import { MatError, MatFormFieldModule, MatHint } from '@angular/material/form-field';
+import { MatFormFieldModule, MatHint } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { Router } from '@angular/router';
@@ -24,7 +24,6 @@ import { LoginService } from '../../services/login/login.service';
     MatIconModule,
     MatButtonModule,
     SnackBarComponent,
-    MatError,
     MatHint,
   ],
   selector: 'app-login-form',
