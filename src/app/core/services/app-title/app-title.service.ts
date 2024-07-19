@@ -15,7 +15,7 @@ export class AppTitleService extends TitleStrategy {
   public override updateTitle(routerState: RouterStateSnapshot): void {
     const title = this.buildTitle(routerState);
     if (title !== undefined) {
-      this.title.setTitle(stringTemplate(APP_TITLE, { title: title.toUpperCase() }));
+      this.title.setTitle(stringTemplate(APP_TITLE, { title }));
     }
   }
 }
