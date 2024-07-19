@@ -1,12 +1,13 @@
 import { Component, inject } from '@angular/core';
 import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { snackBarAction } from './constants/actions';
 import { SNACK_BAR_DURATION } from './constants/duration';
 import { snackBarPosition } from './constants/position';
 
 @Component({
-  imports: [],
+  imports: [BrowserAnimationsModule],
   selector: 'app-snack-bar',
   standalone: true,
   styleUrl: './snack-bar.component.scss',

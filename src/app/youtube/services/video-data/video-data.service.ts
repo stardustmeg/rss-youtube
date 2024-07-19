@@ -1,4 +1,4 @@
-import * as data from '@/assets/db/response.json';
+import data from '@/assets/db/response.json';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 

@@ -1,10 +1,12 @@
 import { AbstractControl, ValidationErrors } from '@angular/forms';
 
+import { validNumber } from './constants/limits';
+
 const hasMinimumLength = (control: AbstractControl): ValidationErrors | null => {
   if (typeof control.value !== 'string') {
     return null;
   }
-  const minLength = control.value.length >= 8;
+  const minLength = control.value.length >= validNumber.MIN_PASSWORD;
   return minLength ? null : { minLength: true };
 };
 
