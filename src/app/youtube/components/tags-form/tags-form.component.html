@@ -1,0 +1,31 @@
+<form [formGroup]="tagsFormGroup" class="form">
+  <mat-form-field appearance="outline" class="example-chip-list">
+    <mat-label>Tags</mat-label>
+    <mat-chip-grid #chipGrid aria-label="Enter tags">
+      @for (tag of tagArray(); track tag) {
+        <mat-chip-row
+          (removed)="remove(tag)"
+          [editable]="true"
+          (edited)="edit(tag, $event)"
+          [aria-description]="'press enter to edit ' + tag"
+        >
+          {{ tag }}
+          <button matChipRemove [attr.aria-label]="'remove ' + tag">
+            <mat-icon>backspace</mat-icon>
+          </button>
+        </mat-chip-row>
+      }
+      <input
+        [placeholder]="placeholderText"
+        [matChipInputFor]="chipGrid"
+        [matChipInputAddOnBlur]="addOnBlur"
+        (matChipInputTokenEnd)="add($event)"
+        [disabled]="isTagArrayFull()"
+      />
+    </mat-chip-grid>
+
+    @if (getTagArrayLength() === maxTags) {
+      <mat-hint>You can only enter {{ maxTags }} tags</mat-hint>
+    }
+  </mat-form-field>
+</form>

@@ -28,7 +28,7 @@ const hasNumber = (control: AbstractControl): ValidationErrors | null => {
   if (typeof control.value !== 'string') {
     return null;
   }
-  const hasNumber = /[0-9]/.test(control.value);
+  const hasNumber = /\d/.test(control.value);
   return hasNumber ? null : { number: true };
 };
 

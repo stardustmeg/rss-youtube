@@ -1,148 +1,143 @@
 <form [formGroup]="formGroup" class="page-form" (ngSubmit)="onSubmit()">
-  <mat-stepper>
-    <mat-step label="Title" state="title" [stepControl]="titleFormGroup">
-      <form [formGroup]="titleFormGroup" class="form">
-        <p>What's the title of your video?</p>
+  <mat-stepper linear #stepper>
+    <mat-step class="mat-step" label="Title" state="title" [stepControl]="formGroup.controls['title']">
+      <form [formGroup]="formGroup">
+        <p class="mat-step-title">Add the title of your video</p>
 
-        <mat-form-field>
-          <input matInput placeholder="title" formControlName="title" />
-
-          @if (titleFormGroup.get('title')?.hasError('required')) {
+        <mat-form-field appearance="outline">
+          <mat-label>Title</mat-label>
+          <input matInput formControlName="title" />
+          @if (formGroup.get('title')?.hasError('required')) {
             <mat-error>Please enter a title</mat-error>
           }
-          @if (titleFormGroup.get('title')?.hasError('minlength')) {
-            <mat-error>The title is too short. Minimum length is 3</mat-error>
+          @if (formGroup.get('title')?.hasError('minlength')) {
+            <mat-error>The title is too short</mat-error>
           }
-          @if (titleFormGroup.get('title')?.hasError('maxlength')) {
-            <mat-error>The title is too long. Maximum length is 20</mat-error>
+          @if (formGroup.get('title')?.hasError('maxlength')) {
+            <mat-error>The title is too long</mat-error>
           }
         </mat-form-field>
 
         <div>
-          <button mat-button matStepperNext class="form-button" [disabled]="titleFormGroup.invalid">Next</button>
+          <button mat-button matStepperNext class="form-button" [disabled]="formGroup.controls['title'].invalid">
+            Next
+          </button>
         </div>
       </form>
     </mat-step>
 
-    <mat-step label="Description" state="description" optional>
-      <form [formGroup]="descriptionFormGroup" class="form">
-        <p>What's the description of your video?</p>
+    <mat-step
+      class="mat-step"
+      label="Description"
+      state="description"
+      [stepControl]="formGroup.controls['description']"
+    >
+      <form [formGroup]="formGroup">
+        <p class="mat-step-title">Add the description of your video</p>
 
-        <mat-form-field>
-          <textarea matInput placeholder="description" formControlName="description"></textarea>
-
-          @if (descriptionFormGroup.get('description')?.hasError('maxlength')) {
-            <mat-error>The description is too long. Maximum length is 255</mat-error>
+        <mat-form-field appearance="outline">
+          <mat-label>Description</mat-label>
+          <textarea matInput formControlName="description"></textarea>
+          @if (formGroup.get('description')?.hasError('maxlength')) {
+            <mat-error>The description is too long</mat-error>
           }
         </mat-form-field>
 
         <div>
           <button mat-button matStepperPrevious class="form-button">Back</button>
-          <button mat-button matStepperNext class="form-button" [disabled]="descriptionFormGroup.invalid">Next</button>
+          <button mat-button matStepperNext class="form-button" [disabled]="formGroup.controls['description'].invalid">
+            Next
+          </button>
         </div>
       </form>
     </mat-step>
 
-    <mat-step label="Image Link" state="imageLink">
-      <form [formGroup]="imageLinkFormGroup" class="form">
-        <p>What's the image link of your video?</p>
+    <mat-step class="mat-step" label="Image Link" state="imageLink" [stepControl]="formGroup.controls['imageLink']">
+      <form [formGroup]="formGroup">
+        <p class="mat-step-title">Add the image link of your video</p>
 
-        <mat-form-field>
-          <input matInput placeholder="image link" formControlName="imageLink" />
-
-          @if (imageLinkFormGroup.get('imageLink')?.hasError('required')) {
+        <mat-form-field appearance="outline">
+          <mat-label>Image Link</mat-label>
+          <input matInput formControlName="imageLink" />
+          @if (formGroup.get('imageLink')?.hasError('required')) {
             <mat-error>Please enter an image link</mat-error>
           }
         </mat-form-field>
 
         <div>
           <button mat-button matStepperPrevious class="form-button">Back</button>
-          <button mat-button matStepperNext class="form-button" [disabled]="imageLinkFormGroup.invalid">Next</button>
+          <button mat-button matStepperNext class="form-button" [disabled]="formGroup.controls['imageLink'].invalid">
+            Next
+          </button>
         </div>
       </form>
     </mat-step>
 
-    <mat-step label="Video Link" state="videoLink">
-      <form [formGroup]="videoLinkFormGroup" class="form">
-        <p>What's the link to your video?</p>
+    <mat-step class="mat-step" label="Video Link" state="videoLink" [stepControl]="formGroup.controls['videoLink']">
+      <form [formGroup]="formGroup">
+        <p class="mat-step-title">Add the video link of your video</p>
 
-        <mat-form-field>
-          <input matInput placeholder="video link" formControlName="videoLink" />
-
-          @if (videoLinkFormGroup.get('videoLink')?.hasError('required')) {
+        <mat-form-field appearance="outline">
+          <mat-label>Video Link</mat-label>
+          <input matInput formControlName="videoLink" />
+          @if (formGroup.get('videoLink')?.hasError('required')) {
             <mat-error>Please enter a video link</mat-error>
           }
         </mat-form-field>
 
         <div>
           <button mat-button matStepperPrevious class="form-button">Back</button>
-          <button mat-button matStepperNext class="form-button" [disabled]="videoLinkFormGroup.invalid">Next</button>
+          <button mat-button matStepperNext class="form-button" [disabled]="formGroup.controls['videoLink'].invalid">
+            Next
+          </button>
         </div>
       </form>
     </mat-step>
 
-    <mat-step label="Creation Date" state="creationDate">
-      <form [formGroup]="creationDateFormGroup" class="form">
-        <p>When was the video created?</p>
+    <mat-step
+      class="mat-step"
+      label="Creation Date"
+      state="creationDate"
+      [stepControl]="formGroup.controls['creationDate']"
+    >
+      <form [formGroup]="formGroup">
+        <p class="mat-step-title">Add the creation date of your video</p>
 
-        <mat-form-field>
-          <input matInput [matDatepicker]="picker" formControlName="date" [max]="maxDate" />
-          <mat-hint>MM/DD/YYYY</mat-hint>
-
+        <mat-form-field appearance="outline">
+          <mat-label>Creation Date</mat-label>
+          <input
+            matInput
+            [matDatepicker]="picker"
+            formControlName="creationDate"
+            [max]="maxDate"
+            [placeholder]="maxDate ? (maxDate | date: 'MMMM dd, yyyy')! : 'Pick a date'"
+          />
           <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
 
-          @if (creationDateFormGroup.get('date')?.hasError('futureDate')) {
+          @if (formGroup.get('creationDate')?.hasError('futureDate')) {
             <mat-error>The date is invalid</mat-error>
           }
-
-          @if (creationDateFormGroup.get('date')?.hasError('required')) {
+          @if (formGroup.get('creationDate')?.hasError('required')) {
             <mat-error>Please enter a date</mat-error>
           }
         </mat-form-field>
 
         <div>
           <button mat-button matStepperPrevious class="form-button">Back</button>
-          <button mat-button matStepperNext class="form-button" [disabled]="creationDateFormGroup.invalid">Next</button>
+          <button mat-button matStepperNext class="form-button" [disabled]="formGroup.controls['creationDate'].invalid">
+            Next
+          </button>
         </div>
       </form>
     </mat-step>
 
-    <mat-step label="Tags" state="tags">
-      <form [formGroup]="tagsFormGroup" class="form">
-        <mat-form-field class="example-chip-list">
-          <mat-label>Enter tags</mat-label>
-          <mat-chip-grid #chipGrid aria-label="Enter tags">
-            @for (tag of tagArray(); track tag) {
-              <mat-chip-row
-                (removed)="remove(tag)"
-                [editable]="true"
-                (edited)="edit(tag, $event)"
-                [aria-description]="'press enter to edit ' + tag"
-              >
-                {{ tag }}
-                <button matChipRemove [attr.aria-label]="'remove ' + tag">
-                  <mat-icon>cancel</mat-icon>
-                </button>
-              </mat-chip-row>
-            }
-            <input
-              [placeholder]="placeholderText"
-              [matChipInputFor]="chipGrid"
-              [matChipInputAddOnBlur]="addOnBlur"
-              (matChipInputTokenEnd)="add($event)"
-              [disabled]="isTagArrayFull()"
-            />
-          </mat-chip-grid>
-
-          @if (getTagArrayLength() === 5) {
-            <mat-hint>You can only enter 5 tags</mat-hint>
-          }
-        </mat-form-field>
-
+    <mat-step class="mat-step" label="Tags" state="tags" [stepControl]="formGroup.controls['tags']">
+      <form [formGroup]="formGroup">
+        <p class="mat-step-title">Add the tags of your video</p>
+        <app-tags-form (tagsChange)="setTags($event)"></app-tags-form>
         <div>
           <button mat-button matStepperPrevious class="form-button">Back</button>
-          <button mat-button matStepperNext class="form-button">Next</button>
         </div>
       </form>
     </mat-step>
@@ -174,7 +169,7 @@
   </mat-stepper>
 
   <div class="form-buttons-wrapper">
-    <app-custom-button [customClass]="'form-reset-button'" (click)="reset()">Reset</app-custom-button>
+    <app-custom-button [customClass]="'form-reset-button'" (click)="reset($event)">Reset</app-custom-button>
     <app-custom-button type="submit" [customClass]="'form-submit-button'" [disabled]="formGroup.invalid"
       >Submit</app-custom-button
     >

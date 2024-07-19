@@ -1,26 +1,32 @@
 import { CustomButtonComponent } from '@/app/shared/components/custom-button/custom-button.component';
+import { snackBarAction } from '@/app/shared/components/snack-bar/constants/actions';
 import { SnackBarComponent } from '@/app/shared/components/snack-bar/snack-bar.component';
+import { validNumber } from '@/app/shared/validators/constants/limits';
 import { isFutureDate } from '@/app/shared/validators/validators';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
-import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { DatePipe } from '@angular/common';
+import { ChangeDetectionStrategy, Component, ViewChild, inject } from '@angular/core';
+import { FormArray, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
-import { MatChipEditedEvent, MatChipInputEvent, MatChipsModule } from '@angular/material/chips';
 import { MatNativeDateModule, provideNativeDateAdapter } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatError, MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { MatStepperModule } from '@angular/material/stepper';
+import { MatStepper, MatStepperModule } from '@angular/material/stepper';
+
+import { FormData } from '../models/form-group.model';
+import { TagsFormComponent } from '../tags-form/tags-form.component';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     ReactiveFormsModule,
     CustomButtonComponent,
-    SnackBarComponent,
     MatStepperModule,
+    SnackBarComponent,
     FormsModule,
+    TagsFormComponent,
     MatFormFieldModule,
     MatButtonModule,
     MatInputModule,
@@ -28,7 +34,7 @@ import { MatStepperModule } from '@angular/material/stepper';
     MatError,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatChipsModule,
+    DatePipe,
   ],
   providers: [
     {
@@ -36,6 +42,7 @@ import { MatStepperModule } from '@angular/material/stepper';
       useValue: { displayDefaultIndicatorType: false },
     },
     provideNativeDateAdapter(),
+    DatePipe,
   ],
   selector: 'app-new-video-item-form',
   standalone: true,
@@ -45,114 +52,53 @@ import { MatStepperModule } from '@angular/material/stepper';
 export class NewVideoItemFormComponent {
   private formBuilder = inject(FormBuilder);
 
-  public readonly addOnBlur = true;
+  @ViewChild('stepper') private myStepper!: MatStepper;
 
-  public creationDateFormGroup = this.formBuilder.group({
-    date: ['', [Validators.required, isFutureDate]],
-  });
+  private snackBar = new SnackBarComponent();
 
-  public descriptionFormGroup = this.formBuilder.group({
-    description: ['', Validators.maxLength(255)],
-  });
+  @ViewChild(TagsFormComponent) private tagsFormComponent!: TagsFormComponent;
 
-  public formGroup: FormGroup;
+  public formGroup: FormGroup<FormData>;
 
-  public imageLinkFormGroup = this.formBuilder.group({
-    imageLink: ['', [Validators.required]],
-  });
-
-  public isTagArrayFull = signal<boolean>(false);
-
-  public maxDate: Date;
-
-  public readonly tagArray = signal<string[]>([]);
-
-  public tagsFormGroup = this.formBuilder.group({
-    tags: [['']],
-  });
-
-  public titleFormGroup = this.formBuilder.group({
-    title: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(20)]],
-  });
-
-  public videoLinkFormGroup = this.formBuilder.group({
-    videoLink: ['', [Validators.required]],
-  });
+  public maxDate = new Date();
 
   public constructor() {
     this.formGroup = this.formBuilder.group({
-      creationDate: this.creationDateFormGroup,
-      description: this.descriptionFormGroup,
-      imageLink: this.imageLinkFormGroup,
-      tags: this.tagsFormGroup,
-      title: this.titleFormGroup,
-      videoLink: this.videoLinkFormGroup,
+      creationDate: ['', [Validators.required, isFutureDate]],
+      description: ['', Validators.maxLength(validNumber.MAX_DESCRIPTION)],
+      imageLink: ['', [Validators.required]],
+      tags: this.formBuilder.array([]),
+      title: [
+        '',
+        [Validators.required, Validators.minLength(validNumber.MIN_TITLE), Validators.maxLength(validNumber.MAX_TITLE)],
+      ],
+      videoLink: ['', [Validators.required]],
     });
-
-    this.maxDate = new Date();
-  }
-
-  public add(event: MatChipInputEvent): void {
-    const value = (event.value || '').trim();
-    if (value && !this.tagArray().find((tag) => tag === value) && this.tagArray().length < 5) {
-      this.tagArray.update((tags) => [...tags, value]);
-      this.isTagArrayFull.set(false);
-    }
-    if (this.tagArray().length >= 5) {
-      this.isTagArrayFull.set(true);
-    }
-    event.chipInput.clear();
-  }
-
-  public edit(tag: string, event: MatChipEditedEvent): void {
-    const value = event.value.trim();
-    if (!value) {
-      this.remove(tag);
-      return;
-    }
-    this.tagArray.update((tags) => {
-      const index = tags.indexOf(tag);
-      if (index >= 0) {
-        const currentTags = tags;
-        currentTags[index] = value;
-        return [...tags];
-      }
-      return tags;
-    });
-  }
-
-  public getTagArrayLength(): number {
-    return this.tagArray().length;
   }
 
   public onSubmit(): void {
-    this.tagsFormGroup.patchValue({ tags: [...this.tagArray()] });
-    // eslint-disable-next-line no-console
-    console.log(this.formGroup.value);
+    const tags = this.tagsFormComponent?.getTags() ?? [];
+    this.setTags(tags);
+
+    // TBD: use data to create a new card
+    this.snackBar.openSnackBar(
+      `Your video has been created ${JSON.stringify(this.formGroup.value)}`,
+      snackBarAction.CHECK,
+    );
   }
 
-  public remove(tag: string): void {
-    this.tagArray.update((tags) => {
-      const index = tags.indexOf(tag);
-      if (index < 0) {
-        return tags;
-      }
-
-      tags.splice(index, 1);
-      return [...tags];
-    });
-    if (this.tagArray().length < 5) {
-      this.isTagArrayFull.set(false);
-    }
-  }
-
-  public reset(): void {
+  public reset(event: Event): void {
+    event.preventDefault();
     this.formGroup.reset();
-    this.tagArray.set([]);
-    this.isTagArrayFull.set(false);
+    this.myStepper.reset();
+    this.tagsFormComponent.reset();
   }
 
-  public get placeholderText(): string {
-    return this.isTagArrayFull() ? '' : 'New tag...';
+  public setTags(tags: string[]): void {
+    const tagsFormArray = this.formGroup.get('tags');
+    if (tagsFormArray instanceof FormArray) {
+      tagsFormArray.clear();
+      tags.forEach((tag) => tagsFormArray.push(this.formBuilder.control(tag)));
+    }
   }
 }

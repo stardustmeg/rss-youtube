@@ -20,11 +20,20 @@
   margin-left: auto;
 }
 
-.form {
+.mat-step {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 
-  margin: $standart-rem auto;
+  min-width: $standart-rem * 30;
+  margin: $standart-rem * 3 auto;
+}
+
+.mat-step-title {
+  margin: $standart-rem * 3 auto $standart-rem;
+}
+
+.mat-mdc-form-field {
+  min-width: $standart-rem * 30;
 }

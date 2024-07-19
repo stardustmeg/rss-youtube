@@ -1,0 +1,10 @@
+@import '../../../styles/numbers.module';
+
+.mat-mdc-form-field {
+  max-width: $standart-rem * 30;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+}
