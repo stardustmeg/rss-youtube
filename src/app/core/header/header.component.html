@@ -16,7 +16,10 @@
       }
     </div>
 
-    <app-user [isLoggedIn]="loginService.isLoggedIn() | async"></app-user>
+    <div class="user-controls">
+      <app-user [isLoggedIn]="loginService.isLoggedIn() | async"></app-user>
+      <app-custom-link attributeType="mat-mini-fab" icon="admin_panel_settings" routerLink="/admin"></app-custom-link>
+    </div>
   </div>
 
   @if (isSortVisible && isMainPage) {
