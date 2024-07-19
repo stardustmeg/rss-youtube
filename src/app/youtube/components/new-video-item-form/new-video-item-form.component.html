@@ -10,6 +10,12 @@
           @if (titleFormGroup.get('title')?.hasError('required')) {
             <mat-error>Please enter a title</mat-error>
           }
+          @if (titleFormGroup.get('title')?.hasError('minlength')) {
+            <mat-error>The title is too short. Minimum length is 3</mat-error>
+          }
+          @if (titleFormGroup.get('title')?.hasError('maxlength')) {
+            <mat-error>The title is too long. Maximum length is 20</mat-error>
+          }
         </mat-form-field>
 
         <div>
@@ -24,6 +30,10 @@
 
         <mat-form-field>
           <textarea matInput placeholder="description" formControlName="description"></textarea>
+
+          @if (descriptionFormGroup.get('description')?.hasError('maxlength')) {
+            <mat-error>The description is too long. Maximum length is 255</mat-error>
+          }
         </mat-form-field>
 
         <div>
@@ -78,8 +88,13 @@
         <mat-form-field>
           <input matInput [matDatepicker]="picker" formControlName="date" [max]="maxDate" />
           <mat-hint>MM/DD/YYYY</mat-hint>
+
           <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
+
+          @if (creationDateFormGroup.get('date')?.hasError('futureDate')) {
+            <mat-error>The date is invalid</mat-error>
+          }
 
           @if (creationDateFormGroup.get('date')?.hasError('required')) {
             <mat-error>Please enter a date</mat-error>

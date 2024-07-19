@@ -1,5 +1,6 @@
 import { CustomButtonComponent } from '@/app/shared/components/custom-button/custom-button.component';
 import { SnackBarComponent } from '@/app/shared/components/snack-bar/snack-bar.component';
+import { isFutureDate } from '@/app/shared/validators/validators';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -47,11 +48,11 @@ export class NewVideoItemFormComponent {
   public readonly addOnBlur = true;
 
   public creationDateFormGroup = this.formBuilder.group({
-    date: ['', [Validators.required]],
+    date: ['', [Validators.required, isFutureDate]],
   });
 
   public descriptionFormGroup = this.formBuilder.group({
-    description: [''],
+    description: ['', Validators.maxLength(255)],
   });
 
   public formGroup: FormGroup;
@@ -71,7 +72,7 @@ export class NewVideoItemFormComponent {
   });
 
   public titleFormGroup = this.formBuilder.group({
-    title: ['', [Validators.required]],
+    title: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(20)]],
   });
 
   public videoLinkFormGroup = this.formBuilder.group({

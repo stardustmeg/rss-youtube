@@ -40,6 +40,16 @@ const hasSpecialCharacter = (control: AbstractControl): ValidationErrors | null 
   return hasSpecialCharacter ? null : { specialCharacter: true };
 };
 
+export const isFutureDate = (control: AbstractControl): ValidationErrors | null => {
+  if (!(control.value instanceof Date)) {
+    return null;
+  }
+  const date = new Date(control.value);
+  const now = new Date();
+  now.setHours(0, 0, 0, 0);
+  return date <= now ? null : { futureDate: true };
+};
+
 export const passwordStrengthValidator = (control: AbstractControl): ValidationErrors | null => {
   if (typeof control.value !== 'string') {
     return null;
