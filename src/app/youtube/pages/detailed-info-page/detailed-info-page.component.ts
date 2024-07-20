@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import { CustomLinkComponent } from '@/app/shared/components/custom-link/custom-link.component';
 import { appRoute } from '@/app/shared/constants/routes';
 import { DatePipe } from '@angular/common';
@@ -19,7 +18,7 @@ import { VideoDataService } from '../../services/video-data/video-data.service';
   templateUrl: './detailed-info-page.component.html',
 })
 export class DetailedInfoPageComponent implements OnInit {
-  public video!: VideoItem;
+  public video?: VideoItem;
 
   public constructor(
     private route: ActivatedRoute,
@@ -30,14 +29,15 @@ export class DetailedInfoPageComponent implements OnInit {
   public ngOnInit(): void {
     this.route.queryParams.subscribe((params: Params) => {
       const VIDEO_ID: unknown = params['id'];
-
       if (typeof VIDEO_ID === 'string') {
         const video = this.videoService.getVideoById(VIDEO_ID);
-        if (!video) {
-          this.router.navigate([appRoute.NOT_FOUND]);
-        } else {
-          this.video = video;
-        }
+        video.subscribe((video) => {
+          if (!video) {
+            this.router.navigate([appRoute.NOT_FOUND]);
+          } else {
+            this.video = video;
+          }
+        });
       }
     });
   }
