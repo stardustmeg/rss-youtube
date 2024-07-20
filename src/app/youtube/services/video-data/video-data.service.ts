@@ -1,8 +1,9 @@
-import data from '@/assets/db/response.json';
-import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { Injectable, inject } from '@angular/core';
+import { BehaviorSubject, Observable } from 'rxjs';
 
+import { Response } from '../../models/response.model';
 import { VideoItem } from '../../models/video-item.model';
+import { YoutubeApiService } from '../youtube-api/youtube-api.service';
 
 @Injectable({
   providedIn: 'root',
@@ -10,25 +11,25 @@ import { VideoItem } from '../../models/video-item.model';
 export class VideoDataService {
   private foundVideoItems: VideoItem[] = [];
 
-  private originalVideoItems: VideoItem[] = data.items;
-
   private updatedVideoItems = new BehaviorSubject<VideoItem[]>([]);
+
+  private youtubeApiService: YoutubeApiService = inject(YoutubeApiService);
 
   public updatedVideoItems$ = this.updatedVideoItems.asObservable();
 
-  private constructor() {}
+  public constructor() {}
 
   public getFoundData(): VideoItem[] {
     return this.foundVideoItems;
   }
 
-  public getOriginalData(): VideoItem[] {
-    return this.originalVideoItems;
+  public getVideoById(id: string): VideoItem | null {
+    return this.foundVideoItems.find((item) => item.id === id) || null;
   }
 
-  public getVideoById(id: string): VideoItem | null {
-    return this.originalVideoItems.find((item) => item.id === id) || null;
-  } // TBD: remove with fetch by ID
+  public searchVideos(query: string): Observable<Response> {
+    return this.youtubeApiService.searchVideos(query);
+  }
 
   public setFoundData(data: VideoItem[]): void {
     this.foundVideoItems = data;
