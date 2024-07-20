@@ -1,5 +1,6 @@
-import { Injectable, inject } from '@angular/core';
-import { BehaviorSubject, Observable, map, switchMap } from 'rxjs';
+import { LoginService } from '@/app/auth/services/login/login.service';
+import { Injectable, OnDestroy, inject } from '@angular/core';
+import { BehaviorSubject, Observable, Subject, map, switchMap, takeUntil } from 'rxjs';
 
 import { VideoItem } from '../../models/video-item.model';
 import { YoutubeApiService } from '../youtube-api/youtube-api.service';
@@ -8,8 +9,12 @@ import { videoKind } from './constants/videoKind';
 @Injectable({
   providedIn: 'root',
 })
-export class VideoDataService {
+export class VideoDataService implements OnDestroy {
+  private destroy$ = new Subject<void>();
+
   private foundVideoItems: VideoItem[] = [];
+
+  private loginService = inject(LoginService);
 
   private updatedVideoItems = new BehaviorSubject<VideoItem[]>([]);
 
@@ -17,7 +22,20 @@ export class VideoDataService {
 
   public updatedVideoItems$ = this.updatedVideoItems.asObservable();
 
-  public constructor() {}
+  public constructor() {
+    this.loginService
+      .isLoggedIn()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((isLoggedIn) => {
+        if (!isLoggedIn) {
+          this.clearVideoItems();
+        }
+      });
+  }
+
+  private clearVideoItems(): void {
+    this.setVideoData([]);
+  }
 
   private setFoundData(data: VideoItem[]): void {
     this.foundVideoItems = data;
@@ -33,6 +51,11 @@ export class VideoDataService {
 
   public getVideoById(id: string): Observable<VideoItem | null> {
     return this.youtubeApiService.getVideoById(id) || null;
+  }
+
+  public ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   public searchVideos(query: string, maxResults = 20): Observable<VideoItem[]> {
