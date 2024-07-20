@@ -17,8 +17,6 @@ import { DEBOUNCE_TIME, MIN_LENGTH } from './constants/number-values';
   templateUrl: './search.component.html',
 })
 export class SearchComponent implements OnInit {
-  private searchPipe = inject(SearchPipe);
-
   private videoService = inject(VideoDataService);
 
   public searchForm = new FormGroup({
@@ -36,22 +34,13 @@ export class SearchComponent implements OnInit {
         distinctUntilChanged(),
       )
       .subscribe((value) => {
-        if (!value) {
-          this.videoService.setUpdatedData(this.videoService.getFoundData());
-          return;
-        }
-        this.onChange(value);
+        this.onSearch(value!);
       });
   }
 
-  public onChange(value: string): void {
-    if (!value) {
-      return;
-    }
-    const videoItems = this.videoService.searchVideos(value);
-    videoItems.subscribe((data) => {
-      this.videoService.setFoundData(data);
-      this.videoService.setUpdatedData(data);
+  public onSearch(query: string): void {
+    this.videoService.searchVideos(query).subscribe((detailedVideos) => {
+      this.videoService.setVideoData(detailedVideos);
     });
   }
 }

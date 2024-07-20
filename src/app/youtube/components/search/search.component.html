@@ -1,4 +1,3 @@
-<form [formGroup]="searchForm" (ngSubmit)="onChange(searchForm.get('searchTerm')!.value!)">
+<form [formGroup]="searchForm" (ngSubmit)="onSearch(searchForm.get('searchTerm')!.value!)">
   <input type="search" class="input" placeholder="I want to find..." formControlName="searchTerm" />
-  <app-custom-button customClass="search-button">search</app-custom-button>
 </form>

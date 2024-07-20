@@ -9,13 +9,9 @@
   font-size: $smaller-font;
 
   border: none;
-  border-radius: $border-radius 0 0 $border-radius;
+  border-radius: $border-radius;
 
   &:focus {
     outline: none;
   }
-}
-
-.search-button {
-  border-radius: 0 $border-radius $border-radius 0;
 }
