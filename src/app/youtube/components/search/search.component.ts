@@ -2,9 +2,11 @@ import { CustomButtonComponent } from '@/app/shared/components/custom-button/cus
 import { Component, OnInit, inject } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
+import { debounceTime, distinctUntilChanged, filter } from 'rxjs';
 
 import { SearchPipe } from '../../pipes/search/search.pipe';
 import { VideoDataService } from '../../services/video-data/video-data.service';
+import { DEBOUNCE_TIME, MIN_LENGTH } from './constants/number-values';
 
 @Component({
   imports: [FormsModule, CustomButtonComponent, MatIconModule, SearchPipe, ReactiveFormsModule],
@@ -26,15 +28,30 @@ export class SearchComponent implements OnInit {
   public constructor() {}
 
   public ngOnInit(): void {
-    this.searchForm.get('searchTerm')!.valueChanges.subscribe((value) => {
-      this.onChange(value);
-    });
+    this.searchForm
+      .get('searchTerm')!
+      .valueChanges.pipe(
+        filter((value) => typeof value === 'string' && value.length >= MIN_LENGTH),
+        debounceTime(DEBOUNCE_TIME),
+        distinctUntilChanged(),
+      )
+      .subscribe((value) => {
+        if (!value) {
+          this.videoService.setUpdatedData(this.videoService.getFoundData());
+          return;
+        }
+        this.onChange(value);
+      });
   }
 
-  public onChange(value: null | string): void {
-    const videoItems = this.videoService.getOriginalData();
-    const newItems = value ? this.searchPipe.transform(videoItems, value) : videoItems;
-    this.videoService.setUpdatedData(newItems);
-    this.videoService.setFoundData(newItems);
+  public onChange(value: string): void {
+    if (!value) {
+      return;
+    }
+    const videoItems = this.videoService.searchVideos(value);
+    videoItems.subscribe((data) => {
+      this.videoService.setFoundData(data);
+      this.videoService.setUpdatedData(data);
+    });
   }
 }
