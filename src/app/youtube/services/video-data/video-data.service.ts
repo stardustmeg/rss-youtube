@@ -1,9 +1,9 @@
 import { Injectable, inject } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, map, switchMap } from 'rxjs';
 
-import { Response } from '../../models/response.model';
 import { VideoItem } from '../../models/video-item.model';
 import { YoutubeApiService } from '../youtube-api/youtube-api.service';
+import { videoKind } from './constants/videoKind';
 
 @Injectable({
   providedIn: 'root',
@@ -19,23 +19,43 @@ export class VideoDataService {
 
   public constructor() {}
 
+  private setFoundData(data: VideoItem[]): void {
+    this.foundVideoItems = data;
+  }
+
+  public fetchVideoDetails(videoIds: string[]): Observable<VideoItem[]> {
+    return this.youtubeApiService.getVideoDetails(videoIds);
+  }
+
   public getFoundData(): VideoItem[] {
     return this.foundVideoItems;
   }
 
-  public getVideoById(id: string): VideoItem | null {
-    return this.foundVideoItems.find((item) => item.id === id) || null;
+  public getVideoById(id: string): Observable<VideoItem | null> {
+    return this.youtubeApiService.getVideoById(id) || null;
   }
 
-  public searchVideos(query: string): Observable<Response> {
-    return this.youtubeApiService.searchVideos(query);
-  }
-
-  public setFoundData(data: VideoItem[]): void {
-    this.foundVideoItems = data;
+  public searchVideos(query: string): Observable<VideoItem[]> {
+    return this.youtubeApiService.searchVideos(query).pipe(
+      map((searchResponse) =>
+        searchResponse.items
+          .filter((item) => item.kind === videoKind.SEARCH_RESULT && item.id.videoId)
+          .map((item) => item.id.videoId),
+      ),
+      switchMap((videoIds: string[]) => (videoIds.length ? this.fetchVideoDetails(videoIds) : [])),
+      map((detailedVideos) => {
+        this.setVideoData(detailedVideos);
+        return detailedVideos;
+      }),
+    );
   }
 
   public setUpdatedData(data: VideoItem[]): void {
     this.updatedVideoItems.next(data);
+  }
+
+  public setVideoData(data: VideoItem[]): void {
+    this.setFoundData(data);
+    this.setUpdatedData(data);
   }
 }
