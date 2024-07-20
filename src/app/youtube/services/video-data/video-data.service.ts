@@ -35,8 +35,8 @@ export class VideoDataService {
     return this.youtubeApiService.getVideoById(id) || null;
   }
 
-  public searchVideos(query: string): Observable<VideoItem[]> {
-    return this.youtubeApiService.searchVideos(query).pipe(
+  public searchVideos(query: string, maxResults = 20): Observable<VideoItem[]> {
+    return this.youtubeApiService.searchVideos(query, maxResults).pipe(
       map((searchResponse) =>
         searchResponse.items
           .filter((item) => item.kind === videoKind.SEARCH_RESULT && item.id.videoId)

@@ -25,8 +25,8 @@ export class YoutubeApiService {
     return this.http.get<Response>(this.videosEndpoint, { params }).pipe(map((response) => response.items));
   }
 
-  public searchVideos(query: string): Observable<Response> {
-    const params = new HttpParams().set('part', 'snippet').set('q', query);
+  public searchVideos(query: string, maxResults: number): Observable<Response> {
+    const params = new HttpParams().set('part', 'snippet').set('q', query).set('maxResults', maxResults.toString());
     return this.http.get<Response>(this.searchEndpoint, { params });
   }
 }
