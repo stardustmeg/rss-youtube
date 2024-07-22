@@ -17,9 +17,9 @@
     </div>
 
     <div class="user-controls">
-      <app-user [isLoggedIn]="loginService.isLoggedIn() | async"></app-user>
+      <app-user [isLoggedIn]="isLoggedIn$ | async"></app-user>
 
-      @if (loginService.isLoggedIn() | async) {
+      @if (isLoggedIn$ | async) {
         <app-custom-link attributeType="mat-mini-fab" icon="admin_panel_settings" routerLink="/admin"></app-custom-link>
       }
     </div>

@@ -11,7 +11,7 @@ import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { NavigationEnd, Router, RouterLink } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 
 @Component({
   imports: [
@@ -36,13 +36,17 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   private routerSubscription: Subscription | undefined;
 
+  public isLoggedIn$: Observable<boolean> | undefined;
+
   public isMainPage = false;
 
   public isSortVisible = false;
 
   public loginService = inject(LoginService);
 
-  public constructor() {}
+  public constructor() {
+    this.isLoggedIn$ = this.loginService.isLoggedIn();
+  }
 
   private checkIfMainPage(): void {
     const currentPath = this.router.url.split('?')[0];
