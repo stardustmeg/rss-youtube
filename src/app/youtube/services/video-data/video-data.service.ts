@@ -49,8 +49,8 @@ export class VideoDataService implements OnDestroy {
     return this.foundVideoItems;
   }
 
-  public getVideoById(id: string): Observable<VideoItem | null> {
-    return this.youtubeApiService.getVideoById(id) || null;
+  public getVideoById(id: string): Observable<VideoItem> {
+    return this.youtubeApiService.getVideoById(id);
   }
 
   public ngOnDestroy(): void {
@@ -65,7 +65,7 @@ export class VideoDataService implements OnDestroy {
           .filter((item) => item.kind === videoKind.SEARCH_RESULT && item.id.videoId)
           .map((item) => item.id.videoId),
       ),
-      switchMap((videoIds: string[]) => (videoIds.length ? this.fetchVideoDetails(videoIds) : [])),
+      switchMap((videoIds: string[]) => this.fetchVideoDetails(videoIds)),
       map((detailedVideos) => {
         this.setVideoData(detailedVideos);
         return detailedVideos;

@@ -3,9 +3,9 @@
     <div class="header-controls">
       <app-custom-link customClass="to-main-link" icon="play_arrow" routerLink="/"></app-custom-link>
 
-      @if (isMainPage) {
-        <app-search></app-search>
+      <app-search></app-search>
 
+      @if (isMainPage) {
         <app-custom-button
           attributeType="mat-mini-fab"
           icon="tune"

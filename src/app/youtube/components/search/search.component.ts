@@ -1,7 +1,9 @@
 import { CustomButtonComponent } from '@/app/shared/components/custom-button/custom-button.component';
+import { appPath } from '@/app/shared/constants/routes';
 import { Component, OnInit, inject } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
+import { ActivatedRoute, Router } from '@angular/router';
 import { debounceTime, distinctUntilChanged, filter } from 'rxjs';
 
 import { SearchPipe } from '../../pipes/search/search.pipe';
@@ -17,6 +19,10 @@ import { DEBOUNCE_TIME, MIN_LENGTH } from './constants/number-values';
   templateUrl: './search.component.html',
 })
 export class SearchComponent implements OnInit {
+  private activatedRoute = inject(ActivatedRoute);
+
+  private router = inject(Router);
+
   private videoService = inject(VideoDataService);
 
   public searchForm = new FormGroup({
@@ -25,7 +31,18 @@ export class SearchComponent implements OnInit {
 
   public constructor() {}
 
+  private updateSearchFormQuery(): void {
+    this.activatedRoute.queryParams.subscribe((params) => {
+      const query: unknown = params['q'];
+      if (query && typeof query === 'string') {
+        this.searchForm.get('searchTerm')!.setValue(query);
+        this.onSearch(query);
+      }
+    });
+  }
+
   public ngOnInit(): void {
+    this.updateSearchFormQuery();
     this.searchForm
       .get('searchTerm')!
       .valueChanges.pipe(
@@ -39,6 +56,7 @@ export class SearchComponent implements OnInit {
   }
 
   public onSearch(query: string): void {
+    this.router.navigate([appPath.MAIN], { queryParams: { q: query } });
     this.videoService.searchVideos(query).subscribe((detailedVideos) => {
       this.videoService.setVideoData(detailedVideos);
     });
