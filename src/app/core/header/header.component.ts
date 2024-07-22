@@ -45,7 +45,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   public constructor() {}
 
   private checkIfMainPage(): void {
-    this.isMainPage = this.router.url === appRoute.MAIN;
+    const currentPath = this.router.url.split('?')[0];
+    this.isMainPage = currentPath === appRoute.MAIN;
   }
 
   public ngOnDestroy(): void {
