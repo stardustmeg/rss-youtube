@@ -21,5 +21,13 @@
         <app-video-statistics [video]="video" class="video-statistics"></app-video-statistics>
       </div>
     </article>
+  } @else {
+    <div class="not-found">
+      <img class="not-found-image" src="../../../../assets/img/video-not-found.jpg" alt="Video not found" />
+      <p class="not-found-text">We couldn't find this video</p>
+      <app-custom-link [attributeType]="'mat-flat-button'" [customClass]="'to-main'" routerLink="/"
+        >Go back to Main</app-custom-link
+      >
+    </div>
   }
 </div>

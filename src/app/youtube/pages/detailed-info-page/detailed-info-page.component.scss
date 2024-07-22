@@ -70,3 +70,19 @@
   font-size: $font-size-xxs;
   color: $accent-color;
 }
+
+.not-found {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.not-found-image {
+  margin-top: $standart-rem * 4;
+}
+
+.not-found-text {
+  margin: $standart-rem * 4;
+  font-size: $font-size-xl;
+}
