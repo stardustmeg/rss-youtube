@@ -36,7 +36,6 @@ export class SearchComponent implements OnInit {
       const query: unknown = params['q'];
       if (query && typeof query === 'string') {
         this.searchForm.get('searchTerm')!.setValue(query);
-        this.onSearch(query);
       }
     });
   }
