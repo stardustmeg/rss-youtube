@@ -2,7 +2,7 @@
   <mat-form-field appearance="outline" class="example-chip-list">
     <mat-label>Tags</mat-label>
     <mat-chip-grid #chipGrid aria-label="Enter tags">
-      @for (tag of tagArray(); track tag) {
+      @for (tag of newVideoTags(); track tag) {
         <mat-chip-row
           (removed)="remove(tag)"
           [editable]="true"
@@ -20,11 +20,11 @@
         [matChipInputFor]="chipGrid"
         [matChipInputAddOnBlur]="addOnBlur"
         (matChipInputTokenEnd)="add($event)"
-        [disabled]="isTagArrayFull()"
+        [disabled]="isNewVideoTagsArrayFull()"
       />
     </mat-chip-grid>
 
-    @if (getTagArrayLength() === maxTags) {
+    @if (getNewVideoTagsLength() === maxTags) {
       <mat-hint>You can only enter {{ maxTags }} tags</mat-hint>
     }
   </mat-form-field>

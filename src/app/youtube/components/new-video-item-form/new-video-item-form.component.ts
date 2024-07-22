@@ -77,7 +77,7 @@ export class NewVideoItemFormComponent {
   }
 
   public onSubmit(): void {
-    const tags = this.tagsFormComponent?.getTags() ?? [];
+    const tags = this.tagsFormComponent?.getNewVideoTags() ?? [];
     this.setTags(tags);
 
     // TBD: use data to create a new card
@@ -85,10 +85,13 @@ export class NewVideoItemFormComponent {
       `Your video has been created ${JSON.stringify(this.formGroup.value)}`,
       snackBarAction.CHECK,
     );
+    this.reset();
   }
 
-  public reset(event: Event): void {
-    event.preventDefault();
+  public reset(event?: Event): void {
+    if (event) {
+      event.preventDefault();
+    }
     this.formGroup.reset();
     this.myStepper.reset();
     this.tagsFormComponent.reset();

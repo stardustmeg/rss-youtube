@@ -19,11 +19,11 @@ export class TagsFormComponent {
 
   public readonly addOnBlur = true;
 
-  public isTagArrayFull = signal<boolean>(false);
+  public isNewVideoTagsArrayFull = signal<boolean>(false);
 
   public readonly maxTags = validNumber.MAX_TAGS;
 
-  public readonly tagArray = signal<string[]>([]);
+  public readonly newVideoTags = signal<string[]>([]);
 
   @Output() public tagsChange = new EventEmitter<string[]>();
 
@@ -35,13 +35,13 @@ export class TagsFormComponent {
 
   public add(event: MatChipInputEvent): void {
     const value = (event.value || '').trim();
-    if (value && !this.tagArray().find((tag) => tag === value) && this.tagArray().length < this.maxTags) {
-      this.tagArray.update((tags) => [...tags, value]);
-      this.isTagArrayFull.set(false);
-      this.tagsChange.emit(this.getTags());
+    if (value && !this.newVideoTags().find((tag) => tag === value) && this.newVideoTags().length < this.maxTags) {
+      this.newVideoTags.update((tags) => [...tags, value]);
+      this.isNewVideoTagsArrayFull.set(false);
+      this.tagsChange.emit(this.getNewVideoTags());
     }
-    if (this.tagArray().length >= this.maxTags) {
-      this.isTagArrayFull.set(true);
+    if (this.newVideoTags().length >= this.maxTags) {
+      this.isNewVideoTagsArrayFull.set(true);
     }
     event.chipInput.clear();
   }
@@ -52,7 +52,7 @@ export class TagsFormComponent {
       this.remove(tag);
       return;
     }
-    this.tagArray.update((tags) => {
+    this.newVideoTags.update((tags) => {
       const index = tags.indexOf(tag);
       if (index >= 0) {
         const currentTags = tags;
@@ -64,16 +64,16 @@ export class TagsFormComponent {
     });
   }
 
-  public getTagArrayLength(): number {
-    return this.tagArray().length;
+  public getNewVideoTags(): string[] {
+    return this.newVideoTags();
   }
 
-  public getTags(): string[] {
-    return this.tagArray();
+  public getNewVideoTagsLength(): number {
+    return this.newVideoTags().length;
   }
 
   public remove(tag: string): void {
-    this.tagArray.update((tags) => {
+    this.newVideoTags.update((tags) => {
       const index = tags.indexOf(tag);
       if (index < 0) {
         return tags;
@@ -83,18 +83,18 @@ export class TagsFormComponent {
       this.tagsChange.emit([...tags]);
       return [...tags];
     });
-    if (this.tagArray().length < this.maxTags) {
-      this.isTagArrayFull.set(false);
+    if (this.newVideoTags().length < this.maxTags) {
+      this.isNewVideoTagsArrayFull.set(false);
     }
   }
 
   public reset(): void {
-    this.tagArray.set([]);
-    this.isTagArrayFull.set(false);
+    this.newVideoTags.set([]);
+    this.isNewVideoTagsArrayFull.set(false);
     this.tagsChange.emit([]);
   }
 
   public get placeholderText(): string {
-    return this.isTagArrayFull() ? '' : PLACEHOLDER_TEXT;
+    return this.isNewVideoTagsArrayFull() ? '' : PLACEHOLDER_TEXT;
   }
 }
