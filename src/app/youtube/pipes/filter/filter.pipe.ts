@@ -16,8 +16,7 @@ export class FilterPipe implements PipeTransform {
     return videos.filter(
       (video) =>
         video.snippet.title.toLowerCase().includes(lowerCaseSearchTerm) ||
-        video.snippet.description.toLowerCase().includes(lowerCaseSearchTerm) ||
-        video.snippet.tags.some((tag) => tag.toLowerCase().includes(lowerCaseSearchTerm)),
+        video.snippet.description.toLowerCase().includes(lowerCaseSearchTerm),
     );
   }
 }
