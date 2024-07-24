@@ -14,7 +14,7 @@ export class VideoDataService {
 
   private loginService = inject(LoginService);
 
-  private updatedVideoItems = new BehaviorSubject<VideoItem[]>([]);
+  private updatedVideoItems = new BehaviorSubject<VideoItem[] | null>(null);
 
   private youtubeApiService: YoutubeApiService = inject(YoutubeApiService);
 

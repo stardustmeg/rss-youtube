@@ -1,5 +1,14 @@
-<div class="video-list">
-  <div class="video-card" *ngFor="let video of videos">
-    <app-video-item-card [video]="video"></app-video-item-card>
+@if (videos && videos.length > 0) {
+  <div class="video-list">
+    @for (video of videos; track video.id) {
+      <div class="video-card">
+        <app-video-item-card [video]="video"></app-video-item-card>
+      </div>
+    }
   </div>
-</div>
+} @else if (videos && videos.length === 0) {
+  <div class="no-video">
+    <img class="not-found-image" src="../../../../assets/img/no-results.jpg" alt="Video not found" />
+    <h6 class="not-found-text">Sorry, we couldn't find any videos. Try a different query</h6>
+  </div>
+}

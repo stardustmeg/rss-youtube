@@ -30,23 +30,23 @@
     </button>
 
     @switch (true) {
-      @case (loginForm.get('password')?.hasError('required')) {
-        <mat-hint>Please enter a password</mat-hint>
-      }
-      @case (loginForm.get('password')?.errors?.['passwordStrength']?.lowerCase) {
+      @case (loginForm.get('password')?.errors?.['passwordStrength'].lowerCase) {
         <mat-hint>Password must contain lowercase letters</mat-hint>
       }
-      @case (loginForm.get('password')?.errors?.['passwordStrength']?.upperCase) {
+      @case (loginForm.get('password')?.errors?.['passwordStrength'].upperCase) {
         <mat-hint>Password must contain uppercase letters</mat-hint>
       }
-      @case (loginForm.get('password')?.errors?.['passwordStrength']?.number) {
+      @case (loginForm.get('password')?.errors?.['passwordStrength'].number) {
         <mat-hint>Password must contain at least one number</mat-hint>
       }
-      @case (loginForm.get('password')?.errors?.['passwordStrength']?.specialCharacter) {
+      @case (loginForm.get('password')?.errors?.['passwordStrength'].specialCharacter) {
         <mat-hint>Password must contain at least one special character, e.g., ! "&#64;" # ?</mat-hint>
       }
-      @case (loginForm.get('password')?.errors?.['passwordStrength']?.minLength) {
+      @case (loginForm.get('password')?.errors?.['passwordStrength'].minLength) {
         <mat-hint>Password must be at least 8 characters long</mat-hint>
+      }
+      @default {
+        <mat-hint>Please enter a password</mat-hint>
       }
     }
   </mat-form-field>

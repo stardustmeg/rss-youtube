@@ -33,7 +33,9 @@ export class SortComponent implements OnInit {
 
   public ngOnInit(): void {
     this.videoService.updatedVideoItems$.subscribe((items) => {
-      this.videoItems = items;
+      if (items) {
+        this.videoItems = items;
+      }
     });
   }
 

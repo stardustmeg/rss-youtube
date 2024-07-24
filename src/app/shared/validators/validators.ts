@@ -38,7 +38,7 @@ const hasSpecialCharacter = (control: AbstractControl): ValidationErrors | null 
   if (typeof control.value !== 'string') {
     return null;
   }
-  const hasSpecialCharacter = /[!@#$%^&*(),.?":{}|<>]/.test(control.value);
+  const hasSpecialCharacter = /[^A-Za-z0-9]/.test(control.value);
   return hasSpecialCharacter ? null : { specialCharacter: true };
 };
 

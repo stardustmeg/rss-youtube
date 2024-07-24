@@ -1,6 +1,6 @@
 import { CustomLinkComponent } from '@/app/shared/components/custom-link/custom-link.component';
 import { DatePipe } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { ActivatedRoute, Params, RouterLink } from '@angular/router';
 
 import { VideoStatisticsComponent } from '../../components/video-statistics/video-statistics.component';
@@ -17,18 +17,19 @@ import { VideoDataService } from '../../services/video-data/video-data.service';
   templateUrl: './detailed-info-page.component.html',
 })
 export class DetailedInfoPageComponent implements OnInit {
+  private route = inject(ActivatedRoute);
+
+  private videoService = inject(VideoDataService);
+
   public video?: VideoItem;
 
-  public constructor(
-    private route: ActivatedRoute,
-    private videoService: VideoDataService,
-  ) {}
+  public constructor() {}
 
   public ngOnInit(): void {
     this.route.queryParams.subscribe((params: Params) => {
-      const VIDEO_ID: unknown = params['id'];
-      if (typeof VIDEO_ID === 'string') {
-        const video = this.videoService.getVideoById(VIDEO_ID);
+      const { id } = params;
+      if (typeof id === 'string') {
+        const video = this.videoService.getVideoById(id);
         video.subscribe((video) => {
           this.video = video;
         });
