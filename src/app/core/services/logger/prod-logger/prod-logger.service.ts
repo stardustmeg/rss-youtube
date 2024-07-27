@@ -2,8 +2,8 @@
 import { stringTemplate } from '@/app/shared/utils/string-template';
 import { Injectable } from '@angular/core';
 
-import { LoggerService } from '../../logger.service';
 import { loggerMessage } from '../constants/logger-message';
+import { LoggerService } from '../logger.service';
 
 @Injectable({
   providedIn: 'root',

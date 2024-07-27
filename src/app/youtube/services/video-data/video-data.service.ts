@@ -1,6 +1,6 @@
 import { LoginService } from '@/app/auth/services/login/login.service';
 import { Injectable, inject } from '@angular/core';
-import { BehaviorSubject, Observable, map, switchMap } from 'rxjs';
+import { BehaviorSubject, Observable, map, switchMap, tap } from 'rxjs';
 
 import { VideoItem } from '../../models/video-item.model';
 import { YoutubeApiService } from '../youtube-api/youtube-api.service';
@@ -21,15 +21,20 @@ export class VideoDataService {
   public updatedVideoItems$ = this.updatedVideoItems.asObservable();
 
   public constructor() {
-    this.loginService.isLoggedIn().subscribe((isLoggedIn) => {
-      if (!isLoggedIn) {
-        this.clearVideoItems();
-      }
-    });
+    this.loginService
+      .isLoggedIn()
+      .pipe(
+        tap((isLoggedIn) => {
+          if (!isLoggedIn) {
+            this.clearVideoItems();
+          }
+        }),
+      )
+      .subscribe();
   }
 
   private clearVideoItems(): void {
-    this.setVideoData([]);
+    this.setVideoData(null);
   }
 
   private setFoundData(data: VideoItem[]): void {
@@ -63,12 +68,17 @@ export class VideoDataService {
     );
   }
 
-  public setUpdatedData(data: VideoItem[]): void {
+  public setUpdatedData(data: VideoItem[] | null): void {
     this.updatedVideoItems.next(data);
   }
 
-  public setVideoData(data: VideoItem[]): void {
-    this.setFoundData(data);
-    this.setUpdatedData(data);
+  public setVideoData(data: VideoItem[] | null): void {
+    if (!data) {
+      this.setFoundData([]);
+      this.setUpdatedData(data);
+    } else {
+      this.setFoundData(data);
+      this.setUpdatedData(data);
+    }
   }
 }

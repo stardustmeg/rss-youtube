@@ -5,13 +5,12 @@
 
       <app-search></app-search>
 
-      @if (isMainPage) {
+      @if (isMainPage$ | async) {
         <app-custom-button
           attributeType="mat-mini-fab"
           icon="tune"
           customClass="settings-button"
           (click)="toggleSortVisibility()"
-          (onKeyUp)="toggleSortVisibility()"
         ></app-custom-button>
       }
     </div>
@@ -25,7 +24,7 @@
     </div>
   </div>
 
-  @if (isSortVisible) {
+  @if (isSortVisible && (isMainPage$ | async)) {
     <div class="sort-container">
       <app-sort></app-sort>
       <app-filter></app-filter>

@@ -1,10 +1,11 @@
+import { LoginService } from '@/app/auth/services/login/login.service';
 import { CustomButtonComponent } from '@/app/shared/components/custom-button/custom-button.component';
 import { appPath } from '@/app/shared/constants/routes';
 import { Component, OnInit, inject } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { ActivatedRoute, Router } from '@angular/router';
-import { debounceTime, distinctUntilChanged, filter } from 'rxjs';
+import { debounceTime, distinctUntilChanged, filter, tap } from 'rxjs';
 
 import { SearchPipe } from '../../pipes/search/search.pipe';
 import { VideoDataService } from '../../services/video-data/video-data.service';
@@ -21,6 +22,8 @@ import { DEBOUNCE_TIME, MIN_LENGTH } from './constants/number-values';
 export class SearchComponent implements OnInit {
   private activatedRoute = inject(ActivatedRoute);
 
+  private loginService = inject(LoginService);
+
   private router = inject(Router);
 
   private videoService = inject(VideoDataService);
@@ -30,6 +33,19 @@ export class SearchComponent implements OnInit {
   });
 
   public constructor() {}
+
+  private clearSearchForNotLoggedIn(): void {
+    this.loginService
+      .isLoggedIn()
+      .pipe(
+        tap((isLoggedIn) => {
+          if (!isLoggedIn) {
+            this.searchForm.get('searchTerm')!.setValue('');
+          }
+        }),
+      )
+      .subscribe();
+  }
 
   private updateSearchFormQuery(): void {
     this.activatedRoute.queryParams.subscribe((params) => {
@@ -41,6 +57,7 @@ export class SearchComponent implements OnInit {
   }
 
   public ngOnInit(): void {
+    this.clearSearchForNotLoggedIn();
     this.updateSearchFormQuery();
     this.searchForm
       .get('searchTerm')!

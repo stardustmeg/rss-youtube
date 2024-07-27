@@ -18,9 +18,9 @@ export class LoginService {
 
   private localStorageService = inject(LocalStorageService);
 
-  private loggedIn$: BehaviorSubject<boolean> = new BehaviorSubject(this.checkIsLoggedIn());
-
   private snackBar = new SnackBarComponent();
+
+  public loggedIn$ = new BehaviorSubject(this.checkIsLoggedIn());
 
   public constructor() {}
 
@@ -29,11 +29,11 @@ export class LoginService {
   }
 
   public getUserName(): null | string {
-    return this.localStorageService.getUserName(this.localStorageKey) || null;
+    return this.localStorageService.getUserName(this.localStorageKey) ?? null;
   }
 
   public isLoggedIn(): Observable<boolean> {
-    return this.loggedIn$;
+    return this.loggedIn$.asObservable();
   }
 
   public login(name: string): void {

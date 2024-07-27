@@ -1,4 +1,4 @@
-import { LoggerService } from '@/app/core/services/logger.service';
+import { LoggerService } from '@/app/core/services/logger/logger.service';
 import { userMessage } from '@/app/shared/components/snack-bar/constants/user-message';
 import { SnackBarComponent } from '@/app/shared/components/snack-bar/snack-bar.component';
 import { appRoute } from '@/app/shared/constants/routes';

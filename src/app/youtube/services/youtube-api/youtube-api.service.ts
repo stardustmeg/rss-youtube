@@ -1,5 +1,5 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Observable, map } from 'rxjs';
 
 import { Response } from '../../models/response.model';
@@ -9,11 +9,13 @@ import { VideoItem } from '../../models/video-item.model';
   providedIn: 'root',
 })
 export class YoutubeApiService {
+  private http = inject(HttpClient);
+
   private readonly searchEndpoint = 'search';
 
   private readonly videosEndpoint = 'videos';
 
-  public constructor(private http: HttpClient) {}
+  public constructor() {}
 
   public getVideoById(id: string): Observable<VideoItem> {
     const params = new HttpParams().set('part', 'snippet,contentDetails,statistics').set('id', id);
