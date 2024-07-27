@@ -4,8 +4,8 @@ import { SnackBarComponent } from '@/app/shared/components/snack-bar/snack-bar.c
 import { appRoute } from '@/app/shared/constants/routes';
 import { stringTemplate } from '@/app/shared/utils/string-template';
 import { passwordStrengthValidator } from '@/app/shared/validators/validators';
-import { Component, OnInit, inject } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule, MatHint } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
@@ -16,6 +16,7 @@ import { CustomButtonComponent } from '../../../shared/components/custom-button/
 import { LoginService } from '../../services/login/login.service';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     ReactiveFormsModule,
     CustomButtonComponent,
@@ -31,29 +32,25 @@ import { LoginService } from '../../services/login/login.service';
   styleUrls: ['./login-form.component.scss'],
   templateUrl: './login-form.component.html',
 })
-export class LoginFormComponent implements OnInit {
+export class LoginFormComponent {
   private fb = inject(FormBuilder);
 
   private logger = inject(LoggerService);
 
   private router = inject(Router);
 
-  private snackBar: SnackBarComponent = new SnackBarComponent();
+  private snackBar: SnackBarComponent = new SnackBarComponent(); // TBD: change to service
 
   public hidePassword = true;
 
-  public loginForm: FormGroup = new FormGroup({});
+  public loginForm = this.fb.group({
+    email: ['', [Validators.required, Validators.email]],
+    password: ['', [Validators.required, passwordStrengthValidator]],
+  });
 
   public loginService = inject(LoginService);
 
   public constructor() {}
-
-  public ngOnInit(): void {
-    this.loginForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, passwordStrengthValidator]],
-    });
-  }
 
   public onSubmit(): void {
     if (this.loginForm.valid) {

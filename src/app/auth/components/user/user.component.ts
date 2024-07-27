@@ -1,7 +1,7 @@
 import { CustomLinkComponent } from '@/app/shared/components/custom-link/custom-link.component';
 import { appRoute } from '@/app/shared/constants/routes';
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit, inject } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 
 import { LoginService } from '../../services/login/login.service';
@@ -16,8 +16,6 @@ import { logoOption } from './constants/logo-options';
   templateUrl: './user.component.html',
 })
 export class UserComponent implements OnInit {
-  private cdr: ChangeDetectorRef = inject(ChangeDetectorRef);
-
   private router = inject(Router);
 
   @Input() public isLoggedIn: boolean | null = false;
@@ -44,7 +42,6 @@ export class UserComponent implements OnInit {
   public ngOnInit(): void {
     this.loginService.isLoggedIn().subscribe((isLoggedIn) => {
       this.isLoggedIn = isLoggedIn;
-      this.cdr.markForCheck();
     });
   }
 }

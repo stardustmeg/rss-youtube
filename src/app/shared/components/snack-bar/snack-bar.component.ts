@@ -27,8 +27,8 @@ export class SnackBarComponent {
       verticalPosition: MatSnackBarVerticalPosition;
     } = {
       duration: SNACK_BAR_DURATION,
-      horizontalPosition: snackBarPosition.END,
-      verticalPosition: snackBarPosition.TOP,
+      horizontalPosition: snackBarPosition.START,
+      verticalPosition: snackBarPosition.BOTTOM,
     },
   ): void {
     this.snackBar.open(message, action, {
