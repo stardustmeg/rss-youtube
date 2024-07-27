@@ -1,6 +1,5 @@
 import { CustomButtonComponent } from '@/app/shared/components/custom-button/custom-button.component';
-import { snackBarAction } from '@/app/shared/components/snack-bar/constants/actions';
-import { SnackBarComponent } from '@/app/shared/components/snack-bar/snack-bar.component';
+import { SnackBarService } from '@/app/shared/services/snackBar/snack-bar.service';
 import { validNumber } from '@/app/shared/validators/constants/limits';
 import { isFutureDate } from '@/app/shared/validators/validators';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
@@ -24,7 +23,6 @@ import { TagsFormComponent } from '../tags-form/tags-form.component';
     ReactiveFormsModule,
     CustomButtonComponent,
     MatStepperModule,
-    SnackBarComponent,
     FormsModule,
     TagsFormComponent,
     MatFormFieldModule,
@@ -54,7 +52,7 @@ export class NewVideoItemFormComponent {
 
   @ViewChild('stepper') private myStepper!: MatStepper;
 
-  private snackBar = new SnackBarComponent();
+  private snackBar = inject(SnackBarService);
 
   @ViewChild(TagsFormComponent) private tagsFormComponent!: TagsFormComponent;
 
@@ -81,10 +79,7 @@ export class NewVideoItemFormComponent {
     this.setTags(tags);
 
     // TBD: use data to create a new card
-    this.snackBar.openSnackBar(
-      `Your video has been created ${JSON.stringify(this.formGroup.value)}`,
-      snackBarAction.CHECK,
-    );
+    this.snackBar.openSnackBar(`Your video has been created ${JSON.stringify(this.formGroup.value)}`);
     this.reset();
   }
 

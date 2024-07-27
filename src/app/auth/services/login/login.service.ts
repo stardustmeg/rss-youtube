@@ -1,6 +1,6 @@
 import { LocalStorageService } from '@/app/core/services/local-storage/local-storage.service';
-import { userMessage } from '@/app/shared/components/snack-bar/constants/user-message';
-import { SnackBarComponent } from '@/app/shared/components/snack-bar/snack-bar.component';
+import { userMessage } from '@/app/shared/services/snackBar/constants/user-message';
+import { SnackBarService } from '@/app/shared/services/snackBar/snack-bar.service';
 import { stringTemplate } from '@/app/shared/utils/string-template';
 import { Injectable, inject } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
@@ -18,7 +18,7 @@ export class LoginService {
 
   private localStorageService = inject(LocalStorageService);
 
-  private snackBar = new SnackBarComponent();
+  private snackBar = inject(SnackBarService);
 
   public loggedIn$ = new BehaviorSubject(this.checkIsLoggedIn());
 

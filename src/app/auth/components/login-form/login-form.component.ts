@@ -1,7 +1,7 @@
 import { LoggerService } from '@/app/core/services/logger/logger.service';
-import { userMessage } from '@/app/shared/components/snack-bar/constants/user-message';
-import { SnackBarComponent } from '@/app/shared/components/snack-bar/snack-bar.component';
 import { appRoute } from '@/app/shared/constants/routes';
+import { userMessage } from '@/app/shared/services/snackBar/constants/user-message';
+import { SnackBarService } from '@/app/shared/services/snackBar/snack-bar.service';
 import { stringTemplate } from '@/app/shared/utils/string-template';
 import { passwordStrengthValidator } from '@/app/shared/validators/validators';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
@@ -24,7 +24,6 @@ import { LoginService } from '../../services/login/login.service';
     MatInputModule,
     MatIconModule,
     MatButtonModule,
-    SnackBarComponent,
     MatHint,
   ],
   selector: 'app-login-form',
@@ -39,7 +38,7 @@ export class LoginFormComponent {
 
   private router = inject(Router);
 
-  private snackBar: SnackBarComponent = new SnackBarComponent(); // TBD: change to service
+  private snackBar = inject(SnackBarService);
 
   public hidePassword = true;
 
