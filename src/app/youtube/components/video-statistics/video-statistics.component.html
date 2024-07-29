@@ -1,18 +1,19 @@
+@let statistics = video.statistics;
 <div class="statistics-container">
   <div class="statistics-item">
     <mat-icon aria-hidden="false" fontIcon="visibility" class="icon"></mat-icon>
-    <p>{{ video.statistics.viewCount }}</p>
+    <p>{{ statistics.viewCount }}</p>
   </div>
   <div class="statistics-item">
     <mat-icon aria-hidden="false" fontIcon="favorite" class="icon"></mat-icon>
-    <p>{{ video.statistics.likeCount }}</p>
+    <p>{{ statistics.likeCount }}</p>
   </div>
   <div class="statistics-item">
     <mat-icon aria-hidden="false" fontIcon="heart_broken" class="icon"></mat-icon>
-    <p>{{ video.statistics.dislikeCount || 0 }}</p>
+    <p>{{ statistics.dislikeCount || 0 }}</p>
   </div>
   <div class="statistics-item">
     <mat-icon aria-hidden="false" fontIcon="comment" class="icon"></mat-icon>
-    <p>{{ video.statistics.commentCount }}</p>
+    <p>{{ statistics.commentCount }}</p>
   </div>
 </div>

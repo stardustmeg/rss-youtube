@@ -11,8 +11,6 @@ import { snackBarPosition } from './constants/position';
 export class SnackBarService {
   private snackBar: MatSnackBar = inject(MatSnackBar);
 
-  public constructor() {}
-
   public openSnackBar(
     message = '',
     action: string = snackBarAction.CHECK,

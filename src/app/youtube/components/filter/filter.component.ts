@@ -1,14 +1,16 @@
 import { CustomButtonComponent } from '@/app/shared/components/custom-button/custom-button.component';
-import { Component, OnInit, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIcon } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { Subject, takeUntil } from 'rxjs';
 
 import { FilterPipe } from '../../pipes/filter/filter.pipe';
 import { VideoDataService } from '../../services/video-data/video-data.service';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     MatFormFieldModule,
     MatInputModule,
@@ -24,7 +26,9 @@ import { VideoDataService } from '../../services/video-data/video-data.service';
   styleUrl: './filter.component.scss',
   templateUrl: './filter.component.html',
 })
-export class FilterComponent implements OnInit {
+export class FilterComponent implements OnInit, OnDestroy {
+  private destroy$ = new Subject<void>();
+
   private filterPipe = inject(FilterPipe);
 
   private videoService = inject(VideoDataService);
@@ -33,8 +37,13 @@ export class FilterComponent implements OnInit {
 
   public constructor() {}
 
+  public ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+
   public ngOnInit(): void {
-    this.filterControl.valueChanges.subscribe((value) => {
+    this.filterControl.valueChanges.pipe(takeUntil(this.destroy$)).subscribe((value) => {
       this.onChange(value);
     });
   }

@@ -1,5 +1,5 @@
 import { validNumber } from '@/app/shared/validators/constants/limits';
-import { Component, EventEmitter, Output, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Output, inject, signal } from '@angular/core';
 import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatChipEditedEvent, MatChipInputEvent, MatChipsModule } from '@angular/material/chips';
 import { MatError, MatFormFieldModule } from '@angular/material/form-field';
@@ -8,6 +8,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { PLACEHOLDER_TEXT } from './constants/placeholderText';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [MatChipsModule, FormsModule, MatError, ReactiveFormsModule, MatFormFieldModule, MatIconModule],
   selector: 'app-tags-form',
   standalone: true,

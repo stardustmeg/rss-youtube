@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 import { NewVideoItemFormComponent } from '../../components/new-video-item-form/new-video-item-form.component';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [NewVideoItemFormComponent],
   selector: 'app-admin-page',
   standalone: true,

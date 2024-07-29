@@ -1,9 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
 
 import { VideoItem } from '../../models/video-item.model';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [MatIcon],
   selector: 'app-video-statistics',
   standalone: true,

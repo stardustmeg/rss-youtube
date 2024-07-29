@@ -14,8 +14,6 @@ export class ChangeColorDirective {
 
   @Input() public type: StyleChangeOptionType = styleChangeOption.borderBottom;
 
-  public constructor() {}
-
   private applyColor(): string {
     const color = determineColor(this.publicationDate);
     return stringTemplate(styleColorOption[this.type], { color });

@@ -43,7 +43,7 @@
     "eslint-plugin-perfectionist": "^2.11.0",
     "express": "^4.19.2",
     "husky": "^9.0.11",
-    "inquirer": "^8.2.6",
+    "inquirer": "^10.1.4",
     "jasmine-core": "^5.1.2",
     "karma": "^6.4.3",
     "karma-chrome-launcher": "^3.2.0",

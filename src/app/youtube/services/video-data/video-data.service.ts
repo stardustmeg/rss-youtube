@@ -50,7 +50,7 @@ export class VideoDataService {
   }
 
   public getVideoById(id: string): Observable<VideoItem> {
-    return this.youtubeApiService.getVideoById(id);
+    return this.youtubeApiService.getVideoDetails([id]).pipe(map((detailedVideos) => detailedVideos[0]));
   }
 
   public searchVideos(query: string, maxResults = 20): Observable<VideoItem[]> {

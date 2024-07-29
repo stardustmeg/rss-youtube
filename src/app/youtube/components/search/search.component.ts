@@ -1,7 +1,7 @@
 import { LoginService } from '@/app/auth/services/login/login.service';
 import { CustomButtonComponent } from '@/app/shared/components/custom-button/custom-button.component';
 import { appPath } from '@/app/shared/constants/routes';
-import { Component, OnInit, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, inject } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -12,6 +12,7 @@ import { VideoDataService } from '../../services/video-data/video-data.service';
 import { DEBOUNCE_TIME, MIN_LENGTH } from './constants/number-values';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [FormsModule, CustomButtonComponent, MatIconModule, SearchPipe, ReactiveFormsModule],
   providers: [SearchPipe],
   selector: 'app-search',

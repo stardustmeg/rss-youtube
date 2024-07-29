@@ -135,7 +135,7 @@
     <mat-step class="mat-step" label="Tags" state="tags" [stepControl]="formGroup.controls['tags']">
       <form [formGroup]="formGroup">
         <p class="mat-step-title">Add the tags of your video</p>
-        <app-tags-form (tagsChange)="setTags($event)"></app-tags-form>
+        <app-tags-form (tagsChange)="setVideoTags($event)"></app-tags-form>
         <div>
           <button mat-button matStepperPrevious class="form-button">Back</button>
         </div>

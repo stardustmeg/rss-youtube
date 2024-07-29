@@ -17,13 +17,8 @@ export class YoutubeApiService {
 
   public constructor() {}
 
-  public getVideoById(id: string): Observable<VideoItem> {
-    const params = new HttpParams().set('part', 'snippet,contentDetails,statistics').set('id', id);
-    return this.http.get<Response>(this.videosEndpoint, { params }).pipe(map((response) => response.items[0]));
-  }
-
   public getVideoDetails(videoIds: string[]): Observable<VideoItem[]> {
-    const params = new HttpParams().set('part', 'snippet,contentDetails,statistics').set('id', videoIds.join(','));
+    const params = new HttpParams().set('part', 'snippet,statistics').set('id', videoIds.join(','));
     return this.http.get<Response>(this.videosEndpoint, { params }).pipe(map((response) => response.items));
   }
 

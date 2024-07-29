@@ -1,10 +1,11 @@
-<article class="video-card" appChangeColor [publicationDate]="video.snippet.publishedAt">
+@let snippet = video.snippet;
+<article class="video-card" appChangeColor [publicationDate]="snippet.publishedAt">
   <div class="video-image-container">
-    <img class="video-image" alt="Video Cover" [src]="video.snippet.thumbnails.high.url" />
+    <img class="video-image" alt="Video Cover" [src]="snippet.thumbnails.high.url" />
   </div>
   <div class="video-info-container">
     <app-video-statistics [video]="video"></app-video-statistics>
-    <h2 class="video-title">{{ video.snippet.title }}</h2>
+    <h2 class="video-title">{{ snippet.title }}</h2>
   </div>
   <app-custom-button (click)="moreButtonHandler()">more...</app-custom-button>
 </article>

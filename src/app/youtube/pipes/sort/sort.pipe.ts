@@ -8,25 +8,28 @@ import { VideoItem } from '../../models/video-item.model';
   standalone: true,
 })
 export class SortPipe implements PipeTransform {
-  public transform(videos: VideoItem[], criteria: string, direction: string): VideoItem[] {
-    if (!Array.isArray(videos)) {
+  private static compareDates(a: Date, b: Date): number {
+    return a.getTime() - b.getTime();
+  }
+
+  private static compareNumbers(a: number, b: number): number {
+    return a - b;
+  }
+
+  public transform(videos: VideoItem[], criterion: string, direction: string): VideoItem[] {
+    if (!Array.isArray(videos) || videos.length === 0) {
       return videos;
     }
 
-    return videos.sort((a, b) => {
-      let comparison = 0;
-
-      if (criteria === sortingCriterion.DATE) {
-        const dateA = new Date(a.snippet.publishedAt).getTime();
-        const dateB = new Date(b.snippet.publishedAt).getTime();
-        comparison = dateA - dateB;
-      } else if (criteria === sortingCriterion.VIEW_COUNT) {
-        const viewCountA = parseInt(a.statistics.viewCount, 10);
-        const viewCountB = parseInt(b.statistics.viewCount, 10);
-        comparison = viewCountA - viewCountB;
-      }
+    const compareFn = (a: VideoItem, b: VideoItem): number => {
+      const comparison =
+        criterion === sortingCriterion.DATE
+          ? SortPipe.compareDates(new Date(a.snippet.publishedAt), new Date(b.snippet.publishedAt))
+          : SortPipe.compareNumbers(parseInt(a.statistics.viewCount, 10), parseInt(b.statistics.viewCount, 10));
 
       return direction === sortingDirection.DESC ? -comparison : comparison;
-    });
+    };
+
+    return videos.sort(compareFn);
   }
 }

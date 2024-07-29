@@ -76,7 +76,7 @@ export class NewVideoItemFormComponent {
 
   public onSubmit(): void {
     const tags = this.tagsFormComponent?.getNewVideoTags() ?? [];
-    this.setTags(tags);
+    this.setVideoTags(tags);
 
     // TBD: use data to create a new card
     this.snackBar.openSnackBar(`Your video has been created ${JSON.stringify(this.formGroup.value)}`);
@@ -92,7 +92,7 @@ export class NewVideoItemFormComponent {
     this.tagsFormComponent.reset();
   }
 
-  public setTags(tags: string[]): void {
+  public setVideoTags(tags: string[]): void {
     const tagsFormArray = this.formGroup.get('tags');
     if (tagsFormArray instanceof FormArray) {
       tagsFormArray.clear();
