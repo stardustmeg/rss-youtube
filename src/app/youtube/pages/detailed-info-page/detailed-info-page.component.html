@@ -1,4 +1,8 @@
 <div class="detailed-info-page">
+  @let isImageLoaded = imageLoaded();
+  @if (!isImageLoaded) {
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+  }
   @let video = video$ | async;
   @if (video) {
     @let snippet = video.snippet;
@@ -14,12 +18,12 @@
         routerLink="/"
       ></app-custom-link>
       <div class="video-image-container">
-        @if (!imageLoaded()) {
+        @if (!isImageLoaded) {
           <mat-spinner class="spinner"></mat-spinner>
         }
         <img
           class="video-image"
-          [class]="imageLoaded() ? 'shown' : ''"
+          [class]="isImageLoaded ? 'shown' : ''"
           [alt]="snippet.title"
           (load)="imageLoaded.set(true)"
           [src]="snippet.thumbnails.high.url"
@@ -34,13 +38,22 @@
     </article>
   } @else if (video !== null) {
     <div class="not-found">
-      <img class="not-found-image" src="../../../../assets/img/video-not-found.jpg" alt="Video not found" />
+      <div class="not-found-image-container">
+        @if (!isImageLoaded) {
+          <mat-spinner class="spinner"></mat-spinner>
+        }
+        <img
+          class="not-found-image"
+          [class]="isImageLoaded ? 'shown' : ''"
+          (load)="imageLoaded.set(true)"
+          src="../../../../assets/img/video-not-found.jpg"
+          alt="Video not found"
+        />
+      </div>
       <p class="not-found-text">We couldn't find this video</p>
       <app-custom-link [attributeType]="'mat-flat-button'" [customClass]="'to-main'" routerLink="/"
         >Go back to Main</app-custom-link
       >
     </div>
-  } @else {
-    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
   }
 </div>
