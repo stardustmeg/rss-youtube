@@ -1,7 +1,16 @@
 @let snippet = video.snippet;
 <article class="video-card" appChangeColor [publicationDate]="snippet.publishedAt">
   <div class="video-image-container">
-    <img class="video-image" alt="Video Cover" [src]="snippet.thumbnails.high.url" />
+    @if (!imageLoaded()) {
+      <mat-spinner class="spinner"></mat-spinner>
+    }
+    <img
+      class="video-image"
+      [class]="imageLoaded() ? 'shown' : ''"
+      [alt]="snippet.title"
+      (load)="imageLoaded.set(true)"
+      [src]="snippet.thumbnails.high.url"
+    />
   </div>
   <div class="video-info-container">
     <app-video-statistics [video]="video"></app-video-statistics>

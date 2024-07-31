@@ -1,4 +1,5 @@
 <div class="detailed-info-page">
+  @let video = video$ | async;
   @if (video) {
     @let snippet = video.snippet;
     <article class="video-card" appChangeColor [publicationDate]="snippet.publishedAt">
@@ -13,7 +14,16 @@
         routerLink="/"
       ></app-custom-link>
       <div class="video-image-container">
-        <img class="video-image" alt="Video Cover" [src]="snippet.thumbnails.high.url" />
+        @if (!imageLoaded()) {
+          <mat-spinner class="spinner"></mat-spinner>
+        }
+        <img
+          class="video-image"
+          [class]="imageLoaded() ? 'shown' : ''"
+          [alt]="snippet.title"
+          (load)="imageLoaded.set(true)"
+          [src]="snippet.thumbnails.high.url"
+        />
       </div>
       <div class="video-info-container">
         <p class="video-publication-date">{{ snippet.publishedAt | date: 'EEEE, dd MMMM yyyy' }}</p>
@@ -22,7 +32,7 @@
         <app-video-statistics [video]="video" class="video-statistics"></app-video-statistics>
       </div>
     </article>
-  } @else {
+  } @else if (video !== null) {
     <div class="not-found">
       <img class="not-found-image" src="../../../../assets/img/video-not-found.jpg" alt="Video not found" />
       <p class="not-found-text">We couldn't find this video</p>
@@ -30,5 +40,7 @@
         >Go back to Main</app-custom-link
       >
     </div>
+  } @else {
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
   }
 </div>

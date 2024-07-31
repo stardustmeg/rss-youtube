@@ -34,7 +34,21 @@
 
 .video-image,
 .video-image-container {
+  position: relative;
   width: 100%;
+  min-height: $standart-rem * 10;
+}
+
+.video-image {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.spinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .video-title {
@@ -44,4 +58,8 @@
   font-size: 18px;
   line-height: normal;
   text-align: right;
+}
+
+.shown {
+  opacity: 1;
 }

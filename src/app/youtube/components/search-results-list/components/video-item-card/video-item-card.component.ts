@@ -2,14 +2,15 @@ import { CustomButtonComponent } from '@/app/shared/components/custom-button/cus
 import { appRoute } from '@/app/shared/constants/routes';
 import { ChangeColorDirective } from '@/app/youtube/directives/change-color/change-color.directive';
 import { VideoItem } from '@/app/youtube/models/video-item.model';
-import { ChangeDetectionStrategy, Component, Input, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, inject, signal } from '@angular/core';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { Router } from '@angular/router';
 
 import { VideoStatisticsComponent } from '../../../video-statistics/video-statistics.component';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [VideoStatisticsComponent, CustomButtonComponent, ChangeColorDirective],
+  imports: [VideoStatisticsComponent, CustomButtonComponent, ChangeColorDirective, MatProgressSpinnerModule],
   providers: [ChangeColorDirective],
   selector: 'app-video-item-card',
   standalone: true,
@@ -18,6 +19,8 @@ import { VideoStatisticsComponent } from '../../../video-statistics/video-statis
 })
 export class VideoItemCardComponent {
   private router = inject(Router);
+
+  public imageLoaded = signal(false);
 
   @Input() public video!: VideoItem;
 

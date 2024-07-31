@@ -38,12 +38,31 @@
 }
 
 .video-image-container {
+  position: relative;
+
   display: flex;
   align-items: center;
   justify-content: center;
 
   width: 45%;
+  min-height: $standart-rem * 25;
   padding: $small-rem;
+}
+
+.video-image {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.shown {
+  opacity: 1;
+}
+
+.spinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .video-info-container {
