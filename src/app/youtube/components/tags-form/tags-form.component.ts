@@ -32,7 +32,7 @@ export class TagsFormComponent {
     tags: this.formBuilder.array([]),
   });
 
-  public constructor() {}
+  constructor() {}
 
   public add(event: MatChipInputEvent): void {
     const value = (event.value || '').trim();

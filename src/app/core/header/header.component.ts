@@ -6,7 +6,7 @@ import { FilterComponent } from '@/app/youtube/components/filter/filter.componen
 import { SearchComponent } from '@/app/youtube/components/search/search.component';
 import { SortComponent } from '@/app/youtube/components/sort/sort.component';
 import { AsyncPipe } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
@@ -37,11 +37,5 @@ export class HeaderComponent {
 
   public isMainPage$ = inject(NavigationService).isMainPage$;
 
-  public isSortVisible = false;
-
-  public constructor() {}
-
-  public toggleSortVisibility(): void {
-    this.isSortVisible = !this.isSortVisible;
-  }
+  public isSortVisible = signal(false);
 }

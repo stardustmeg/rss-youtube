@@ -60,7 +60,7 @@ export class NewVideoItemFormComponent {
 
   public maxDate = new Date();
 
-  public constructor() {
+  constructor() {
     this.formGroup = this.formBuilder.group({
       creationDate: ['', [Validators.required, isFutureDate]],
       description: ['', Validators.maxLength(validNumber.MAX_DESCRIPTION)],

@@ -10,7 +10,7 @@
           attributeType="mat-mini-fab"
           icon="tune"
           customClass="settings-button"
-          (click)="toggleSortVisibility()"
+          (click)="isSortVisible() ? isSortVisible.set(false) : isSortVisible.set(true)"
         ></app-custom-button>
       }
     </div>
@@ -24,7 +24,7 @@
     </div>
   </div>
 
-  @if (isSortVisible && (isMainPage$ | async)) {
+  @if (isSortVisible() && (isMainPage$ | async)) {
     <div class="sort-container">
       <app-sort></app-sort>
       <app-filter></app-filter>

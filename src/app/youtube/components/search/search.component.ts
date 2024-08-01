@@ -33,7 +33,7 @@ export class SearchComponent implements OnInit {
     searchTerm: new FormControl(''),
   });
 
-  public constructor() {}
+  constructor() {}
 
   private clearSearchForNotLoggedIn(): void {
     this.loginService

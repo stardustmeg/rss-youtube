@@ -35,7 +35,7 @@ export class FilterComponent implements OnInit, OnDestroy {
 
   public filterControl = new FormControl('');
 
-  public constructor() {}
+  constructor() {}
 
   public ngOnDestroy(): void {
     this.destroy$.next();

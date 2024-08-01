@@ -11,7 +11,7 @@ export class NavigationService {
 
   public isMainPage$ = new BehaviorSubject<boolean>(false);
 
-  public constructor() {
+  constructor() {
     this.router.events.pipe(filter((event) => event instanceof NavigationEnd)).subscribe(() => {
       this.isMainPage$.next(this.router.url.split('?')[0] === appRoute.MAIN);
     });

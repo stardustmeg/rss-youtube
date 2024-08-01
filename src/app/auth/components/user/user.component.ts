@@ -22,7 +22,7 @@ export class UserComponent implements OnInit {
 
   public loginService = inject(LoginService);
 
-  public constructor() {}
+  constructor() {}
 
   public getIcon(): string {
     return this.isLoggedIn ? logoOption.LOGOUT : logoOption.USER;

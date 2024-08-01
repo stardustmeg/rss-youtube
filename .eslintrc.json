@@ -31,7 +31,15 @@
         "no-shadow": "off",
         "no-useless-constructor": "off",
         "prefer-destructuring": "off",
-        "@typescript-eslint/explicit-member-accessibility": "error",
+        "@typescript-eslint/explicit-member-accessibility": [
+          "error",
+          {
+            "accessibility": "explicit",
+            "overrides": {
+              "constructors": "off"
+            }
+          }
+        ],
         "class-methods-use-this": "off",
         "dot-notation": "off",
         "no-empty-function": ["error", { "allow": ["constructors"] }],

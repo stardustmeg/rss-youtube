@@ -20,7 +20,7 @@ export class VideoDataService {
 
   public updatedVideoItems$ = this.updatedVideoItems.asObservable();
 
-  public constructor() {
+  constructor() {
     this.loginService
       .isLoggedIn()
       .pipe(

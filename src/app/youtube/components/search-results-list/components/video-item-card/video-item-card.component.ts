@@ -24,7 +24,7 @@ export class VideoItemCardComponent {
 
   @Input() public video!: VideoItem;
 
-  public constructor() {}
+  constructor() {}
 
   public moreButtonHandler(): void {
     this.router.navigate([appRoute.DETAILED], { queryParams: { id: this.video.id } });

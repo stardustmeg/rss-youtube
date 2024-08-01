@@ -22,7 +22,7 @@ export class LoginService {
 
   public loggedIn$ = new BehaviorSubject(this.checkIsLoggedIn());
 
-  public constructor() {}
+  constructor() {}
 
   public checkIsLoggedIn(): boolean {
     return this.localStorageService.getItem(this.localStorageKey) !== null;

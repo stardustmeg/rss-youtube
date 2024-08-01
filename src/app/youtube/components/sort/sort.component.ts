@@ -29,7 +29,7 @@ export class SortComponent implements OnInit {
 
   public videoItems: VideoItem[] = [];
 
-  public constructor() {}
+  constructor() {}
 
   public ngOnInit(): void {
     this.videoService.updatedVideoItems$.subscribe((items) => {

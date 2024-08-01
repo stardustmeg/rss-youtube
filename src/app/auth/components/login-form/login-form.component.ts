@@ -49,7 +49,7 @@ export class LoginFormComponent {
 
   public loginService = inject(LoginService);
 
-  public constructor() {}
+  constructor() {}
 
   public onSubmit(): void {
     if (this.loginForm.valid) {

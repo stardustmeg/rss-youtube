@@ -15,7 +15,7 @@ export class YoutubeApiService {
 
   private readonly videosEndpoint = 'videos';
 
-  public constructor() {}
+  constructor() {}
 
   public getVideoDetails(videoIds: string[]): Observable<VideoItem[]> {
     const params = new HttpParams().set('part', 'snippet,statistics').set('id', videoIds.join(','));

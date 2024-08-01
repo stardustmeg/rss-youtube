@@ -44,6 +44,4 @@ export class DetailedInfoPageComponent {
       return of(null);
     }),
   );
-
-  public constructor() {}
 }
