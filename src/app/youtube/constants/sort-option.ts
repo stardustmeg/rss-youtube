@@ -1,6 +1,6 @@
-import { SortOptionType } from '../components/sort/helper/isSortCriteria.helper';
+import { SortOptionType } from '../components/sort/helper/isSortCriterion.helper';
 
-export const BASIC_SORT_OPTION: SortOptionType = { criteria: '', direction: '' };
+export const BASIC_SORT_OPTION: SortOptionType = { criterion: '', direction: '' };
 
 export const sortingCriterion = {
   DATE: 'date',

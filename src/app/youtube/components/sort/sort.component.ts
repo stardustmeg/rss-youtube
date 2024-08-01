@@ -1,11 +1,10 @@
-import { ChangeDetectionStrategy, Component, OnInit, inject } from '@angular/core';
-import { MatChipListboxChange, MatChipsModule } from '@angular/material/chips';
+import { ChangeDetectionStrategy, Component, OnDestroy, inject, signal } from '@angular/core';
+import { MatChipsModule } from '@angular/material/chips';
+import { Subject, takeUntil } from 'rxjs';
 
 import { BASIC_SORT_OPTION } from '../../constants/sort-option';
-import { VideoItem } from '../../models/video-item.model';
 import { SortPipe } from '../../pipes/sort/sort.pipe';
 import { VideoDataService } from '../../services/video-data/video-data.service';
-import { SortOptionType, isSortOptionType } from './helper/isSortCriteria.helper';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -13,39 +12,33 @@ import { SortOptionType, isSortOptionType } from './helper/isSortCriteria.helper
   providers: [SortPipe],
   selector: 'app-sort',
   standalone: true,
-  styleUrl: './sort.component.scss',
+  styleUrls: ['./sort.component.scss'],
   templateUrl: './sort.component.html',
 })
-export class SortComponent implements OnInit {
+export class SortComponent implements OnDestroy {
+  private destroy$ = new Subject<void>();
+
   private sortPipe = inject(SortPipe);
 
-  private videoService = inject(VideoDataService);
+  private videoItems$ = inject(VideoDataService).updatedVideoItems$;
 
-  public selectedSortOption: SortOptionType = BASIC_SORT_OPTION;
-
-  public sortCriterion = '';
-
-  public sortDirection = '';
-
-  public videoItems: VideoItem[] = [];
+  public selectedSortOption = signal(BASIC_SORT_OPTION);
 
   constructor() {}
 
-  public ngOnInit(): void {
-    this.videoService.updatedVideoItems$.subscribe((items) => {
-      if (items) {
-        this.videoItems = items;
-      }
-    });
+  public ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
-  public onSortChange(event: MatChipListboxChange): void {
-    const value: unknown = event.value;
-    if (isSortOptionType(value)) {
-      this.selectedSortOption = value;
-      this.sortCriterion = value.criteria;
-      this.sortDirection = value.direction;
-      this.sortPipe.transform(this.videoItems, this.sortCriterion, this.sortDirection);
-    }
+  public onSortChange(): void {
+    this.videoItems$.pipe(takeUntil(this.destroy$)).subscribe((videos) => {
+      if (videos) {
+        this.sortPipe.transform(videos, {
+          criterion: this.selectedSortOption().criterion,
+          direction: this.selectedSortOption().direction,
+        });
+      }
+    });
   }
 }

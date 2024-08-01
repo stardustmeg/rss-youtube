@@ -16,18 +16,18 @@ export class SortPipe implements PipeTransform {
     return a - b;
   }
 
-  public transform(videos: VideoItem[], criterion: string, direction: string): VideoItem[] {
+  public transform(videos: VideoItem[], params: { criterion: string; direction: string }): VideoItem[] {
     if (!Array.isArray(videos) || videos.length === 0) {
       return videos;
     }
 
     const compareFn = (a: VideoItem, b: VideoItem): number => {
       const comparison =
-        criterion === sortingCriterion.DATE
+        params.criterion === sortingCriterion.DATE
           ? SortPipe.compareDates(new Date(a.snippet.publishedAt), new Date(b.snippet.publishedAt))
           : SortPipe.compareNumbers(parseInt(a.statistics.viewCount, 10), parseInt(b.statistics.viewCount, 10));
 
-      return direction === sortingDirection.DESC ? -comparison : comparison;
+      return params.direction === sortingDirection.DESC ? -comparison : comparison;
     };
 
     return videos.sort(compareFn);
