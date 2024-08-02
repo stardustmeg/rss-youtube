@@ -28,6 +28,8 @@ export class VideoDataService {
 
   private youtubeApiService: YoutubeApiService = inject(YoutubeApiService);
 
+  public filterQuery = signal<string>('');
+
   public joinedVideoItems = signal<VideoItem[]>([]);
 
   public updatedVideoItems$ = this.updatedVideoItems.asObservable();

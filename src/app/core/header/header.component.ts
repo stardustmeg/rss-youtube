@@ -5,7 +5,6 @@ import { CustomLinkComponent } from '@/app/shared/components/custom-link/custom-
 import { FilterComponent } from '@/app/youtube/components/filter/filter.component';
 import { SearchComponent } from '@/app/youtube/components/search/search.component';
 import { SortComponent } from '@/app/youtube/components/sort/sort.component';
-import { AsyncPipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -25,7 +24,6 @@ import { NavigationService } from '../services/navigation/navigation.service';
     CustomButtonComponent,
     CustomLinkComponent,
     FilterComponent,
-    AsyncPipe,
   ],
   selector: 'app-header',
   standalone: true,

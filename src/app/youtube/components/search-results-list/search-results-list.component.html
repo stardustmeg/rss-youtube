@@ -1,4 +1,4 @@
-@let videos = videos$ | async;
+@let videos = videos$ | async | filter: videoService.filterQuery();
 @if (videos && videos.length > 0) {
   <div class="video-list">
     @for (video of videos; track video.id) {

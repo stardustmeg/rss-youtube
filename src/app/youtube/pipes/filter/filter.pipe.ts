@@ -7,9 +7,9 @@ import { VideoItem } from '../../models/video-item.model';
   standalone: true,
 })
 export class FilterPipe implements PipeTransform {
-  public transform(videos: VideoItem[], searchTerm: string): VideoItem[] {
-    if (!videos || !searchTerm) {
-      return videos;
+  public transform(videos: VideoItem[] | null, searchTerm: string): VideoItem[] | null {
+    if (!videos) {
+      return null;
     }
 
     const lowerCaseSearchTerm = searchTerm.toLowerCase();

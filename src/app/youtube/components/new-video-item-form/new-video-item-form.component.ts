@@ -2,11 +2,13 @@ import { FakeAuthTokenService } from '@/app/auth/services/auth-token/fake-auth-t
 import { addCustomCard } from '@/app/redux/actions/actions';
 import { selectCustomCards } from '@/app/redux/selectors/selectors';
 import { CustomButtonComponent } from '@/app/shared/components/custom-button/custom-button.component';
+import { userMessage } from '@/app/shared/services/snackBar/constants/user-message';
 import { SnackBarService } from '@/app/shared/services/snackBar/snack-bar.service';
+import { stringTemplate } from '@/app/shared/utils/string-template';
 import { validNumber } from '@/app/shared/validators/constants/limits';
 import { isFutureDate } from '@/app/shared/validators/validators';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
-import { AsyncPipe, DatePipe } from '@angular/common';
+import { DatePipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, ViewChild, inject } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -38,7 +40,6 @@ import { TagsFormComponent } from '../tags-form/tags-form.component';
     MatDatepickerModule,
     MatNativeDateModule,
     DatePipe,
-    AsyncPipe,
   ],
   providers: [
     {
@@ -98,18 +99,18 @@ export class NewVideoItemFormComponent {
       },
       kind: 'custom#card',
       snippet: {
-        description: this.formGroup.get('description')?.value?.toString() ?? '',
-        publishedAt: this.formGroup.get('creationDate')?.value?.toString() ?? '',
+        description: this.formGroup.get('description')?.value ?? '',
+        publishedAt: this.formGroup.get('creationDate')?.value ?? '',
         tags: this.tagsFormComponent?.getNewVideoTags() ?? [],
         thumbnails: {
           default: {
-            url: this.formGroup.get('videoLink')?.value?.toString() ?? '',
+            url: this.formGroup.get('videoLink')?.value ?? '',
           },
           high: {
-            url: this.formGroup.get('imageLink')?.value?.toString() ?? '',
+            url: this.formGroup.get('imageLink')?.value ?? '',
           },
         },
-        title: this.formGroup.get('title')?.value?.toString() ?? '',
+        title: this.formGroup.get('title')?.value ?? '',
       },
       statistics: {
         commentCount: '0',
@@ -120,7 +121,7 @@ export class NewVideoItemFormComponent {
     };
 
     this.store.dispatch(addCustomCard({ card: newCard }));
-    this.snackBar.openSnackBar(`Your video has been created`);
+    this.snackBar.openSnackBar(stringTemplate(userMessage.CARD_ADDED, { title: newCard.snippet.title }));
     this.reset();
   }
 
