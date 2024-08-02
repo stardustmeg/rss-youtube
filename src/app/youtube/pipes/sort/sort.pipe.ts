@@ -16,9 +16,9 @@ export class SortPipe implements PipeTransform {
     return a - b;
   }
 
-  public transform(videos: VideoItem[], params: { criterion: string; direction: string }): VideoItem[] {
-    if (!Array.isArray(videos) || videos.length === 0) {
-      return videos;
+  public transform(videos: VideoItem[] | null, params: { criterion: string; direction: string }): VideoItem[] | null {
+    if (!Array.isArray(videos) || videos.length === 0 || !videos) {
+      return null;
     }
 
     const compareFn = (a: VideoItem, b: VideoItem): number => {

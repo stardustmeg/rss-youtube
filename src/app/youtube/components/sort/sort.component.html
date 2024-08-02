@@ -1,10 +1,10 @@
 <mat-chip-listbox
   aria-label="select a shirt size"
   class="sort-chips-container"
-  (change)="selectedSortOption.set($event.value); onSortChange()"
+  (change)="videoService.sortCriteria.set($event.value)"
 >
-  @let criterion = selectedSortOption().criterion;
-  @let direction = selectedSortOption().direction;
+  @let criterion = videoService.sortCriteria().criterion;
+  @let direction = videoService.sortCriteria().direction;
   @let dateAsc = criterion === 'date' && direction === 'asc';
   @let dateDesc = criterion === 'date' && direction === 'desc';
   @let viewCountAsc = criterion === 'viewCount' && direction === 'asc';

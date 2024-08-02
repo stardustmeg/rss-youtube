@@ -5,6 +5,8 @@ import { Injectable, inject, signal } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { BehaviorSubject, Observable, combineLatest, map, switchMap } from 'rxjs';
 
+import { SortOptionType } from '../../components/sort/helper/isSortCriterion.helper';
+import { BASIC_SORT_OPTION } from '../../constants/sort-option';
 import { VideoItem } from '../../models/video-item.model';
 import { YoutubeApiService } from '../youtube-api/youtube-api.service';
 
@@ -32,6 +34,8 @@ export class VideoDataService {
 
   public joinedVideoItems = signal<VideoItem[]>([]);
 
+  public sortCriteria = signal<SortOptionType>(BASIC_SORT_OPTION);
+
   public updatedVideoItems$ = this.updatedVideoItems.asObservable();
 
   constructor() {
@@ -49,14 +53,6 @@ export class VideoDataService {
 
   public fetchVideoDetails(videoIds: string[]): Observable<VideoItem[]> {
     return this.youtubeApiService.getVideoDetails(videoIds);
-  }
-
-  public getFoundData(): VideoItem[] {
-    let foundVideoItems: VideoItem[] = [];
-    this.foundVideoItems$.subscribe((videos) => {
-      foundVideoItems = videos;
-    });
-    return foundVideoItems;
   }
 
   public getVideoById(id: string): Observable<VideoItem> {
