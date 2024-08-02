@@ -1,9 +1,12 @@
+import { FakeAuthTokenService } from '@/app/auth/services/auth-token/fake-auth-token.service';
+import { addCustomCard } from '@/app/redux/actions/actions';
+import { selectCustomCards } from '@/app/redux/selectors/selectors';
 import { CustomButtonComponent } from '@/app/shared/components/custom-button/custom-button.component';
 import { SnackBarService } from '@/app/shared/services/snackBar/snack-bar.service';
 import { validNumber } from '@/app/shared/validators/constants/limits';
 import { isFutureDate } from '@/app/shared/validators/validators';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
-import { DatePipe } from '@angular/common';
+import { AsyncPipe, DatePipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, ViewChild, inject } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -13,7 +16,9 @@ import { MatError, MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatStepper, MatStepperModule } from '@angular/material/stepper';
+import { Store } from '@ngrx/store';
 
+import { VideoItem } from '../../models/video-item.model';
 import { FormData } from '../models/form-group.model';
 import { TagsFormComponent } from '../tags-form/tags-form.component';
 
@@ -33,6 +38,7 @@ import { TagsFormComponent } from '../tags-form/tags-form.component';
     MatDatepickerModule,
     MatNativeDateModule,
     DatePipe,
+    AsyncPipe,
   ],
   providers: [
     {
@@ -54,11 +60,17 @@ export class NewVideoItemFormComponent {
 
   private snackBar = inject(SnackBarService);
 
+  private store = inject(Store);
+
   @ViewChild(TagsFormComponent) private tagsFormComponent!: TagsFormComponent;
+
+  private token = inject(FakeAuthTokenService);
 
   public formGroup: FormGroup<FormData>;
 
   public maxDate = new Date();
+
+  public videos$ = this.store.select(selectCustomCards);
 
   constructor() {
     this.formGroup = this.formBuilder.group({
@@ -77,9 +89,38 @@ export class NewVideoItemFormComponent {
   public onSubmit(): void {
     const tags = this.tagsFormComponent?.getNewVideoTags() ?? [];
     this.setVideoTags(tags);
+    const videoId = this.token.generateToken();
 
-    // TBD: use data to create a new card
-    this.snackBar.openSnackBar(`Your video has been created ${JSON.stringify(this.formGroup.value)}`);
+    const newCard: VideoItem = {
+      id: {
+        kind: 'custom#card',
+        videoId,
+      },
+      kind: 'custom#card',
+      snippet: {
+        description: this.formGroup.get('description')?.value?.toString() ?? '',
+        publishedAt: this.formGroup.get('creationDate')?.value?.toString() ?? '',
+        tags: this.tagsFormComponent?.getNewVideoTags() ?? [],
+        thumbnails: {
+          default: {
+            url: this.formGroup.get('videoLink')?.value?.toString() ?? '',
+          },
+          high: {
+            url: this.formGroup.get('imageLink')?.value?.toString() ?? '',
+          },
+        },
+        title: this.formGroup.get('title')?.value?.toString() ?? '',
+      },
+      statistics: {
+        commentCount: '0',
+        dislikeCount: '0',
+        likeCount: '0',
+        viewCount: '0',
+      },
+    };
+
+    this.store.dispatch(addCustomCard({ card: newCard }));
+    this.snackBar.openSnackBar(`Your video has been created`);
     this.reset();
   }
 
