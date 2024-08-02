@@ -1,8 +1,6 @@
-import { environment } from '@/environments/environment';
 import { HttpHandlerFn, HttpInterceptorFn, HttpRequest } from '@angular/common/http';
 
-const API_KEY = environment.API_KEY;
-const BASE_URL = 'https://www.googleapis.com/youtube/v3/';
+import { API_KEY, BASE_URL } from './constants/constants';
 
 export const ApiInterceptorFn: HttpInterceptorFn = (req: HttpRequest<unknown>, next: HttpHandlerFn) => {
   const apiReq = req.clone({
