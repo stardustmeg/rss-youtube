@@ -35,7 +35,7 @@ import { NavigationService } from '../services/navigation/navigation.service';
 export class HeaderComponent {
   public isLoggedIn$ = inject(LoginService).loggedIn$;
 
-  public isMainPage$ = inject(NavigationService).isMainPage$;
-
   public isSortVisible = signal(false);
+
+  public navigation = inject(NavigationService);
 }

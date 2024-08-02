@@ -1,3 +1,5 @@
+@let isMainPage = navigation.isMainPage();
+
 <header class="header">
   <div class="header-container">
     <div class="header-controls">
@@ -5,7 +7,7 @@
 
       <app-search></app-search>
 
-      @if (isMainPage$ | async) {
+      @if (isMainPage) {
         <app-custom-button
           attributeType="mat-mini-fab"
           icon="tune"
@@ -24,7 +26,7 @@
     </div>
   </div>
 
-  @if (isSortVisible() && (isMainPage$ | async)) {
+  @if (isSortVisible() && isMainPage) {
     <div class="sort-container">
       <app-sort></app-sort>
       <app-filter></app-filter>
