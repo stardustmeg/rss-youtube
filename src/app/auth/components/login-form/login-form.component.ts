@@ -4,7 +4,7 @@ import { userMessage } from '@/app/shared/services/snackBar/constants/user-messa
 import { SnackBarService } from '@/app/shared/services/snackBar/snack-bar.service';
 import { stringTemplate } from '@/app/shared/utils/string-template';
 import { passwordStrengthValidator } from '@/app/shared/validators/validators';
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule, MatHint } from '@angular/material/form-field';
@@ -40,7 +40,7 @@ export class LoginFormComponent {
 
   private snackBar = inject(SnackBarService);
 
-  public hidePassword = true;
+  public hidePassword = signal(true);
 
   public loginForm = this.fb.group({
     email: ['', [Validators.required, Validators.email]],
@@ -64,9 +64,5 @@ export class LoginFormComponent {
         this.snackBar.openSnackBar(userMessage.ERROR);
       }
     }
-  }
-
-  public togglePasswordVisibility(): void {
-    this.hidePassword = !this.hidePassword;
   }
 }

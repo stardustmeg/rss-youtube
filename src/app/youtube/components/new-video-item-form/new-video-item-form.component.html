@@ -1,4 +1,3 @@
-<div>{{ (videos$ | async) === undefined }}</div>
 <form [formGroup]="formGroup" class="page-form" (ngSubmit)="onSubmit()">
   <mat-stepper linear #stepper>
     <mat-step class="mat-step" label="Title" state="title" [stepControl]="formGroup.controls['title']">
