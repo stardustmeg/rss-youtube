@@ -4,6 +4,7 @@ import { Observable, map } from 'rxjs';
 
 import { Response } from '../../models/response.model';
 import { VideoItem } from '../../models/video-item.model';
+import { endponts } from './constants/endpoints';
 
 @Injectable({
   providedIn: 'root',
@@ -11,9 +12,9 @@ import { VideoItem } from '../../models/video-item.model';
 export class YoutubeApiService {
   private http = inject(HttpClient);
 
-  private readonly searchEndpoint = 'search';
+  private readonly searchEndpoint = endponts.SEARCH;
 
-  private readonly videosEndpoint = 'videos';
+  private readonly videosEndpoint = endponts.VIDEOS;
 
   constructor() {}
 
