@@ -2,8 +2,7 @@ import { LocalStorageService } from '@/app/core/services/local-storage/local-sto
 import { userMessage } from '@/app/shared/services/snackBar/constants/user-message';
 import { SnackBarService } from '@/app/shared/services/snackBar/snack-bar.service';
 import { stringTemplate } from '@/app/shared/utils/string-template';
-import { Injectable, inject } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { Injectable, inject, signal } from '@angular/core';
 
 import { FakeAuthTokenService } from '../auth-token/fake-auth-token.service';
 import { LOGIN_KEY } from './constants/login-key';
@@ -20,11 +19,11 @@ export class LoginService {
 
   private snackBar = inject(SnackBarService);
 
-  public loggedIn$ = new BehaviorSubject(this.checkIsLoggedIn());
+  public isLoggedIn = signal(this.checkIsLoggedIn());
 
   constructor() {}
 
-  public checkIsLoggedIn(): boolean {
+  private checkIsLoggedIn(): boolean {
     return this.localStorageService.getItem(this.localStorageKey) !== null;
   }
 
@@ -32,20 +31,16 @@ export class LoginService {
     return this.localStorageService.getUserName(this.localStorageKey) ?? null;
   }
 
-  public isLoggedIn(): Observable<boolean> {
-    return this.loggedIn$.asObservable();
-  }
-
   public login(name: string): void {
     const fakeToken = this.fakeAuthTokenService.generateToken();
     this.localStorageService.setItem(this.localStorageKey, JSON.stringify({ name, token: fakeToken }));
-    this.loggedIn$.next(true);
+    this.isLoggedIn.set(true);
     this.snackBar.openSnackBar(stringTemplate(userMessage.SUCCESSFUL_LOGIN, { name }));
   }
 
   public logout(): void {
     this.localStorageService.removeItem(this.localStorageKey);
-    this.loggedIn$.next(false);
+    this.isLoggedIn.set(false);
     this.snackBar.openSnackBar(userMessage.LOGOUT);
   }
 }

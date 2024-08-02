@@ -1,7 +1,7 @@
 <div class="user-container">
   @if (isLoggedIn) {
     <ng-container>
-      <p>{{ getUserName() }}</p>
+      <p>{{ loginService.getUserName() }}</p>
     </ng-container>
   }
   <app-custom-link attributeType="mat-mini-fab" [icon]="getIcon()" (click)="handleClick()"></app-custom-link>

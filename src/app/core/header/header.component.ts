@@ -33,9 +33,9 @@ import { NavigationService } from '../services/navigation/navigation.service';
   templateUrl: './header.component.html',
 })
 export class HeaderComponent {
-  public isLoggedIn$ = inject(LoginService).loggedIn$;
-
   public isSortVisible = signal(false);
 
-  public navigation = inject(NavigationService);
+  public loginService = inject(LoginService);
+
+  public navigationService = inject(NavigationService);
 }

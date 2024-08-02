@@ -1,44 +1,48 @@
 import { LoginService } from '@/app/auth/services/login/login.service';
-import { Injectable, inject } from '@angular/core';
-import { BehaviorSubject, Observable, map, switchMap, tap } from 'rxjs';
+import { addYoutubeVideos } from '@/app/redux/actions/actions';
+import { selectCustomCards, selectVideos } from '@/app/redux/selectors/selectors';
+import { Injectable, inject, signal } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { BehaviorSubject, Observable, combineLatest, map, switchMap } from 'rxjs';
 
 import { VideoItem } from '../../models/video-item.model';
 import { YoutubeApiService } from '../youtube-api/youtube-api.service';
-import { videoKind } from './constants/videoKind';
 
 @Injectable({
   providedIn: 'root',
 })
 export class VideoDataService {
-  private foundVideoItems: VideoItem[] = [];
+  private customCards$ = inject(Store).select(selectCustomCards);
+
+  private foundVideoItems$ = inject(Store).select(selectVideos);
+
+  private joinedVideoItems$ = combineLatest([this.foundVideoItems$, this.customCards$]).pipe(
+    map(([foundVideoItems, customCards]) => customCards.concat(foundVideoItems)),
+  );
 
   private loginService = inject(LoginService);
+
+  private store = inject(Store);
 
   private updatedVideoItems = new BehaviorSubject<VideoItem[] | null>(null);
 
   private youtubeApiService: YoutubeApiService = inject(YoutubeApiService);
 
+  public joinedVideoItems = signal<VideoItem[]>([]);
+
   public updatedVideoItems$ = this.updatedVideoItems.asObservable();
 
   constructor() {
-    this.loginService
-      .isLoggedIn()
-      .pipe(
-        tap((isLoggedIn) => {
-          if (!isLoggedIn) {
-            this.clearVideoItems();
-          }
-        }),
-      )
-      .subscribe();
-  }
-
-  private clearVideoItems(): void {
-    this.setVideoData(null);
+    if (!this.loginService.isLoggedIn()) {
+      this.store.dispatch(addYoutubeVideos({ videos: [] }));
+    }
+    this.joinedVideoItems$.subscribe((videoItems) => {
+      this.joinedVideoItems.set(videoItems);
+    });
   }
 
   private setFoundData(data: VideoItem[]): void {
-    this.foundVideoItems = data;
+    this.store.dispatch(addYoutubeVideos({ videos: data }));
   }
 
   public fetchVideoDetails(videoIds: string[]): Observable<VideoItem[]> {
@@ -46,7 +50,11 @@ export class VideoDataService {
   }
 
   public getFoundData(): VideoItem[] {
-    return this.foundVideoItems;
+    let foundVideoItems: VideoItem[] = [];
+    this.foundVideoItems$.subscribe((videos) => {
+      foundVideoItems = videos;
+    });
+    return foundVideoItems;
   }
 
   public getVideoById(id: string): Observable<VideoItem> {
@@ -55,14 +63,11 @@ export class VideoDataService {
 
   public searchVideos(query: string, maxResults = 20): Observable<VideoItem[]> {
     return this.youtubeApiService.searchVideos(query, maxResults).pipe(
-      map((searchResponse) =>
-        searchResponse.items
-          .filter((item) => item.kind === videoKind.SEARCH_RESULT && item.id.videoId)
-          .map((item) => item.id.videoId),
-      ),
+      map((searchResponse) => searchResponse.items.map((item) => item.id.videoId)),
       switchMap((videoIds: string[]) => this.fetchVideoDetails(videoIds)),
       map((detailedVideos) => {
-        this.setVideoData(detailedVideos);
+        this.setUpdatedData(detailedVideos);
+        this.setFoundData(detailedVideos);
         return detailedVideos;
       }),
     );

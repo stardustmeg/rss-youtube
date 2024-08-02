@@ -1,4 +1,5 @@
-@let isMainPage = navigation.isMainPage();
+@let isMainPage = navigationService.isMainPage();
+@let isLoggedIn = loginService.isLoggedIn();
 
 <header class="header">
   <div class="header-container">
@@ -18,9 +19,9 @@
     </div>
 
     <div class="user-controls">
-      <app-user [isLoggedIn]="isLoggedIn$ | async"></app-user>
+      <app-user [isLoggedIn]="isLoggedIn"></app-user>
 
-      @if (isLoggedIn$ | async) {
+      @if (isLoggedIn) {
         <app-custom-link attributeType="mat-mini-fab" icon="admin_panel_settings" routerLink="/admin"></app-custom-link>
       }
     </div>
