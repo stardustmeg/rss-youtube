@@ -91,6 +91,7 @@ export class NewVideoItemFormComponent {
     const tags = this.tagsFormComponent?.getNewVideoTags() ?? [];
     this.setVideoTags(tags);
     const videoId = this.token.generateToken();
+    const videoDate = new Date(this.formGroup.get('creationDate')?.value ?? '');
 
     const newCard: VideoItem = {
       id: {
@@ -100,7 +101,7 @@ export class NewVideoItemFormComponent {
       kind: 'custom#card',
       snippet: {
         description: this.formGroup.get('description')?.value ?? '',
-        publishedAt: this.formGroup.get('creationDate')?.value ?? '',
+        publishedAt: videoDate.toISOString(),
         tags: this.tagsFormComponent?.getNewVideoTags() ?? [],
         thumbnails: {
           default: {

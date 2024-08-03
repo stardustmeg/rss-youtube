@@ -16,6 +16,4 @@ import { VideoItemCardComponent } from './components/video-item-card/video-item-
 })
 export class SearchResultsListComponent {
   public videoService = inject(VideoDataService);
-
-  public videos$ = inject(VideoDataService).updatedVideoItems$;
 }

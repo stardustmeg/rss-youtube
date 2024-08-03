@@ -1,10 +1,12 @@
 import { LoginService } from '@/app/auth/services/login/login.service';
+import { addYoutubeVideos } from '@/app/redux/actions/actions';
 import { CustomButtonComponent } from '@/app/shared/components/custom-button/custom-button.component';
 import { appPath } from '@/app/shared/constants/routes';
 import { ChangeDetectionStrategy, Component, OnInit, inject } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Store } from '@ngrx/store';
 import { debounceTime, distinctUntilChanged, filter } from 'rxjs';
 
 import { SearchPipe } from '../../pipes/search/search.pipe';
@@ -24,6 +26,8 @@ export class SearchComponent implements OnInit {
   private activatedRoute = inject(ActivatedRoute);
 
   private router = inject(Router);
+
+  private store = inject(Store);
 
   private videoService = inject(VideoDataService);
 
@@ -61,7 +65,7 @@ export class SearchComponent implements OnInit {
   public onSearch(query: string): void {
     this.router.navigate([appPath.MAIN], { queryParams: { q: query } });
     this.videoService.searchVideos(query).subscribe((detailedVideos) => {
-      this.videoService.setVideoData(detailedVideos);
+      this.store.dispatch(addYoutubeVideos({ videos: detailedVideos }));
     });
   }
 }

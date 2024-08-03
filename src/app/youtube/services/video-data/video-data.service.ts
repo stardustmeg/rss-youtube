@@ -3,7 +3,7 @@ import { addYoutubeVideos } from '@/app/redux/actions/actions';
 import { selectCustomCards, selectVideos } from '@/app/redux/selectors/selectors';
 import { Injectable, inject, signal } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { BehaviorSubject, Observable, combineLatest, map, switchMap } from 'rxjs';
+import { Observable, combineLatest, map, switchMap } from 'rxjs';
 
 import { SortOptionType } from '../../components/sort/helper/isSortCriterion.helper';
 import { BASIC_SORT_OPTION } from '../../constants/sort-option';
@@ -16,17 +16,15 @@ import { YoutubeApiService } from '../youtube-api/youtube-api.service';
 export class VideoDataService {
   private customCards$ = inject(Store).select(selectCustomCards);
 
-  private foundVideoItems$ = inject(Store).select(selectVideos);
+  private foundVideos$ = inject(Store).select(selectVideos);
 
-  private joinedVideoItems$ = combineLatest([this.foundVideoItems$, this.customCards$]).pipe(
-    map(([foundVideoItems, customCards]) => customCards.concat(foundVideoItems)),
+  private joinedVideoItems$ = combineLatest([this.foundVideos$, this.customCards$]).pipe(
+    map(([foundVideos, customCards]) => customCards.concat(foundVideos)),
   );
 
   private loginService = inject(LoginService);
 
   private store = inject(Store);
-
-  private updatedVideoItems = new BehaviorSubject<VideoItem[] | null>(null);
 
   private youtubeApiService: YoutubeApiService = inject(YoutubeApiService);
 
@@ -35,8 +33,6 @@ export class VideoDataService {
   public joinedVideoItems = signal<VideoItem[]>([]);
 
   public sortCriteria = signal<SortOptionType>(BASIC_SORT_OPTION);
-
-  public updatedVideoItems$ = this.updatedVideoItems.asObservable();
 
   constructor() {
     if (!this.loginService.isLoggedIn()) {
@@ -64,24 +60,9 @@ export class VideoDataService {
       map((searchResponse) => searchResponse.items.map((item) => item.id.videoId)),
       switchMap((videoIds: string[]) => this.fetchVideoDetails(videoIds)),
       map((detailedVideos) => {
-        this.setUpdatedData(detailedVideos);
         this.setFoundData(detailedVideos);
         return detailedVideos;
       }),
     );
-  }
-
-  public setUpdatedData(data: VideoItem[] | null): void {
-    this.updatedVideoItems.next(data);
-  }
-
-  public setVideoData(data: VideoItem[] | null): void {
-    if (!data) {
-      this.setFoundData([]);
-      this.setUpdatedData(data);
-    } else {
-      this.setFoundData(data);
-      this.setUpdatedData(data);
-    }
   }
 }

@@ -1,15 +1,15 @@
 @let filterQuery = videoService.filterQuery();
 @let sortCriteria = videoService.sortCriteria();
-@let videos = videos$ | async | filter: filterQuery | sort: sortCriteria;
-@if (videos && videos.length > 0) {
+@let currentVideos = videoService.joinedVideoItems() | filter: filterQuery | sort: sortCriteria;
+@if (currentVideos && currentVideos.length > 0) {
   <div class="video-list">
-    @for (video of videos; track video.id) {
+    @for (video of currentVideos; track video.id) {
       <div class="video-card">
         <app-video-item-card [video]="video"></app-video-item-card>
       </div>
     }
   </div>
-} @else if (videos?.length === 0) {
+} @else if (currentVideos?.length === 0) {
   <div class="no-video">
     <img class="not-found-image" src="../../../../assets/img/no-results.jpg" alt="Video not found" />
     <h6 class="not-found-text">Sorry, we couldn't find any videos. Try a different query</h6>
