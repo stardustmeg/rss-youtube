@@ -11,27 +11,41 @@
   @let viewCountAsc = criterion === 'viewCount' && direction === 'asc';
   @let viewCountDesc = criterion === 'viewCount' && direction === 'desc';
 
-  <mat-chip-option [value]="{ criterion: 'date', direction: 'asc' }" [class]="dateAsc ? 'disabled-chip' : ''">
-    <img class="image" matChipAvatar src="../../../../../assets/img/svg/arrow-up.svg" alt="Arrow Up" />
-    Date
-  </mat-chip-option>
-  <mat-chip-option [value]="{ criterion: 'date', direction: 'desc' }" [class]="dateDesc ? 'disabled-chip' : ''">
-    <img class="image" matChipAvatar src="../../../../../assets/img/svg/arrow-down.svg" alt="Arrow Down" />
-    Date
-  </mat-chip-option>
-  <mat-chip-option [value]="{ criterion: 'viewCount', direction: 'asc' }" [class]="viewCountAsc ? 'disabled-chip' : ''">
-    <img class="image" matChipAvatar src="../../../../../assets/img/svg/arrow-up.svg" alt="Arrow Up" />
-    View Count
-  </mat-chip-option>
+  <mat-chip-option
+    [value]="{ criterion: 'date', direction: 'asc' }"
+    [class]="dateAsc ? 'disabled-chip' : ''"
+    (click)="handleChipClick('dateAsc')"
+    ><img
+      class="image"
+      matChipAvatar
+      src="../../../../../assets/img/svg/arrow-up.svg"
+      alt="Arrow Up"
+    />Date</mat-chip-option
+  >
+  <mat-chip-option
+    [value]="{ criterion: 'date', direction: 'desc' }"
+    [class]="dateDesc ? 'disabled-chip' : ''"
+    (click)="handleChipClick('dateDesc')"
+  >
+    <img
+      class="image"
+      matChipAvatar
+      src="../../../../../assets/img/svg/arrow-down.svg"
+      alt="Arrow Down"
+    />Date</mat-chip-option
+  >
+  <mat-chip-option
+    [value]="{ criterion: 'viewCount', direction: 'asc' }"
+    [class]="viewCountAsc ? 'disabled-chip' : ''"
+    (click)="handleChipClick('viewCountAsc')"
+    ><img class="image" matChipAvatar src="../../../../../assets/img/svg/arrow-up.svg" alt="Arrow Up" />View
+    Count</mat-chip-option
+  >
   <mat-chip-option
     [value]="{ criterion: 'viewCount', direction: 'desc' }"
     [class]="viewCountDesc ? 'disabled-chip' : ''"
-  >
-    <img class="image" matChipAvatar src="../../../../../assets/img/svg/arrow-down.svg" alt="Arrow Down" />
-    View Count
-  </mat-chip-option>
-  <mat-chip-option [class]="default ? 'disabled-chip' : ''" [value]="{ criterion: '', direction: '' }">
-    <img class="image" matChipAvatar src="../../../../../assets/img/default.png" alt="Default" />
-    Default</mat-chip-option
+    (click)="handleChipClick('viewCountDesc')"
+    ><img class="image" matChipAvatar src="../../../../../assets/img/svg/arrow-down.svg" alt="Arrow Down" />View
+    Count</mat-chip-option
   >
 </mat-chip-listbox>
