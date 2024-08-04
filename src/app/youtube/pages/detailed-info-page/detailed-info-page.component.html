@@ -3,7 +3,7 @@
   @if (!isImageLoaded) {
     <mat-progress-bar mode="indeterminate"></mat-progress-bar>
   }
-  @let video = video$ | async;
+  @let video = videoService.detailedInfo();
   @if (video) {
     @let snippet = video.snippet;
     <article class="video-card" appChangeColor [publicationDate]="snippet.publishedAt">
@@ -36,7 +36,7 @@
         <app-video-statistics [video]="video" class="video-statistics"></app-video-statistics>
       </div>
     </article>
-  } @else if (video !== null) {
+  } @else if (video === null) {
     <div class="not-found">
       <div class="not-found-image-container">
         @if (!isImageLoaded) {

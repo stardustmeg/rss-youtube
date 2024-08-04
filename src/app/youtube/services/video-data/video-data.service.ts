@@ -1,4 +1,5 @@
 import { LoginService } from '@/app/auth/services/login/login.service';
+import { NavigationService } from '@/app/core/services/navigation/navigation.service';
 import { addYoutubeVideos } from '@/app/redux/actions/actions';
 import { selectCustomCards, selectVideos } from '@/app/redux/selectors/selectors';
 import { Injectable, inject, signal } from '@angular/core';
@@ -24,9 +25,13 @@ export class VideoDataService {
 
   private loginService = inject(LoginService);
 
+  private navigationService = inject(NavigationService);
+
   private store = inject(Store);
 
   private youtubeApiService: YoutubeApiService = inject(YoutubeApiService);
+
+  public detailedInfo = signal<VideoItem | null>(null);
 
   public filterQuery = signal<string>('');
 
@@ -43,6 +48,42 @@ export class VideoDataService {
     });
   }
 
+  private extractFirstVideo(detailedVideos: VideoItem[]): VideoItem {
+    return detailedVideos[0];
+  }
+
+  private getCustomCardById(id: string): void {
+    this.store
+      .select(selectCustomCards)
+      .pipe(map((customCards) => customCards.find((card) => card.id.videoId === id)))
+      .subscribe((customCard) => {
+        if (customCard !== undefined) {
+          this.setDetailedInfo(customCard);
+        } else {
+          this.setDetailedInfo(null);
+        }
+      });
+  }
+
+  private getYoutubeVideoById(id: string): void {
+    this.youtubeApiService
+      .getVideoDetails([id])
+      .pipe(map((detailedVideos) => this.extractFirstVideo(detailedVideos)))
+      .subscribe((detailedVideo) => this.handleDetailedVideo(detailedVideo, id));
+  }
+
+  private handleDetailedVideo(detailedVideo: VideoItem, id: string): void {
+    if (detailedVideo !== undefined) {
+      this.setDetailedInfo(detailedVideo);
+    } else {
+      this.getCustomCardById(id);
+    }
+  }
+
+  private setDetailedInfo(info: VideoItem | null): void {
+    this.detailedInfo.set(info);
+  }
+
   private setFoundData(data: VideoItem[]): void {
     this.store.dispatch(addYoutubeVideos({ videos: data }));
   }
@@ -51,11 +92,12 @@ export class VideoDataService {
     return this.youtubeApiService.getVideoDetails(videoIds);
   }
 
-  public getVideoById(id: string): Observable<VideoItem> {
-    return this.youtubeApiService.getVideoDetails([id]).pipe(map((detailedVideos) => detailedVideos[0]));
+  public getVideoById(): void {
+    const id = this.navigationService.queryParams()['id'];
+    this.getYoutubeVideoById(id);
   }
 
-  public searchVideos(query: string, maxResults = 20): Observable<VideoItem[]> {
+  public searchVideos(query: string, maxResults = 30): Observable<VideoItem[]> {
     return this.youtubeApiService.searchVideos(query, maxResults).pipe(
       map((searchResponse) => searchResponse.items.map((item) => item.id.videoId)),
       switchMap((videoIds: string[]) => this.fetchVideoDetails(videoIds)),

@@ -27,6 +27,8 @@ export class VideoItemCardComponent {
   constructor() {}
 
   public moreButtonHandler(): void {
-    this.router.navigate([appRoute.DETAILED], { queryParams: { id: this.video.id } });
+    this.router.navigate([appRoute.DETAILED], {
+      queryParams: this.video.kind === 'custom#card' ? { id: this.video.id.videoId } : { id: this.video.id },
+    });
   }
 }
