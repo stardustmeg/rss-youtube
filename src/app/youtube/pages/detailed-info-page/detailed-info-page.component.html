@@ -36,7 +36,7 @@
         <app-video-statistics [video]="video" class="video-statistics"></app-video-statistics>
       </div>
     </article>
-  } @else if (video === null) {
+  } @else if (video !== undefined) {
     <div class="not-found">
       <div class="not-found-image-container">
         @if (!isImageLoaded) {
