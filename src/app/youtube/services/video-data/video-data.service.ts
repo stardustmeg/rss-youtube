@@ -31,7 +31,7 @@ export class VideoDataService {
 
   private youtubeApiService = inject(YoutubeApiService);
 
-  public detailedInfo = signal<VideoItem | null | undefined>(null);
+  public detailedInfo = signal<VideoItem | null | undefined>(undefined);
 
   public filterQuery = signal<string>('');
 

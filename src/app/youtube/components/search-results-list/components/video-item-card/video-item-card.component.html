@@ -1,5 +1,12 @@
 @let snippet = video.snippet;
+@let isCustomCard = video.kind === 'custom#card';
 <article class="video-card" appChangeColor [publicationDate]="snippet.publishedAt">
+  <app-custom-button
+    class="additional-button"
+    [attributeType]="'mat-icon-button'"
+    [icon]="isCustomCard ? 'delete' : 'favorite'"
+    (click)="additionalButtonHandler()"
+  ></app-custom-button>
   <div class="video-image-container">
     @if (!imageLoaded()) {
       <mat-spinner class="spinner"></mat-spinner>
