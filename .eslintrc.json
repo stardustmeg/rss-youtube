@@ -7,7 +7,7 @@
   "env": {
     "es6": true
   },
-  "ignorePatterns": ["dist/**/*"],
+  "ignorePatterns": ["dist/**/*", "generators/**/*"],
   "overrides": [
     {
       "files": ["*.ts"],

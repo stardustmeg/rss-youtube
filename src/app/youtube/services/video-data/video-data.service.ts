@@ -97,7 +97,7 @@ export class VideoDataService {
     this.getYoutubeVideoById(id);
   }
 
-  public searchVideos(query: string, maxResults = 30): Observable<VideoItem[]> {
+  public searchVideos(query: string, maxResults = 20): Observable<VideoItem[]> {
     return this.youtubeApiService.searchVideos(query, maxResults).pipe(
       map((searchResponse) => searchResponse.items.map((item) => item.id.videoId)),
       switchMap((videoIds: string[]) => this.fetchVideoDetails(videoIds)),

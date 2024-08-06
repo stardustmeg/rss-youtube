@@ -1,5 +1,5 @@
-const { execSync } = require('child_process');
-const inquirer = require('inquirer');
+import inquirer from 'inquirer';
+import { execSync } from 'child_process';
 
 const entities = ['component', 'interface', 'directive', 'module', 'guard', 'enum', 'pipe', 'service'];
 
@@ -57,8 +57,6 @@ const showMenu = () => {
   });
 };
 
-module.exports = {
-  showMenu,
-};
+export { showMenu };
 
 showMenu();

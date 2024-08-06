@@ -115,3 +115,9 @@
   margin: $standart-rem * 4;
   font-size: $font-size-xl;
 }
+
+.additional-button {
+  position: absolute;
+  right: $standart-rem;
+  bottom: $small-rem;
+}

@@ -2,6 +2,8 @@
 @import '../../../../../styles/colors.module';
 
 .video-card {
+  position: relative;
+
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -21,6 +23,9 @@
 }
 
 .additional-button {
+  position: absolute;
+  right: $small-rem;
+  bottom: calc($small-rem / 2);
   align-self: flex-end;
 }
 

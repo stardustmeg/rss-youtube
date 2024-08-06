@@ -1,9 +1,11 @@
 <div class="detailed-info-page">
   @let isImageLoaded = imageLoaded();
+  @let video = videoService.detailedInfo();
+  @let isCustomCard = video!.kind === 'custom#card';
+
   @if (!isImageLoaded) {
     <mat-progress-bar mode="indeterminate"></mat-progress-bar>
   }
-  @let video = videoService.detailedInfo();
   @if (video) {
     @let snippet = video.snippet;
     <article class="video-card" appChangeColor [publicationDate]="snippet.publishedAt">
@@ -35,6 +37,12 @@
         <p class="video-description">{{ snippet.description }}</p>
         <app-video-statistics [video]="video" class="video-statistics"></app-video-statistics>
       </div>
+      <app-custom-button
+        class="additional-button"
+        [attributeType]="'mat-icon-button'"
+        [icon]="isCustomCard ? 'delete' : 'star'"
+        (click)="isCustomCard ? handleDeleteAction(video.id.videoId) : handleFavoriteAction(video.id)"
+      ></app-custom-button>
     </article>
   } @else if (video !== undefined) {
     <div class="not-found">
