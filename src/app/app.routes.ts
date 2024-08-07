@@ -32,6 +32,13 @@ export const routes: Routes = [
     title: appPath.ADMIN,
   },
   {
+    canActivate: [authGuard],
+    loadComponent: () =>
+      import('./youtube/pages/favorites-page/favorites-page.component').then((m) => m.FavoritesPageComponent),
+    path: appPath.FAVORITES,
+    title: appPath.FAVORITES,
+  },
+  {
     loadComponent: () => import('./core/not-found-page/not-found-page.component').then((m) => m.NotFoundPageComponent),
     path: appPath.NOT_FOUND,
     title: appPath.NOT_FOUND,
