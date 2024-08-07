@@ -27,10 +27,8 @@
     </div>
   </div>
 
-  @if (isSortVisible() && isMainPage) {
-    <div class="sort-container">
-      <app-sort></app-sort>
-      <app-filter></app-filter>
-    </div>
-  }
+  <div class="sort-container" [class]="isSortVisible() && isMainPage ? 'sort-visible' : 'sort-hidden'">
+    <app-sort></app-sort>
+    <app-filter></app-filter>
+  </div>
 </header>

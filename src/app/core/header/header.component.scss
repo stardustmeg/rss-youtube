@@ -17,16 +17,6 @@
   align-items: center;
 }
 
-.sort-container {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: flex-start;
-
-  height: 100%;
-  padding-bottom: 0;
-}
-
 .header-container {
   display: flex;
   align-items: center;
@@ -38,4 +28,32 @@
   display: flex;
   gap: $small-rem;
   align-items: center;
+}
+
+.sort-container {
+  overflow: hidden;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-start;
+
+  height: 100%;
+  max-height: 0;
+  padding-bottom: 0;
+
+  visibility: hidden;
+
+  transition:
+    max-height 0.5s ease-in-out,
+    visibility 0.5s ease-in-out;
+}
+
+.sort-visible {
+  max-height: $standart-rem * 4.5;
+  visibility: visible;
+}
+
+.sort-hidden {
+  max-height: 0;
+  visibility: hidden;
 }
