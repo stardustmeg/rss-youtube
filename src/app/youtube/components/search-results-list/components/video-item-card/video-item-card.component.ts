@@ -3,10 +3,11 @@ import { CustomButtonComponent } from '@/app/shared/components/custom-button/cus
 import { appRoute } from '@/app/shared/constants/routes';
 import { ChangeColorDirective } from '@/app/youtube/directives/change-color/change-color.directive';
 import { VideoItem } from '@/app/youtube/models/video-item.model';
-import { ChangeDetectionStrategy, Component, Input, OnInit, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnDestroy, OnInit, inject, signal } from '@angular/core';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { Subscription } from 'rxjs';
 
 import { DeleteButtonComponent } from '../../../delete-button/delete-button.component';
 import { FavoriteButtonComponent } from '../../../favorite-button/favorite-button.component';
@@ -28,10 +29,12 @@ import { VideoStatisticsComponent } from '../../../video-statistics/video-statis
   styleUrl: './video-item-card.component.scss',
   templateUrl: './video-item-card.component.html',
 })
-export class VideoItemCardComponent implements OnInit {
+export class VideoItemCardComponent implements OnInit, OnDestroy {
   private router = inject(Router);
 
   private store = inject(Store);
+
+  private subscription: Subscription = new Subscription();
 
   public imageLoaded = signal(false);
 
@@ -47,9 +50,15 @@ export class VideoItemCardComponent implements OnInit {
     });
   }
 
+  public ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
+
   public ngOnInit(): void {
-    this.store.select(selectFavoriteVideos).subscribe((videos) => {
-      this.isFavorite = videos.includes(this.video.id);
-    });
+    this.subscription.add(
+      this.store.select(selectFavoriteVideos).subscribe((videos) => {
+        this.isFavorite = videos.includes(this.video.id);
+      }),
+    );
   }
 }
