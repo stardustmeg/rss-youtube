@@ -30,7 +30,7 @@
           [class]="isImageLoaded ? 'shown' : ''"
           [alt]="snippet.title"
           (load)="imageLoaded.set(true)"
-          [src]="snippet.thumbnails.high.url"
+          [src]="imageFailedToLoad() ? placeholderImageUrl : snippet.thumbnails.high.url"
         />
       </div>
       <div class="video-info-container">

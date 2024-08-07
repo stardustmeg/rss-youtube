@@ -13,8 +13,11 @@ import { Subscription } from 'rxjs';
 import { DeleteButtonComponent } from '../../components/delete-button/delete-button.component';
 import { FavoriteButtonComponent } from '../../components/favorite-button/favorite-button.component';
 import { VideoStatisticsComponent } from '../../components/video-statistics/video-statistics.component';
+import { LOAD_TIMEOUT } from '../../constants/loadTimeout';
 import { ChangeColorDirective } from '../../directives/change-color/change-color.directive';
 import { VideoDataService } from '../../services/video-data/video-data.service';
+
+const NOT_FOUND_VIDEO_IMAGE = '../../../../../assets/img/video-not-found.jpg';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -44,11 +47,15 @@ export class DetailedInfoPageComponent implements OnDestroy, OnInit {
 
   private subscription = new Subscription();
 
+  public imageFailedToLoad = signal(false);
+
   public imageLoaded = signal(false);
 
   public isFavorite = signal(false);
 
   public location = inject(Location);
+
+  public readonly placeholderImageUrl = NOT_FOUND_VIDEO_IMAGE;
 
   public videoService = inject(VideoDataService);
 
@@ -66,5 +73,10 @@ export class DetailedInfoPageComponent implements OnDestroy, OnInit {
         this.isFavorite.set(videos.includes(this.navigationService.queryParams()['id']));
       }),
     );
+    setTimeout(() => {
+      if (!this.imageLoaded()) {
+        this.imageFailedToLoad.set(true);
+      }
+    }, LOAD_TIMEOUT);
   }
 }

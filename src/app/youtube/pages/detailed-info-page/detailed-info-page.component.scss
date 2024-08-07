@@ -16,6 +16,7 @@
   align-self: center;
   justify-content: space-between;
 
+  width: 100%;
   max-width: $big-rem * 30;
   margin: $big-rem auto;
   padding: $standart-rem;
@@ -46,6 +47,7 @@
 
   max-width: 45%;
   min-height: $standart-rem * 25;
+  margin: 0 auto;
   padding: $small-rem;
 }
 

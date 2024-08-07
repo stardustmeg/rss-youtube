@@ -6,11 +6,10 @@
       <mat-spinner class="spinner"></mat-spinner>
     }
     <img
-      class="video-image"
-      [class]="imageLoaded() ? 'shown' : ''"
+      class="video-image shown"
       [alt]="snippet.title"
       (load)="imageLoaded.set(true)"
-      [src]="snippet.thumbnails.high.url"
+      [src]="imageFailedToLoad() ? placeholderImageUrl : snippet.thumbnails.high.url"
     />
   </div>
   <div class="video-info-container">

@@ -44,12 +44,22 @@
 .video-image,
 .video-image-container {
   position: relative;
+
   width: 100%;
+  height: fit-content;
   min-height: $standart-rem * 10;
+  padding: 0;
 }
 
 .video-image {
+  overflow: hidden;
+
+  width: 100%;
+  height: 100%;
+
   opacity: 0;
+  object-fit: contain;
+
   transition: opacity 0.3s ease;
 }
 
