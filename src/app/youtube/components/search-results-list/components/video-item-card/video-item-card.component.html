@@ -18,10 +18,10 @@
     <h2 class="video-title">{{ snippet.title }}</h2>
   </div>
   <app-custom-button (click)="moreButtonHandler()">more...</app-custom-button>
-  <app-custom-button
-    class="additional-button"
-    [attributeType]="'mat-icon-button'"
-    [icon]="isCustomCard ? 'delete' : 'star'"
-    (click)="additionalButtonHandler()"
-  ></app-custom-button>
+
+  @if (isCustomCard) {
+    <app-delete-button class="additional-button" [id]="video.id.videoId"></app-delete-button>
+  } @else {
+    <app-favorite-button class="additional-button" [id]="video.id" [isFavorite]="isFavorite"></app-favorite-button>
+  }
 </article>

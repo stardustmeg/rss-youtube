@@ -2,6 +2,7 @@ import { FakeAuthTokenService } from '@/app/auth/services/auth-token/fake-auth-t
 import { addCustomCard } from '@/app/redux/actions/actions';
 import { selectCustomCards } from '@/app/redux/selectors/selectors';
 import { CustomButtonComponent } from '@/app/shared/components/custom-button/custom-button.component';
+import { appRoute } from '@/app/shared/constants/routes';
 import { userMessage } from '@/app/shared/services/snackBar/constants/user-message';
 import { SnackBarService } from '@/app/shared/services/snackBar/snack-bar.service';
 import { stringTemplate } from '@/app/shared/utils/string-template';
@@ -18,6 +19,7 @@ import { MatError, MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatStepper, MatStepperModule } from '@angular/material/stepper';
+import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 
 import { VideoItem } from '../../models/video-item.model';
@@ -58,6 +60,8 @@ export class NewVideoItemFormComponent {
   private formBuilder = inject(FormBuilder);
 
   @ViewChild('stepper') private myStepper!: MatStepper;
+
+  private router = inject(Router);
 
   private snackBar = inject(SnackBarService);
 
@@ -123,7 +127,7 @@ export class NewVideoItemFormComponent {
 
     this.store.dispatch(addCustomCard({ card: newCard }));
     this.snackBar.openSnackBar(stringTemplate(userMessage.CARD_ADDED, { title: newCard.snippet.title }));
-    this.reset();
+    this.router.navigate([appRoute.MAIN]);
   }
 
   public reset(event?: Event): void {

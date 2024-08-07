@@ -7,3 +7,5 @@ export const selectAppState = createFeatureSelector<AppState>('appState');
 export const selectVideos = createSelector(selectAppState, (state: AppState) => state.videos);
 
 export const selectCustomCards = createSelector(selectAppState, (state: AppState) => state.customCards);
+
+export const selectFavoriteVideos = createSelector(selectAppState, (state: AppState) => state.favoriteVideos);

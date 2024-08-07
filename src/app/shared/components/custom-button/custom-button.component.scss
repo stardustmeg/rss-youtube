@@ -40,3 +40,17 @@
 .form-reset-button {
   margin-right: $standart-rem;
 }
+
+.active-favorite-button {
+  .mat-icon {
+    color: $golden-color;
+  }
+}
+
+.delete-button {
+  &:hover {
+    .mat-icon {
+      color: $accent-color;
+    }
+  }
+}

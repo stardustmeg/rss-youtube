@@ -1,1 +1,7 @@
-<p>delete-button works!</p>
+<app-custom-button
+  [attributeType]="'mat-icon-button'"
+  [customClass]="'delete-button'"
+  title="Delete the card"
+  icon="delete"
+  (click)="handleDeleteAction(id)"
+></app-custom-button>

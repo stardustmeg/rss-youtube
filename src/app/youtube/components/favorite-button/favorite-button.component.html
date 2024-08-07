@@ -1,1 +1,7 @@
-<p>favorite-button works!</p>
+<app-custom-button
+  [attributeType]="'mat-icon-button'"
+  [customClass]="isFavorite ? 'active-favorite-button' : ''"
+  [title]="isFavorite ? 'Remove from favorites' : 'Add to favorites'"
+  icon="star"
+  (click)="handleFavoriteAction(id)"
+></app-custom-button>

@@ -44,12 +44,13 @@
   align-items: center;
   justify-content: center;
 
-  width: 45%;
+  max-width: 45%;
   min-height: $standart-rem * 25;
   padding: $small-rem;
 }
 
 .video-image {
+  width: 100%;
   opacity: 0;
   transition: opacity 0.3s ease;
 }
