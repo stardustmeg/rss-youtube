@@ -74,10 +74,7 @@ export const appReducer = createReducer(
     }, {});
     return {
       ...state,
-      videos: {
-        ...state.videos,
-        ...newVideos,
-      },
+      videos: { ...newVideos },
     };
   }),
   on(Actions.addCustomCard, (state, { card }) => ({

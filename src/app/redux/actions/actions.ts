@@ -20,3 +20,8 @@ export const addVideoToFavorite = createAction(
 );
 
 export const deleteVideoFromFavorite = createAction('[Favorite] deleteVideoFromFavorite', props<{ id: string }>());
+
+export const searchVideos = createAction(
+  '[Main Search] Search Videos',
+  props<{ maxResults?: number; query: string }>(),
+);
