@@ -43,7 +43,7 @@ export class VideoItemCardComponent implements OnInit {
 
   public moreButtonHandler(): void {
     this.router.navigate([appRoute.DETAILED], {
-      queryParams: this.video.kind === 'custom#card' ? { id: this.video.id.videoId } : { id: this.video.id },
+      queryParams: { id: this.video.id },
     });
   }
 

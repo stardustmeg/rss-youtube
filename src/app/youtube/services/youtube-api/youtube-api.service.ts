@@ -2,7 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Observable, map } from 'rxjs';
 
-import { Response } from '../../models/response.model';
+import { SearchResponse, VideosResponse } from '../../models/response.model';
 import { VideoItem } from '../../models/video-item.model';
 import { endponts } from './constants/endpoints';
 
@@ -20,11 +20,11 @@ export class YoutubeApiService {
 
   public getVideoDetails(videoIds: string[]): Observable<VideoItem[]> {
     const params = new HttpParams().set('part', 'snippet,statistics').set('id', videoIds.join(','));
-    return this.http.get<Response>(this.videosEndpoint, { params }).pipe(map((response) => response.items));
+    return this.http.get<VideosResponse>(this.videosEndpoint, { params }).pipe(map((response) => response.items));
   }
 
-  public searchVideos(query: string, maxResults: number): Observable<Response> {
+  public searchVideos(query: string, maxResults: number): Observable<SearchResponse> {
     const params = new HttpParams().set('part', 'snippet').set('q', query).set('maxResults', maxResults.toString());
-    return this.http.get<Response>(this.searchEndpoint, { params });
+    return this.http.get<SearchResponse>(this.searchEndpoint, { params });
   }
 }

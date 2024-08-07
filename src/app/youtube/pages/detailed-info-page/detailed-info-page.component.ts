@@ -1,5 +1,5 @@
 import { NavigationService } from '@/app/core/services/navigation/navigation.service';
-// import { selectFavoriteVideos } from '@/app/redux/selectors/selectors';
+import { selectFavoriteVideos } from '@/app/redux/selectors/selectors';
 import { CustomButtonComponent } from '@/app/shared/components/custom-button/custom-button.component';
 import { CustomLinkComponent } from '@/app/shared/components/custom-link/custom-link.component';
 import { AsyncPipe, DatePipe } from '@angular/common';
@@ -8,6 +8,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { RouterLink } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { Subscription } from 'rxjs';
 
 import { DeleteButtonComponent } from '../../components/delete-button/delete-button.component';
 import { FavoriteButtonComponent } from '../../components/favorite-button/favorite-button.component';
@@ -41,6 +42,8 @@ export class DetailedInfoPageComponent implements OnDestroy, OnInit {
 
   private store = inject(Store);
 
+  private subscription: Subscription | undefined;
+
   public imageLoaded = signal(false);
 
   public isFavorite = signal(false);
@@ -53,14 +56,15 @@ export class DetailedInfoPageComponent implements OnDestroy, OnInit {
 
   public ngOnDestroy(): void {
     this.videoService.detailedInfo.set(undefined);
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
   }
 
   public ngOnInit(): void {
     this.videoService.getVideoById();
-    //   this.store.select(selectFavoriteVideos).subscribe((videos) => {
-    //     const currentId: string = this.navigationService.queryParams()['id'];
-    //     // this.isFavorite.set(videos.includes(currentId));
-    //     console.log(videos, currentId);
-    //   });
+    this.subscription = this.store.select(selectFavoriteVideos).subscribe((videos) => {
+      this.isFavorite.set(videos.includes(this.navigationService.queryParams()['id']));
+    });
   }
 }

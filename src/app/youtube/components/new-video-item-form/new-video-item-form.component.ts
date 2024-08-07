@@ -98,10 +98,7 @@ export class NewVideoItemFormComponent {
     const videoDate = new Date(this.formGroup.get('creationDate')?.value ?? '');
 
     const newCard: VideoItem = {
-      id: {
-        kind: 'custom#card',
-        videoId,
-      },
+      id: videoId,
       kind: 'custom#card',
       snippet: {
         description: this.formGroup.get('description')?.value ?? '',

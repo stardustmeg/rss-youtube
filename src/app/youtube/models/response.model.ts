@@ -1,9 +1,16 @@
 import PageInfo from './page-info.model';
-import { VideoItem } from './video-item.model';
+import { SearchVideoItem, VideoItem } from './video-item.model';
 
-export interface Response {
+interface Response {
   etag: string;
-  items: VideoItem[];
   kind: string;
   pageInfo: PageInfo;
+}
+
+export interface VideosResponse extends Response {
+  items: VideoItem[];
+}
+
+export interface SearchResponse extends Response {
+  items: SearchVideoItem[];
 }

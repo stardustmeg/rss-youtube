@@ -55,7 +55,7 @@ export class VideoDataService {
   private getCustomCardById(id: string): void {
     this.store
       .select(selectCustomCards)
-      .pipe(map((customCards) => customCards.find((card) => card.id.videoId === id)))
+      .pipe(map((customCards) => customCards.find((card) => card.id === id)))
       .subscribe((customCard) => {
         if (customCard !== undefined) {
           this.setDetailedInfo(customCard);

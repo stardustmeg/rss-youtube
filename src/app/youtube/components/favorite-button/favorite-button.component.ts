@@ -3,8 +3,6 @@ import { CustomButtonComponent } from '@/app/shared/components/custom-button/cus
 import { ChangeDetectionStrategy, Component, Input, inject } from '@angular/core';
 import { Store } from '@ngrx/store';
 
-import { Id } from '../../models/id.model';
-
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [CustomButtonComponent],
@@ -16,13 +14,13 @@ import { Id } from '../../models/id.model';
 export class FavoriteButtonComponent {
   private store = inject(Store);
 
-  @Input() public id!: Id;
+  @Input() public id!: string;
 
   @Input() public isFavorite!: boolean;
 
   constructor() {}
 
-  public handleFavoriteAction(id: Id): void {
+  public handleFavoriteAction(id: string): void {
     if (this.isFavorite) {
       this.store.dispatch(deleteVideoFromFavorite({ id }));
     } else {

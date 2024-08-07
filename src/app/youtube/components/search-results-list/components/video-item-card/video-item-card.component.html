@@ -20,7 +20,7 @@
   <app-custom-button (click)="moreButtonHandler()">more...</app-custom-button>
 
   @if (isCustomCard) {
-    <app-delete-button class="additional-button" [id]="video.id.videoId"></app-delete-button>
+    <app-delete-button class="additional-button" [id]="video.id"></app-delete-button>
   } @else {
     <app-favorite-button class="additional-button" [id]="video.id" [isFavorite]="isFavorite"></app-favorite-button>
   }

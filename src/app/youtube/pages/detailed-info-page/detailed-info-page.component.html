@@ -40,7 +40,7 @@
         <app-video-statistics [video]="video" class="video-statistics"></app-video-statistics>
       </div>
       @if (isCustomCard) {
-        <app-delete-button class="additional-button" [id]="video.id.videoId"></app-delete-button>
+        <app-delete-button class="additional-button" [id]="video.id"></app-delete-button>
       } @else {
         <app-favorite-button
           class="additional-button"
@@ -48,8 +48,6 @@
           [isFavorite]="isFavorite()"
         ></app-favorite-button>
       }
-
-      <!-- <div>is Favorite {{ isFavorite() }}, {{ video.id }};</div> -->
     </article>
   } @else if (video !== undefined) {
     <div class="not-found">

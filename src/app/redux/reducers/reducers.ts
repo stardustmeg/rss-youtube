@@ -6,10 +6,7 @@ import { AppState } from '../state.models';
 // for testing; delete later
 
 const customCard = {
-  id: {
-    kind: 'custom#video',
-    videoId: '11111111',
-  },
+  id: '11111111',
   kind: 'custom#card',
   snippet: {
     description:
@@ -35,10 +32,7 @@ const customCard = {
 };
 
 const customCardTwo = {
-  id: {
-    kind: 'custom#video',
-    videoId: '22222',
-  },
+  id: '22222',
   kind: 'custom#card',
   snippet: {
     description:
@@ -81,7 +75,7 @@ export const appReducer = createReducer(
   })),
   on(Actions.deleteCustomCard, (state, { id }) => ({
     ...state,
-    customCards: state.customCards.filter((card) => card.id.videoId !== id),
+    customCards: state.customCards.filter((card) => card.id !== id),
   })),
   on(Actions.addVideoToFavorite, (state, { id }) => ({
     ...state,

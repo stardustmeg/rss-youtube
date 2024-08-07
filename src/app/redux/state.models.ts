@@ -1,8 +1,7 @@
-import { Id } from '../youtube/models/id.model';
 import { VideoItem } from '../youtube/models/video-item.model';
 
 export interface AppState {
   customCards: VideoItem[];
-  favoriteVideos: Id[];
+  favoriteVideos: string[];
   videos: VideoItem[];
 }
