@@ -1,65 +1,12 @@
 import { VideoItem } from '@/app/youtube/models/video-item.model';
 import { createReducer, on } from '@ngrx/store';
 
+import { customCard, customCardThree, customCardTwo } from '../../../assets/db/test-db/kittens';
 import * as Actions from '../actions/actions';
 import { AppState } from '../state.models';
 
-// customCard, customCardTwo are for testing; delete later
-
-const customCard = {
-  id: '11111111',
-  kind: 'custom#card',
-  snippet: {
-    description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-    publishedAt: '2024-07-25T00:00:00Z',
-    tags: ['tag1', 'tag2'],
-    thumbnails: {
-      default: {
-        url: 'https://images.ctfassets.net/sfnkq8lmu5d7/1NaIFGyBn0qwXYlNaCJSEl/ad59ce5eefa3c2322b696778185cc749/2021_0825_Kitten_Health.jpg',
-      },
-      high: {
-        url: 'https://iu5d7/1NaIFGyBn0qwXYlNaCJSEl/ad59ce5eefa3c2322b696778185cc749/2021_0825_Kitten_Health.jpg',
-      },
-    },
-    title: 'kitten',
-  },
-  statistics: {
-    commentCount: '0',
-    dislikeCount: '0',
-    likeCount: '0',
-    viewCount: '0',
-  },
-};
-
-const customCardTwo = {
-  id: '22222',
-  kind: 'custom#card',
-  snippet: {
-    description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-    publishedAt: '2024-06-25T00:00:00Z',
-    tags: ['tag1', 'tag2'],
-    thumbnails: {
-      default: {
-        url: 'https://images.ctfassets.net/sfnkq8lmu5d7/1NaIFGyBn0qwXYlNaCJSEl/ad59ce5eefa3c2322b696778185cc749/2021_0825_Kitten_Health.jpg',
-      },
-      high: {
-        url: 'https://images.ctfassets.net/sfnkq8lmu5d7/1NaIFGyBn0qwXYlNaCJSEl/ad59ce5eefa3c2322b696778185cc749/2021_0825_Kitten_Health.jpg',
-      },
-    },
-    title: 'kitten too',
-  },
-  statistics: {
-    commentCount: '0',
-    dislikeCount: '0',
-    likeCount: '0',
-    viewCount: '0',
-  },
-};
-
 const initialState: AppState = {
-  customCards: [customCard, customCardTwo],
+  customCards: [customCard, customCardTwo, customCardThree],
   favoriteVideos: {},
   favoriteVideosIds: [],
   videos: {},
