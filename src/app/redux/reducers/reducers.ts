@@ -3,7 +3,7 @@ import { createReducer, on } from '@ngrx/store';
 import * as Actions from '../actions/actions';
 import { AppState } from '../state.models';
 
-// for testing; delete later
+// customCard, customCardTwo are for testing; delete later
 
 const customCard = {
   id: '11111111',
@@ -59,7 +59,8 @@ const customCardTwo = {
 
 const initialState: AppState = {
   customCards: [customCard, customCardTwo],
-  favoriteVideos: [],
+  favoriteVideos: {},
+  favoriteVideosIds: [],
   videos: [],
 };
 
@@ -77,12 +78,24 @@ export const appReducer = createReducer(
     ...state,
     customCards: state.customCards.filter((card) => card.id !== id),
   })),
-  on(Actions.addVideoToFavorite, (state, { id }) => ({
+  on(Actions.addVideoToFavoriteIds, (state, { id }) => ({
     ...state,
-    favoriteVideos: [...state.favoriteVideos, id],
+    favoriteVideosIds: [...state.favoriteVideosIds, id],
   })),
-  on(Actions.deleteVideoFromFavorite, (state, { id }) => ({
+  on(Actions.deleteVideoFromFavoriteIds, (state, { id }) => ({
     ...state,
-    favoriteVideos: state.favoriteVideos.filter((videoId) => videoId !== id),
+    favoriteVideosIds: state.favoriteVideosIds.filter((videoId) => videoId !== id),
   })),
+  on(Actions.addVideoToFavorite, (state, { id, video }) => ({
+    ...state,
+    favoriteVideos: { ...state.favoriteVideos, [id]: video },
+  })),
+  on(Actions.deleteVideoFromFavorite, (state, { id }) => {
+    const newFavoriteVideos = { ...state.favoriteVideos };
+    delete newFavoriteVideos[id];
+    return {
+      ...state,
+      favoriteVideos: newFavoriteVideos,
+    };
+  }),
 );

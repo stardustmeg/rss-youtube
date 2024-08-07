@@ -1,0 +1,26 @@
+@import '../../../styles/numbers.module';
+@import '../../../styles/colors.module';
+
+.video-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+.no-video {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+.not-found-image {
+  width: $standart-rem * 20;
+  height: $standart-rem * 20;
+  margin: 0 auto;
+}
+
+.not-found-text {
+  text-align: center;
+}

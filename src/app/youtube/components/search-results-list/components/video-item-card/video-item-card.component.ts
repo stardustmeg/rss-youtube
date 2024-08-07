@@ -1,4 +1,4 @@
-import { selectFavoriteVideos } from '@/app/redux/selectors/selectors';
+import { selectFavoriteVideosIds } from '@/app/redux/selectors/selectors';
 import { CustomButtonComponent } from '@/app/shared/components/custom-button/custom-button.component';
 import { appRoute } from '@/app/shared/constants/routes';
 import { ChangeColorDirective } from '@/app/youtube/directives/change-color/change-color.directive';
@@ -56,7 +56,7 @@ export class VideoItemCardComponent implements OnInit, OnDestroy {
 
   public ngOnInit(): void {
     this.subscription.add(
-      this.store.select(selectFavoriteVideos).subscribe((videos) => {
+      this.store.select(selectFavoriteVideosIds).subscribe((videos) => {
         this.isFavorite = videos.includes(this.video.id);
       }),
     );

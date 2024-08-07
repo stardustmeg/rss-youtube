@@ -8,4 +8,6 @@ export const selectVideos = createSelector(selectAppState, (state: AppState) => 
 
 export const selectCustomCards = createSelector(selectAppState, (state: AppState) => state.customCards);
 
+export const selectFavoriteVideosIds = createSelector(selectAppState, (state: AppState) => state.favoriteVideosIds);
+
 export const selectFavoriteVideos = createSelector(selectAppState, (state: AppState) => state.favoriteVideos);

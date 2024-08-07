@@ -1,8 +1,8 @@
 import { NavigationService } from '@/app/core/services/navigation/navigation.service';
-import { selectFavoriteVideos } from '@/app/redux/selectors/selectors';
+import { selectFavoriteVideosIds } from '@/app/redux/selectors/selectors';
 import { CustomButtonComponent } from '@/app/shared/components/custom-button/custom-button.component';
 import { CustomLinkComponent } from '@/app/shared/components/custom-link/custom-link.component';
-import { AsyncPipe, DatePipe } from '@angular/common';
+import { AsyncPipe, DatePipe, Location } from '@angular/common';
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit, inject, signal } from '@angular/core';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -42,29 +42,29 @@ export class DetailedInfoPageComponent implements OnDestroy, OnInit {
 
   private store = inject(Store);
 
-  private subscription: Subscription | undefined;
+  private subscription = new Subscription();
 
   public imageLoaded = signal(false);
 
   public isFavorite = signal(false);
 
+  public location = inject(Location);
+
   public videoService = inject(VideoDataService);
 
-  constructor() {
-    this.videoService.getVideoById();
-  }
+  constructor() {}
 
   public ngOnDestroy(): void {
     this.videoService.detailedInfo.set(undefined);
-    if (this.subscription) {
-      this.subscription.unsubscribe();
-    }
+    this.subscription.unsubscribe();
   }
 
   public ngOnInit(): void {
     this.videoService.getVideoById();
-    this.subscription = this.store.select(selectFavoriteVideos).subscribe((videos) => {
-      this.isFavorite.set(videos.includes(this.navigationService.queryParams()['id']));
-    });
+    this.subscription.add(
+      this.store.select(selectFavoriteVideosIds).subscribe((videos) => {
+        this.isFavorite.set(videos.includes(this.navigationService.queryParams()['id']));
+      }),
+    );
   }
 }

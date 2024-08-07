@@ -22,6 +22,11 @@
   @if (isCustomCard) {
     <app-delete-button class="additional-button" [id]="video.id"></app-delete-button>
   } @else {
-    <app-favorite-button class="additional-button" [id]="video.id" [isFavorite]="isFavorite"></app-favorite-button>
+    <app-favorite-button
+      class="additional-button"
+      [id]="video.id"
+      [video]="video"
+      [isFavorite]="isFavorite"
+    ></app-favorite-button>
   }
 </article>

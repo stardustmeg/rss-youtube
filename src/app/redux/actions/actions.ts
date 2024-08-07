@@ -7,6 +7,16 @@ export const deleteCustomCard = createAction('[Admin] deleteCustomCard', props<{
 
 export const addYoutubeVideos = createAction('[API] addYoutubeVideos', props<{ videos: VideoItem[] }>());
 
-export const addVideoToFavorite = createAction('[Favorite] addVideoToFavorite', props<{ id: string }>());
+export const addVideoToFavoriteIds = createAction('[Favorite] addVideoToFavoriteIds', props<{ id: string }>());
+
+export const deleteVideoFromFavoriteIds = createAction(
+  '[Favorite] deleteVideoFromFavoriteIds',
+  props<{ id: string }>(),
+);
+
+export const addVideoToFavorite = createAction(
+  '[Favorite] addVideoToFavorite',
+  props<{ id: string; video: VideoItem }>(),
+);
 
 export const deleteVideoFromFavorite = createAction('[Favorite] deleteVideoFromFavorite', props<{ id: string }>());

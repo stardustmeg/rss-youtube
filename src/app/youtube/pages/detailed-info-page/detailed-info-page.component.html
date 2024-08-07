@@ -19,7 +19,7 @@
         appChangeColor
         [publicationDate]="snippet.publishedAt"
         [type]="'background'"
-        routerLink="/"
+        (click)="location.back()"
       ></app-custom-link>
       <div class="video-image-container">
         @if (!isImageLoaded) {
@@ -45,6 +45,7 @@
         <app-favorite-button
           class="additional-button"
           [id]="video.id"
+          [video]="video"
           [isFavorite]="isFavorite()"
         ></app-favorite-button>
       }
