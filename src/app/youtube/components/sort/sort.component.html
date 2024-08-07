@@ -1,8 +1,4 @@
-<mat-chip-listbox
-  aria-label="select a shirt size"
-  class="sort-chips-container"
-  (change)="videoService.sortCriteria.set($event.value)"
->
+<mat-chip-listbox aria-label="select a shirt size" class="sort-chips-container">
   @let criterion = videoService.sortCriteria().criterion;
   @let direction = videoService.sortCriteria().direction;
   @let dateAsc = criterion === 'date' && direction === 'asc';
@@ -11,10 +7,7 @@
   @let viewCountAsc = criterion === 'viewCount' && direction === 'asc';
   @let viewCountDesc = criterion === 'viewCount' && direction === 'desc';
 
-  <mat-chip-option
-    [value]="{ criterion: 'date', direction: 'asc' }"
-    [class]="dateAsc ? 'disabled-chip' : ''"
-    (click)="handleChipClick('dateAsc')"
+  <mat-chip-option [class]="dateAsc ? 'disabled-chip' : ''" (click)="handleChipClick('dateAsc')"
     ><img
       class="image"
       matChipAvatar
@@ -22,11 +15,7 @@
       alt="Arrow Up"
     />Date</mat-chip-option
   >
-  <mat-chip-option
-    [value]="{ criterion: 'date', direction: 'desc' }"
-    [class]="dateDesc ? 'disabled-chip' : ''"
-    (click)="handleChipClick('dateDesc')"
-  >
+  <mat-chip-option [class]="dateDesc ? 'disabled-chip' : ''" (click)="handleChipClick('dateDesc')">
     <img
       class="image"
       matChipAvatar
@@ -34,17 +23,11 @@
       alt="Arrow Down"
     />Date</mat-chip-option
   >
-  <mat-chip-option
-    [value]="{ criterion: 'viewCount', direction: 'asc' }"
-    [class]="viewCountAsc ? 'disabled-chip' : ''"
-    (click)="handleChipClick('viewCountAsc')"
+  <mat-chip-option [class]="viewCountAsc ? 'disabled-chip' : ''" (click)="handleChipClick('viewCountAsc')"
     ><img class="image" matChipAvatar src="../../../../../assets/img/svg/arrow-up.svg" alt="Arrow Up" />View
     Count</mat-chip-option
   >
-  <mat-chip-option
-    [value]="{ criterion: 'viewCount', direction: 'desc' }"
-    [class]="viewCountDesc ? 'disabled-chip' : ''"
-    (click)="handleChipClick('viewCountDesc')"
+  <mat-chip-option [class]="viewCountDesc ? 'disabled-chip' : ''" (click)="handleChipClick('viewCountDesc')"
     ><img class="image" matChipAvatar src="../../../../../assets/img/svg/arrow-down.svg" alt="Arrow Down" />View
     Count</mat-chip-option
   >

@@ -5,6 +5,12 @@ import { CustomButtonComponent } from '../../../shared/components/custom-button/
 import { BASIC_SORT_OPTION } from '../../constants/sort-option';
 import { SortPipe } from '../../pipes/sort/sort.pipe';
 import { VideoDataService } from '../../services/video-data/video-data.service';
+import { SortOptionType } from './helper/isSortCriterion.helper';
+
+interface ChipsInfo {
+  count: number;
+  value: SortOptionType;
+}
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -16,25 +22,41 @@ import { VideoDataService } from '../../services/video-data/video-data.service';
   templateUrl: './sort.component.html',
 })
 export class SortComponent {
-  private clickCounts: Record<string, number> = {
-    dateAsc: 0,
-    dateDesc: 0,
-    viewCountAsc: 0,
-    viewCountDesc: 0,
+  private chipsInfo: Record<string, ChipsInfo> = {
+    dateAsc: {
+      count: 0,
+      value: { criterion: 'date', direction: 'asc' },
+    },
+    dateDesc: {
+      count: 0,
+      value: { criterion: 'date', direction: 'desc' },
+    },
+    viewCountAsc: {
+      count: 0,
+      value: { criterion: 'viewCount', direction: 'asc' },
+    },
+    viewCountDesc: {
+      count: 0,
+      value: { criterion: 'viewCount', direction: 'desc' },
+    },
   };
 
   public videoService = inject(VideoDataService);
 
   public handleChipClick(chipType: string): void {
-    this.clickCounts[chipType] += 1;
+    this.chipsInfo[chipType].count += 1;
+    const isOddClick = this.chipsInfo[chipType].count % 2 !== 0;
 
-    if (this.clickCounts[chipType] % 2 === 0) {
-      Object.keys(this.clickCounts).forEach((key) => {
-        if (key !== chipType) {
-          this.clickCounts[key] = 0;
-        }
-      });
+    if (isOddClick) {
+      this.videoService.sortCriteria.set(this.chipsInfo[chipType].value);
+    } else {
       this.videoService.sortCriteria.set(BASIC_SORT_OPTION);
     }
+
+    Object.keys(this.chipsInfo).forEach((key) => {
+      if (key !== chipType) {
+        this.chipsInfo[key].count = 0;
+      }
+    });
   }
 }
