@@ -40,11 +40,14 @@
         <app-video-statistics [video]="video" class="video-statistics"></app-video-statistics>
       </div>
       @if (isCustomCard) {
-        <app-delete-button class="additional-button" [id]="video.id"></app-delete-button>
+        <app-delete-button
+          class="additional-button"
+          [videoTitle]="video.snippet.title"
+          [id]="video.id"
+        ></app-delete-button>
       } @else {
         <app-favorite-button
           class="additional-button"
-          [id]="video.id"
           [video]="video"
           [isFavorite]="isFavorite()"
         ></app-favorite-button>

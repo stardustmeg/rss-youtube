@@ -1,5 +1,5 @@
 import { LoginService } from '@/app/auth/services/login/login.service';
-import { addYoutubeVideos } from '@/app/redux/actions/actions';
+import { searchVideos } from '@/app/redux/actions/actions';
 import { CustomButtonComponent } from '@/app/shared/components/custom-button/custom-button.component';
 import { appPath } from '@/app/shared/constants/routes';
 import { ChangeDetectionStrategy, Component, OnInit, inject } from '@angular/core';
@@ -10,7 +10,6 @@ import { Store } from '@ngrx/store';
 import { debounceTime, distinctUntilChanged, filter } from 'rxjs';
 
 import { SearchPipe } from '../../pipes/search/search.pipe';
-import { VideoDataService } from '../../services/video-data/video-data.service';
 import { DEBOUNCE_TIME, MIN_LENGTH } from './constants/number-values';
 
 @Component({
@@ -28,8 +27,6 @@ export class SearchComponent implements OnInit {
   private router = inject(Router);
 
   private store = inject(Store);
-
-  private videoService = inject(VideoDataService);
 
   public loginService = inject(LoginService);
 
@@ -64,8 +61,6 @@ export class SearchComponent implements OnInit {
 
   public onSearch(query: string): void {
     this.router.navigate([appPath.MAIN], { queryParams: { q: query } });
-    this.videoService.searchVideos(query).subscribe((detailedVideos) => {
-      this.store.dispatch(addYoutubeVideos({ videos: detailedVideos }));
-    });
+    this.store.dispatch(searchVideos({ query }));
   }
 }
