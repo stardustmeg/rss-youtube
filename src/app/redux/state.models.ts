@@ -4,5 +4,5 @@ export interface AppState {
   customCards: VideoItem[];
   favoriteVideos: Record<string, VideoItem>;
   favoriteVideosIds: string[];
-  videos: VideoItem[];
+  videos: Record<string, VideoItem>;
 }

@@ -1,3 +1,4 @@
+import { VideoItem } from '@/app/youtube/models/video-item.model';
 import { createReducer, on } from '@ngrx/store';
 
 import * as Actions from '../actions/actions';
@@ -61,15 +62,24 @@ const initialState: AppState = {
   customCards: [customCard, customCardTwo],
   favoriteVideos: {},
   favoriteVideosIds: [],
-  videos: [],
+  videos: {},
 };
 
 export const appReducer = createReducer(
   initialState,
-  on(Actions.addYoutubeVideos, (state, { videos }) => ({
-    ...state,
-    videos,
-  })),
+  on(Actions.addYoutubeVideos, (state, { videos }) => {
+    const newVideos = videos.reduce<{ [key: string]: VideoItem }>((acc, video) => {
+      acc[video.id] = video;
+      return acc;
+    }, {});
+    return {
+      ...state,
+      videos: {
+        ...state.videos,
+        ...newVideos,
+      },
+    };
+  }),
   on(Actions.addCustomCard, (state, { card }) => ({
     ...state,
     customCards: [...state.customCards, card],

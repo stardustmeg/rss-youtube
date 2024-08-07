@@ -20,7 +20,7 @@ export class VideoDataService {
   private foundVideos$ = inject(Store).select(selectVideos);
 
   private joinedVideoItems$ = combineLatest([this.foundVideos$, this.customCards$]).pipe(
-    map(([foundVideos, customCards]) => customCards.concat(foundVideos)),
+    map(([foundVideos, customCards]) => customCards.concat(Object.values(foundVideos))),
   );
 
   private loginService = inject(LoginService);
