@@ -1,4 +1,9 @@
-import { selectFavoriteVideos } from '@/app/redux/selectors/selectors';
+import {
+  // NOTE: this is how I want it
+  selectFavoriteVideos,
+  // NOTE: this is to follow the requirements of the project
+  // selectFavoriteVideosFromAllVideos
+} from '@/app/redux/selectors/selectors';
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
@@ -15,7 +20,11 @@ import { VideoItem } from '../../models/video-item.model';
   templateUrl: './favorites-page.component.html',
 })
 export class FavoritesPageComponent implements OnInit, OnDestroy {
-  private favoriteVideosIds$ = inject(Store).select(selectFavoriteVideos);
+  // NOTE: this is how I want it
+  private favoriteVideos$ = inject(Store).select(selectFavoriteVideos);
+
+  // NOTE: this is to follow the requirements of the project
+  // private favoriteVideos$ = inject(Store).select(selectFavoriteVideosFromAllVideos);
 
   private subscription = new Subscription();
 
@@ -29,7 +38,7 @@ export class FavoritesPageComponent implements OnInit, OnDestroy {
 
   public ngOnInit(): void {
     this.subscription.add(
-      this.favoriteVideosIds$.subscribe((videos) => {
+      this.favoriteVideos$.subscribe((videos) => {
         this.videos = Object.values(videos);
       }),
     );
