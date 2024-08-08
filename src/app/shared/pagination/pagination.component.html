@@ -1,8 +1,10 @@
 <div class="pagination-container">
+  @let isFirstPage = paginationService.isFirstPage();
+  @let isLastPage = paginationService.isLastPage();
   <app-custom-button
     [attributeType]="'mat-icon-button'"
-    [class]="previousPage() === '' ? 'disabled' : ''"
-    [disabled]="previousPage() === ''"
+    [class]="isFirstPage ? 'disabled' : ''"
+    [disabled]="isFirstPage"
     [customClass]="'pagination-button'"
     [icon]="'chevron_left'"
     (click)="moveToPreviousPage()"
@@ -10,8 +12,8 @@
   >
   <app-custom-button
     [attributeType]="'mat-icon-button'"
-    [class]="nextPage() === '' ? 'disabled' : ''"
-    [disabled]="nextPage() === ''"
+    [class]="isLastPage ? 'disabled' : ''"
+    [disabled]="isLastPage"
     [customClass]="'pagination-button'"
     [icon]="'chevron_right'"
     (click)="moveToNextPage()"
