@@ -1,9 +1,10 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 
-import { CustomButtonComponent } from '../components/custom-button/custom-button.component';
-import { PaginationService } from '../services/pagination/pagination.service';
+import { PaginationService } from '../../services/pagination/pagination.service';
+import { CustomButtonComponent } from '../custom-button/custom-button.component';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [CustomButtonComponent],
   selector: 'app-pagination',
   standalone: true,
