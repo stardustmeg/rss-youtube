@@ -1,7 +1,8 @@
 import { NavigationService } from '@/app/core/services/navigation/navigation.service';
 import { searchVideos } from '@/app/redux/actions/actions';
 import { selectNextPage, selectPreviousPage } from '@/app/redux/selectors/selectors';
-import { Injectable, inject, signal } from '@angular/core';
+import { Injectable, computed, inject } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { Store } from '@ngrx/store';
 
 @Injectable({
@@ -10,40 +11,28 @@ import { Store } from '@ngrx/store';
 export class PaginationService {
   private navigationService = inject(NavigationService);
 
-  private nextPage = signal<string>('');
+  private nextPageSignal = toSignal(inject(Store).select(selectNextPage), { initialValue: '' });
 
-  private nextPage$ = inject(Store).select(selectNextPage);
-
-  private previousPage = signal<string>('');
-
-  private previousPage$ = inject(Store).select(selectPreviousPage);
+  private previousPageSignal = toSignal(inject(Store).select(selectPreviousPage), { initialValue: '' });
 
   private store = inject(Store);
 
-  public isFirstPage = signal<boolean>(true);
+  public isFirstPage = computed(() => this.previousPageSignal() === '');
 
-  public isLastPage = signal<boolean>(true);
+  public isLastPage = computed(() => this.nextPageSignal() === '');
 
-  constructor() {
-    this.previousPage$.subscribe((previousPage) => {
-      this.previousPage.set(previousPage);
-      this.isFirstPage.set(this.previousPage() === '');
-    });
-
-    this.nextPage$.subscribe((nextPage) => {
-      this.nextPage.set(nextPage);
-      this.isLastPage.set(this.nextPage() === '');
-    });
-  }
+  constructor() {}
 
   public moveToNextPage(): void {
-    this.store.dispatch(searchVideos({ pageToken: this.nextPage(), query: this.navigationService.queryParams()['q'] }));
+    this.store.dispatch(
+      searchVideos({ pageToken: this.nextPageSignal(), query: this.navigationService.queryParams()['q'] }),
+    );
   }
 
   public moveToPreviousPage(): void {
     this.store.dispatch(
       searchVideos({
-        pageToken: this.previousPage(),
+        pageToken: this.previousPageSignal(),
         query: this.navigationService.queryParams()['q'],
       }),
     );
