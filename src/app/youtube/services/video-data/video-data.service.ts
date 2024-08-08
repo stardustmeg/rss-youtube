@@ -2,6 +2,7 @@ import { LoginService } from '@/app/auth/services/login/login.service';
 import { NavigationService } from '@/app/core/services/navigation/navigation.service';
 import { addYoutubeVideos, setNextPage, setPreviousPage } from '@/app/redux/actions/actions';
 import { selectCustomCards, selectVideos } from '@/app/redux/selectors/selectors';
+import { PaginationService } from '@/app/shared/services/pagination/pagination.service';
 import { Injectable, inject, signal } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable, combineLatest, map, switchMap } from 'rxjs';
@@ -19,13 +20,13 @@ export class VideoDataService {
 
   private foundVideos$ = inject(Store).select(selectVideos);
 
-  private joinedVideoItems$ = combineLatest([this.foundVideos$, this.customCards$]).pipe(
-    map(([foundVideos, customCards]) => customCards.concat(Object.values(foundVideos))),
-  );
+  private joinedVideoItems$: Observable<VideoItem[]>;
 
   private loginService = inject(LoginService);
 
   private navigationService = inject(NavigationService);
+
+  private paginationService = inject(PaginationService);
 
   private store = inject(Store);
 
@@ -43,6 +44,15 @@ export class VideoDataService {
     if (!this.loginService.isLoggedIn()) {
       this.store.dispatch(addYoutubeVideos({ videos: [] }));
     }
+
+    this.joinedVideoItems$ = combineLatest([this.foundVideos$, this.customCards$]).pipe(
+      map(([foundVideos, customCards]) =>
+        this.paginationService.isFirstPage()
+          ? customCards.concat(Object.values(foundVideos))
+          : Object.values(foundVideos),
+      ),
+    );
+
     this.joinedVideoItems$.subscribe((videoItems) => {
       this.joinedVideoItems.set(videoItems);
     });
