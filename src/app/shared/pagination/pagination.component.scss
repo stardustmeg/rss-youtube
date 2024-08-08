@@ -1,0 +1,12 @@
+@import '../../styles/numbers.module';
+
+.pagination-container {
+  display: flex;
+  justify-content: space-between;
+  width: $standart-rem * 5;
+}
+
+.disabled {
+  pointer-events: none;
+  opacity: 0.5;
+}

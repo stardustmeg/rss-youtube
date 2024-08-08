@@ -54,3 +54,11 @@
     }
   }
 }
+
+.pagination-button {
+  &:hover {
+    .mat-icon {
+      color: $accent-color;
+    }
+  }
+}

@@ -1,13 +1,14 @@
 import { AsyncPipe, CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 
+import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 import { FilterPipe } from '../../pipes/filter/filter.pipe';
 import { SortPipe } from '../../pipes/sort/sort.pipe';
 import { VideoDataService } from '../../services/video-data/video-data.service';
 import { VideoItemCardComponent } from './components/video-item-card/video-item-card.component';
 
 @Component({
-  imports: [CommonModule, VideoItemCardComponent, AsyncPipe, FilterPipe, SortPipe],
+  imports: [CommonModule, VideoItemCardComponent, AsyncPipe, FilterPipe, SortPipe, PaginationComponent],
   providers: [FilterPipe, SortPipe],
   selector: 'app-search-results-list',
   standalone: true,

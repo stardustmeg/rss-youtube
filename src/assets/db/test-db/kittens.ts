@@ -13,10 +13,10 @@ export const customCard = {
         url: 'https://images.ctfassets.net/sfnkq8lmu5d7/1NaIFGyBn0qwXYlNaCJSEl/ad59ce5eefa3c2322b696778185cc749/2021_0825_Kitten_Health.jpg',
       },
       high: {
-        url: 'https://iu5d7/1NaIFGyBn0qwXYlNaCJSEl/ad59ce5eefa3c2322b696778185cc749/2021_0825_Kitten_Health.jpg',
+        url: 'https://images.ctfassets.net/sfnkq8lmu5d7/1NaIFGyBn0qwXYlNaCJSEl/ad59ce5eefa3c2322b696778185cc749/2021_0825_Kitten_Health.jpg',
       },
     },
-    title: 'Test kitten card with failed to load picture (not to create a new one every time)',
+    title: 'Test kitten card (not to create a new one every time)',
   },
   statistics: {
     commentCount: '0',

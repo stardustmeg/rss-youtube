@@ -13,4 +13,6 @@ export interface VideosResponse extends Response {
 
 export interface SearchResponse extends Response {
   items: SearchVideoItem[];
+  nextPageToken?: string;
+  prevPageToken?: string;
 }

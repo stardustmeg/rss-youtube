@@ -2,6 +2,7 @@
 @let sortCriteria = videoService.sortCriteria();
 @let currentVideos = videoService.joinedVideoItems() | filter: filterQuery | sort: sortCriteria;
 @if (currentVideos && currentVideos.length > 0) {
+  <app-pagination class="pagination"></app-pagination>
   <div class="video-list">
     @for (video of currentVideos; track video.id) {
       <div class="video-card">

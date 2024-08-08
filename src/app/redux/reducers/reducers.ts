@@ -9,6 +9,8 @@ const initialState: AppState = {
   customCards: [customCard, customCardTwo, customCardThree],
   favoriteVideos: {},
   favoriteVideosIds: [],
+  nextPage: '',
+  previousPage: '',
   videos: {},
 };
 
@@ -52,4 +54,12 @@ export const appReducer = createReducer(
       favoriteVideos: newFavoriteVideos,
     };
   }),
+  on(Actions.setNextPage, (state, { nextPage }) => ({
+    ...state,
+    nextPage,
+  })),
+  on(Actions.setPreviousPage, (state, { previousPage }) => ({
+    ...state,
+    previousPage,
+  })),
 );

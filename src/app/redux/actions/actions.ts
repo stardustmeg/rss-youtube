@@ -23,5 +23,9 @@ export const deleteVideoFromFavorite = createAction('[Favorite] deleteVideoFromF
 
 export const searchVideos = createAction(
   '[Main Search] Search Videos',
-  props<{ maxResults?: number; query: string }>(),
+  props<{ maxResults?: number; pageToken?: string; query: string }>(),
 );
+
+export const setNextPage = createAction('[Main Search] Set Next Page', props<{ nextPage: string }>());
+
+export const setPreviousPage = createAction('[Main Search] Set Previous Page', props<{ previousPage: string }>());

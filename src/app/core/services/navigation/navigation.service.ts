@@ -13,7 +13,7 @@ export class NavigationService {
 
   public isMainPage = signal(false);
 
-  public queryParams = signal<Record<string, string>>({ id: '' });
+  public queryParams = signal<Record<string, string>>({ id: '', q: '' });
 
   constructor() {
     this.router.events.pipe(filter((event) => event instanceof NavigationEnd)).subscribe(() => {
@@ -21,11 +21,13 @@ export class NavigationService {
     });
 
     this.activatedRoute.queryParams.subscribe((params) => {
-      const { id } = params;
+      const { id, q } = params;
       if (typeof id === 'string') {
         this.queryParams.set({ id });
-      } else {
-        this.isMainPage.set(true);
+      }
+
+      if (typeof q === 'string') {
+        this.queryParams.set({ q });
       }
     });
   }

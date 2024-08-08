@@ -20,3 +20,8 @@
   height: $standart-rem * 20;
   margin: 0 auto;
 }
+
+.pagination {
+  align-self: flex-end;
+  margin-right: $standart-rem;
+}

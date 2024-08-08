@@ -1,0 +1,20 @@
+<div class="pagination-container">
+  <app-custom-button
+    [attributeType]="'mat-icon-button'"
+    [class]="previousPage() === '' ? 'disabled' : ''"
+    [disabled]="previousPage() === ''"
+    [customClass]="'pagination-button'"
+    [icon]="'chevron_left'"
+    (click)="moveToPreviousPage()"
+    ><</app-custom-button
+  >
+  <app-custom-button
+    [attributeType]="'mat-icon-button'"
+    [class]="nextPage() === '' ? 'disabled' : ''"
+    [disabled]="nextPage() === ''"
+    [customClass]="'pagination-button'"
+    [icon]="'chevron_right'"
+    (click)="moveToNextPage()"
+    >></app-custom-button
+  >
+</div>

@@ -23,8 +23,12 @@ export class YoutubeApiService {
     return this.http.get<VideosResponse>(this.videosEndpoint, { params }).pipe(map((response) => response.items));
   }
 
-  public searchVideos(query: string, maxResults: number): Observable<SearchResponse> {
-    const params = new HttpParams().set('part', 'snippet').set('q', query).set('maxResults', maxResults.toString());
+  public searchVideos(query: string, maxResults: number, pageToken = ''): Observable<SearchResponse> {
+    const params = new HttpParams()
+      .set('part', 'snippet')
+      .set('q', query)
+      .set('maxResults', maxResults.toString())
+      .set('pageToken', pageToken);
     return this.http.get<SearchResponse>(this.searchEndpoint, { params });
   }
 }

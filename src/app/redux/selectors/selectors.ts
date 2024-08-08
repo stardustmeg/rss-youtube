@@ -17,3 +17,7 @@ export const selectFavoriteVideosFromAllVideos = createSelector(
   selectFavoriteVideosIds,
   (videos, favoriteVideosIds) => favoriteVideosIds.map((id) => videos[id]).filter((video) => video !== undefined),
 );
+
+export const selectNextPage = createSelector(selectAppState, (state: AppState) => state.nextPage);
+
+export const selectPreviousPage = createSelector(selectAppState, (state: AppState) => state.previousPage);

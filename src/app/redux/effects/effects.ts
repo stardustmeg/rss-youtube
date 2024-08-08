@@ -20,7 +20,7 @@ export class VideoEffects {
     this.actions$.pipe(
       ofType(searchVideos),
       mergeMap((action) =>
-        this.videoDataService.searchVideos(action.query).pipe(
+        this.videoDataService.searchVideos(action.query, action.maxResults, action.pageToken).pipe(
           map((videos) => addYoutubeVideos({ videos })),
           catchError(() => {
             this.snackBarService.openSnackBar(userMessage.VIDEO_SEARCH_FAILED);

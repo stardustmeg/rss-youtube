@@ -1,6 +1,6 @@
 import { LoginService } from '@/app/auth/services/login/login.service';
 import { NavigationService } from '@/app/core/services/navigation/navigation.service';
-import { addYoutubeVideos } from '@/app/redux/actions/actions';
+import { addYoutubeVideos, setNextPage, setPreviousPage } from '@/app/redux/actions/actions';
 import { selectCustomCards, selectVideos } from '@/app/redux/selectors/selectors';
 import { Injectable, inject, signal } from '@angular/core';
 import { Store } from '@ngrx/store';
@@ -97,10 +97,14 @@ export class VideoDataService {
     this.getYoutubeVideoById(id);
   }
 
-  public searchVideos(query: string, maxResults = 20): Observable<VideoItem[]> {
-    return this.youtubeApiService.searchVideos(query, maxResults).pipe(
-      map((searchResponse) => searchResponse.items.map((item) => item.id.videoId)),
-      switchMap((videoIds: string[]) => this.fetchVideoDetails(videoIds)),
+  public searchVideos(query: string, maxResults = 20, pageToken = ''): Observable<VideoItem[]> {
+    return this.youtubeApiService.searchVideos(query, maxResults, pageToken).pipe(
+      switchMap((searchResponse) => {
+        const videoIds = searchResponse.items.map((item) => item.id.videoId);
+        this.store.dispatch(setNextPage({ nextPage: searchResponse.nextPageToken ?? '' }));
+        this.store.dispatch(setPreviousPage({ previousPage: searchResponse.prevPageToken ?? '' }));
+        return this.fetchVideoDetails(videoIds);
+      }),
       map((detailedVideos) => {
         this.setFoundData(detailedVideos);
         return detailedVideos;
