@@ -1,4 +1,4 @@
-import { SortOptionType } from '../components/sort/helper/isSortCriterion.helper';
+import { SortOptionType } from '../components/sort/constants/sortCriteria';
 
 export const BASIC_SORT_OPTION: SortOptionType = { criterion: '', direction: '' };
 

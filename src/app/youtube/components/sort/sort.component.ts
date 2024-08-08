@@ -1,3 +1,4 @@
+import { isKeyOf } from '@/app/shared/helpers/isKeyOf';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { MatChipsModule } from '@angular/material/chips';
 
@@ -5,12 +6,7 @@ import { CustomButtonComponent } from '../../../shared/components/custom-button/
 import { BASIC_SORT_OPTION } from '../../constants/sort-option';
 import { SortPipe } from '../../pipes/sort/sort.pipe';
 import { VideoDataService } from '../../services/video-data/video-data.service';
-import { SortOptionType } from './helper/isSortCriterion.helper';
-
-interface ChipsInfo {
-  count: number;
-  value: SortOptionType;
-}
+import { ChipOptionType, ChipsInfo, chipOption, criteriaValues } from './constants/sortCriteria';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -22,28 +18,28 @@ interface ChipsInfo {
   templateUrl: './sort.component.html',
 })
 export class SortComponent {
-  private chipsInfo: Record<string, ChipsInfo> = {
+  private chipsInfo: Record<ChipOptionType, ChipsInfo> = {
     dateAsc: {
       count: 0,
-      value: { criterion: 'date', direction: 'asc' },
+      value: criteriaValues.dateAsc,
     },
     dateDesc: {
       count: 0,
-      value: { criterion: 'date', direction: 'desc' },
+      value: criteriaValues.dateDesc,
     },
     viewCountAsc: {
       count: 0,
-      value: { criterion: 'viewCount', direction: 'asc' },
+      value: criteriaValues.viewCountAsc,
     },
     viewCountDesc: {
       count: 0,
-      value: { criterion: 'viewCount', direction: 'desc' },
+      value: criteriaValues.viewCountDesc,
     },
   };
 
   public videoService = inject(VideoDataService);
 
-  public handleChipClick(chipType: string): void {
+  public handleChipClick(chipType: ChipOptionType): void {
     this.chipsInfo[chipType].count += 1;
     const isOddClick = this.chipsInfo[chipType].count % 2 !== 0;
 
@@ -54,7 +50,7 @@ export class SortComponent {
     }
 
     Object.keys(this.chipsInfo).forEach((key) => {
-      if (key !== chipType) {
+      if (key !== chipType && isKeyOf(chipOption, key)) {
         this.chipsInfo[key].count = 0;
       }
     });

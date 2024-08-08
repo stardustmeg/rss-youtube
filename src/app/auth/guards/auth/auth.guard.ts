@@ -6,3 +6,6 @@ import { LoginService } from '../../services/login/login.service';
 
 export const authGuard: CanActivateFn = () =>
   inject(LoginService).isLoggedIn() || inject(Router).navigate([appRoute.LOGIN]);
+
+export const loginGuard: CanActivateFn = () =>
+  !inject(LoginService).isLoggedIn() || inject(Router).navigate([appRoute.MAIN]);

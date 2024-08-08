@@ -6,7 +6,7 @@ import { Injectable, inject, signal } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable, combineLatest, map, switchMap } from 'rxjs';
 
-import { SortOptionType } from '../../components/sort/helper/isSortCriterion.helper';
+import { SortOptionType } from '../../components/sort/constants/sortCriteria';
 import { BASIC_SORT_OPTION } from '../../constants/sort-option';
 import { VideoItem } from '../../models/video-item.model';
 import { YoutubeApiService } from '../youtube-api/youtube-api.service';

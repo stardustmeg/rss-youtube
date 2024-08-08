@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 
-import { authGuard } from './auth/guards/auth/auth.guard';
+import { authGuard, loginGuard } from './auth/guards/auth/auth.guard';
 import { appPath, appRoute } from './shared/constants/routes';
 
 export const routes: Routes = [
@@ -21,6 +21,7 @@ export const routes: Routes = [
     title: appPath.DETAILED,
   },
   {
+    canActivate: [loginGuard],
     loadComponent: () => import('./auth/pages/login-page/login-page.component').then((m) => m.LoginPageComponent),
     path: appPath.LOGIN,
     title: appPath.LOGIN,
