@@ -1,5 +1,5 @@
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
-import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
+import { ApplicationConfig, provideExperimentalZonelessChangeDetection } from '@angular/core';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { TitleStrategy, provideRouter, withInMemoryScrolling, withViewTransitions } from '@angular/router';
 import { provideEffects } from '@ngrx/effects';
@@ -13,7 +13,7 @@ import { ApiInterceptorFn } from './youtube/services/http-interceptor/http-inter
 
 const appConfig: ApplicationConfig = {
   providers: [
-    provideZoneChangeDetection({ eventCoalescing: true }),
+    provideExperimentalZonelessChangeDetection(),
     [
       provideRouter(routes),
       withViewTransitions(),

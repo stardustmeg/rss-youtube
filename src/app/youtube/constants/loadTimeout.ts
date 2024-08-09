@@ -1,1 +1,1 @@
-export const LOAD_TIMEOUT = 3000;
+export const LOAD_TIMEOUT = 5000;
