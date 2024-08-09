@@ -17,24 +17,42 @@ export class PaginationService {
 
   private store = inject(Store);
 
+  public currentPage = computed(() => Number(this.navigationService.queryParams()['page'] || 1));
+
   public isFirstPage = computed(() => this.previousPageSignal() === '');
 
   public isLastPage = computed(() => this.nextPageSignal() === '');
 
   constructor() {}
 
-  public moveToNextPage(): void {
-    this.store.dispatch(
-      searchVideos({ pageToken: this.nextPageSignal(), query: this.navigationService.queryParams()['q'] }),
-    );
-  }
-
-  public moveToPreviousPage(): void {
+  private dispatchSearchVideos(pageToken: string): void {
     this.store.dispatch(
       searchVideos({
-        pageToken: this.previousPageSignal(),
+        pageToken,
         query: this.navigationService.queryParams()['q'],
       }),
     );
+  }
+
+  private hasQuery(): boolean {
+    return this.navigationService.queryParams()['q'] !== undefined;
+  }
+
+  private updatePage(page: number): void {
+    this.navigationService.updateQueryParams({ page });
+  }
+
+  public moveToNextPage(): void {
+    if (this.hasQuery()) {
+      this.updatePage(this.currentPage() + 1);
+      this.dispatchSearchVideos(this.nextPageSignal());
+    }
+  }
+
+  public moveToPreviousPage(): void {
+    if (this.hasQuery()) {
+      this.updatePage(this.currentPage() - 1);
+      this.dispatchSearchVideos(this.previousPageSignal());
+    }
   }
 }

@@ -10,6 +10,7 @@
     (click)="moveToPreviousPage()"
     ><</app-custom-button
   >
+  <span>{{ paginationService.currentPage() }}</span>
   <app-custom-button
     [attributeType]="'mat-icon-button'"
     [class]="isLastPage ? 'disabled' : ''"

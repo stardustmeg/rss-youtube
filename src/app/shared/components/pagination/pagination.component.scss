@@ -2,8 +2,11 @@
 
 .pagination-container {
   display: flex;
+  gap: $small-rem;
+  align-items: center;
   justify-content: space-between;
-  width: $standart-rem * 5;
+
+  width: fit-content;
 }
 
 .disabled {
