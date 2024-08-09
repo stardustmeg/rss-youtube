@@ -5,12 +5,13 @@ import { SnackBarService } from '@/app/shared/services/snackBar/snack-bar.servic
 import { stringTemplate } from '@/app/shared/utils/string-template';
 import { passwordStrengthValidator } from '@/app/shared/validators/validators';
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
-import { MatFormFieldModule, MatHint } from '@angular/material/form-field';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { Router } from '@angular/router';
+import { merge } from 'rxjs';
 
 import { CustomButtonComponent } from '../../../shared/components/custom-button/custom-button.component';
 import { LoginService } from '../../services/login/login.service';
@@ -24,7 +25,6 @@ import { LoginService } from '../../services/login/login.service';
     MatInputModule,
     MatIconModule,
     MatButtonModule,
-    MatHint,
   ],
   selector: 'app-login-form',
   standalone: true,
@@ -40,6 +40,8 @@ export class LoginFormComponent {
 
   private snackBar = inject(SnackBarService);
 
+  public errorMessage = signal('');
+
   public hidePassword = signal(true);
 
   public loginForm = this.fb.group({
@@ -49,7 +51,23 @@ export class LoginFormComponent {
 
   public loginService = inject(LoginService);
 
-  constructor() {}
+  constructor() {
+    const passwordControl = this.loginForm.get('password');
+    if (passwordControl) {
+      merge(passwordControl.valueChanges, passwordControl.statusChanges).subscribe(() => {
+        const errors = passwordControl.errors;
+        if (this.isPasswordStrengthErrors(errors)) {
+          this.updateErrorMessage(errors.passwordStrength);
+        }
+      });
+    }
+  }
+
+  private isPasswordStrengthErrors(
+    errors: ValidationErrors | null,
+  ): errors is { passwordStrength: Record<string, string> } {
+    return errors !== null && typeof errors['passwordStrength'] === 'object';
+  }
 
   public onSubmit(): void {
     if (this.loginForm.valid) {
@@ -64,5 +82,18 @@ export class LoginFormComponent {
         this.snackBar.openSnackBar(userMessage.ERROR);
       }
     }
+  }
+
+  public updateErrorMessage(errors: Record<string, string>): void {
+    const errorMessages = [
+      errors['lowerCase'],
+      errors['upperCase'],
+      errors['number'],
+      errors['specialCharacter'],
+      errors['minLength'],
+    ];
+
+    const firstErrorMessage = errorMessages.find(Boolean);
+    this.errorMessage.set(firstErrorMessage || '');
   }
 }

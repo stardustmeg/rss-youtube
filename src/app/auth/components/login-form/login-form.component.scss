@@ -7,7 +7,7 @@
   gap: $small-rem;
   align-items: center;
 
-  min-width: $standart-rem * 14;
+  min-width: $standart-rem * 17;
   margin: auto;
   padding: $standart-rem * 2;
 
@@ -24,7 +24,7 @@
     }
   }
 
-  mat-hint {
+  mat-error {
     margin: 0;
     font-size: $font-size-xxs;
   }

@@ -1,7 +1,13 @@
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { ApplicationConfig, provideExperimentalZonelessChangeDetection } from '@angular/core';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { TitleStrategy, provideRouter, withInMemoryScrolling, withViewTransitions } from '@angular/router';
+import {
+  TitleStrategy,
+  provideRouter,
+  withComponentInputBinding,
+  withInMemoryScrolling,
+  withViewTransitions,
+} from '@angular/router';
 import { provideEffects } from '@ngrx/effects';
 import { provideStore } from '@ngrx/store';
 
@@ -15,7 +21,7 @@ const appConfig: ApplicationConfig = {
   providers: [
     provideExperimentalZonelessChangeDetection(),
     [
-      provideRouter(routes),
+      provideRouter(routes, withComponentInputBinding()),
       withViewTransitions(),
       withInMemoryScrolling({ scrollPositionRestoration: 'enabled' }),
       { provide: TitleStrategy, useClass: AppTitleService },

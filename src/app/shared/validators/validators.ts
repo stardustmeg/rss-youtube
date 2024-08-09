@@ -2,45 +2,42 @@ import { AbstractControl, ValidationErrors } from '@angular/forms';
 
 import { validNumber } from './constants/limits';
 
-const hasMinimumLength = (control: AbstractControl): ValidationErrors | null => {
-  if (typeof control.value !== 'string') {
-    return null;
-  }
-  const minLength = control.value.length >= validNumber.MIN_PASSWORD;
-  return minLength ? null : { minLength: true };
-};
+const isValueString = (value: unknown): value is string => typeof value === 'string';
 
-const hasUpperCase = (control: AbstractControl): ValidationErrors | null => {
-  if (typeof control.value !== 'string') {
-    return null;
-  }
-  const hasUpperCase = /[A-Z]/.test(control.value);
-  return hasUpperCase ? null : { upperCase: true };
-};
+const createValidator =
+  (predicate: (value: string) => boolean, errorKey: string, errorMessage: string) =>
+  (control: AbstractControl): ValidationErrors | null => {
+    if (!isValueString(control.value)) {
+      return null;
+    }
+    return predicate(control.value) ? null : { [errorKey]: errorMessage };
+  };
 
-const hasLowerCase = (control: AbstractControl): ValidationErrors | null => {
-  if (typeof control.value !== 'string') {
-    return null;
-  }
-  const hasLowerCase = /[a-z]/.test(control.value);
-  return hasLowerCase ? null : { lowerCase: true };
-};
+const hasMinimumLength = createValidator(
+  (value) => value.length >= validNumber.MIN_PASSWORD,
+  'minLength',
+  `Password must be at least ${validNumber.MIN_PASSWORD} characters long`,
+);
 
-const hasNumber = (control: AbstractControl): ValidationErrors | null => {
-  if (typeof control.value !== 'string') {
-    return null;
-  }
-  const hasNumber = /\d/.test(control.value);
-  return hasNumber ? null : { number: true };
-};
+const hasUpperCase = createValidator(
+  (value) => /[A-Z]/.test(value),
+  'upperCase',
+  'Password must contain at least one uppercase letter',
+);
 
-const hasSpecialCharacter = (control: AbstractControl): ValidationErrors | null => {
-  if (typeof control.value !== 'string') {
-    return null;
-  }
-  const hasSpecialCharacter = /[^A-Za-z0-9]/.test(control.value);
-  return hasSpecialCharacter ? null : { specialCharacter: true };
-};
+const hasLowerCase = createValidator(
+  (value) => /[a-z]/.test(value),
+  'lowerCase',
+  'Password must contain at least one lowercase letter',
+);
+
+const hasNumber = createValidator((value) => /\d/.test(value), 'number', 'Password must contain at least one number');
+
+const hasSpecialCharacter = createValidator(
+  (value) => /[^A-Za-z0-9]/.test(value),
+  'specialCharacter',
+  'Password must contain at least one special character i.e. !@#$%^&*()',
+);
 
 export const isFutureDate = (control: AbstractControl): ValidationErrors | null => {
   if (!(control.value instanceof Date)) {
@@ -49,27 +46,20 @@ export const isFutureDate = (control: AbstractControl): ValidationErrors | null 
   const date = new Date(control.value);
   const now = new Date();
   now.setHours(0, 0, 0, 0);
-  return date <= now ? null : { futureDate: true };
+  return date <= now ? null : { futureDate: 'Date must be in the future' };
 };
 
 export const passwordStrengthValidator = (control: AbstractControl): ValidationErrors | null => {
-  if (typeof control.value !== 'string') {
+  if (!isValueString(control.value)) {
     return null;
   }
 
-  const validators = [
-    hasMinimumLength(control),
-    hasUpperCase(control),
-    hasLowerCase(control),
-    hasNumber(control),
-    hasSpecialCharacter(control),
-  ];
+  const validators = [hasMinimumLength, hasUpperCase, hasLowerCase, hasNumber, hasSpecialCharacter];
 
-  const errors = validators.reduce((acc, error) => (error ? { ...acc, ...error } : acc), {});
-
-  if (!errors) {
-    return null;
-  }
+  const errors: Record<string, string> = validators.reduce((acc, validator) => {
+    const error = validator(control);
+    return error ? { ...acc, ...error } : acc;
+  }, {});
 
   return Object.keys(errors).length ? { passwordStrength: errors } : null;
 };
