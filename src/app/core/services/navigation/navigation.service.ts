@@ -1,6 +1,6 @@
 import { appRoute } from '@/app/shared/constants/routes';
 import { Injectable, inject, signal } from '@angular/core';
-import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Params, Router } from '@angular/router';
 import { filter } from 'rxjs';
 
 @Injectable({
@@ -13,7 +13,7 @@ export class NavigationService {
 
   public isMainPage = signal(false);
 
-  public queryParams = signal<Record<string, string>>({ id: '', q: '' });
+  public queryParams = signal<Record<string, string>>({});
 
   constructor() {
     this.router.events.pipe(filter((event) => event instanceof NavigationEnd)).subscribe(() => {
@@ -21,14 +21,15 @@ export class NavigationService {
     });
 
     this.activatedRoute.queryParams.subscribe((params) => {
-      const { id, q } = params;
-      if (typeof id === 'string') {
-        this.queryParams.set({ id });
-      }
+      this.queryParams.set(params);
+    });
+  }
 
-      if (typeof q === 'string') {
-        this.queryParams.set({ q });
-      }
+  public updateQueryParams(params: Params): void {
+    this.router.navigate([], {
+      queryParams: params,
+      queryParamsHandling: 'merge',
+      relativeTo: this.activatedRoute,
     });
   }
 }
