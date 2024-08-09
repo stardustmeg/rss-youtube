@@ -7,7 +7,7 @@ export const routes: Routes = [
   { path: appPath.DEFAULT, pathMatch: 'full', redirectTo: appRoute.MAIN },
   {
     canActivate: [authGuard],
-    loadComponent: () => import('./youtube/pages/main-page/main-page.component').then((m) => m.MainPageComponent),
+    loadComponent: () => import('./youtube/pages/main-page/main-page.component').then((c) => c.MainPageComponent),
     path: appPath.MAIN,
     title: appPath.MAIN,
   },
@@ -15,32 +15,32 @@ export const routes: Routes = [
     canActivate: [authGuard],
     loadComponent: () =>
       import('./youtube/pages/detailed-info-page/detailed-info-page.component').then(
-        (m) => m.DetailedInfoPageComponent,
+        (c) => c.DetailedInfoPageComponent,
       ),
     path: appPath.DETAILED,
     title: appPath.DETAILED,
   },
   {
     canActivate: [loginGuard],
-    loadComponent: () => import('./auth/pages/login-page/login-page.component').then((m) => m.LoginPageComponent),
+    loadComponent: () => import('./auth/pages/login-page/login-page.component').then((c) => c.LoginPageComponent),
     path: appPath.LOGIN,
     title: appPath.LOGIN,
   },
   {
     canActivate: [authGuard],
-    loadComponent: () => import('./youtube/pages/admin-page/admin-page.component').then((m) => m.AdminPageComponent),
+    loadComponent: () => import('./youtube/pages/admin-page/admin-page.component').then((c) => c.AdminPageComponent),
     path: appPath.ADMIN,
     title: appPath.ADMIN,
   },
   {
     canActivate: [authGuard],
     loadComponent: () =>
-      import('./youtube/pages/favorites-page/favorites-page.component').then((m) => m.FavoritesPageComponent),
+      import('./youtube/pages/favorites-page/favorites-page.component').then((c) => c.FavoritesPageComponent),
     path: appPath.FAVORITES,
     title: appPath.FAVORITES,
   },
   {
-    loadComponent: () => import('./core/not-found-page/not-found-page.component').then((m) => m.NotFoundPageComponent),
+    loadComponent: () => import('./core/not-found-page/not-found-page.component').then((c) => c.NotFoundPageComponent),
     path: appPath.NOT_FOUND,
     title: appPath.NOT_FOUND,
   },

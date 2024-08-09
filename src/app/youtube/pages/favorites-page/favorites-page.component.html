@@ -1,15 +1,13 @@
 @let currentVideos = videos;
-@if (currentVideos && currentVideos.length > 0) {
-  <div class="video-list">
-    @for (video of currentVideos; track video.id) {
-      <div class="video-card">
-        <app-video-item-card [video]="video"></app-video-item-card>
-      </div>
-    }
-  </div>
-} @else if (currentVideos?.length === 0) {
-  <div class="no-video">
-    <img class="not-found-image" src="../../../../assets/img/no-results.jpg" alt="Video not found" />
-    <h6 class="not-found-text">You don't have favorite videos. Time to add some</h6>
-  </div>
-}
+<div class="video-list">
+  @for (video of currentVideos; track video.id) {
+    <div class="video-card">
+      <app-video-item-card [video]="video"></app-video-item-card>
+    </div>
+  } @empty {
+    <div class="no-video">
+      <img class="not-found-image" src="../../../../assets/img/no-results.jpg" alt="Video not found" />
+      <h6 class="not-found-text">You don't have favorite videos. Time to add some</h6>
+    </div>
+  }
+</div>
