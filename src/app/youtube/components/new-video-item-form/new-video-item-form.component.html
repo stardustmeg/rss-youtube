@@ -116,7 +116,7 @@
           <mat-datepicker #picker></mat-datepicker>
 
           @if (formGroup.get('creationDate')?.hasError('futureDate')) {
-            <mat-error>The date is invalid</mat-error>
+            <mat-error>{{ formGroup.get('creationDate')?.errors?.['futureDate'] }}</mat-error>
           }
           @if (formGroup.get('creationDate')?.hasError('required')) {
             <mat-error>Please enter a date</mat-error>

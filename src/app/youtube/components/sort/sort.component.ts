@@ -18,6 +18,8 @@ import { ChipOptionType, ChipsInfo, chipOption, criteriaValues } from './constan
   templateUrl: './sort.component.html',
 })
 export class SortComponent {
+  public videoService = inject(VideoDataService);
+
   private chipsInfo: Record<ChipOptionType, ChipsInfo> = {
     dateAsc: {
       count: 0,
@@ -36,8 +38,6 @@ export class SortComponent {
       value: criteriaValues.viewCountDesc,
     },
   };
-
-  public videoService = inject(VideoDataService);
 
   public handleChipClick(chipType: ChipOptionType): void {
     this.chipsInfo[chipType].count += 1;

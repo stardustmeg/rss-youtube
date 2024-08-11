@@ -16,28 +16,19 @@ import { YoutubeApiService } from '../youtube-api/youtube-api.service';
   providedIn: 'root',
 })
 export class VideoDataService {
-  private customCards$ = inject(Store).select(selectCustomCards);
-
-  private foundVideos$ = inject(Store).select(selectVideos);
-
-  private joinedVideoItems$: Observable<VideoItem[]>;
-
   private loginService = inject(LoginService);
-
   private navigationService = inject(NavigationService);
-
   private paginationService = inject(PaginationService);
-
   private store = inject(Store);
-
   private youtubeApiService = inject(YoutubeApiService);
 
+  private joinedVideoItems$: Observable<VideoItem[]>;
+  private customCards$ = this.store.select(selectCustomCards);
+  private foundVideos$ = this.store.select(selectVideos);
+
   public detailedInfo = signal<VideoItem | null | undefined>(undefined);
-
   public filterQuery = signal<string>('');
-
   public joinedVideoItems = signal<VideoItem[]>([]);
-
   public sortCriteria = signal<SortOptionType>(BASIC_SORT_OPTION);
 
   constructor() {

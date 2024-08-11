@@ -19,15 +19,11 @@ import { Store } from '@ngrx/store';
 })
 export class DeleteButtonComponent {
   private navigationService = inject(NavigationService);
-
   private router = inject(Router);
-
   private snackBarService = inject(SnackBarService);
-
   private store = inject(Store);
 
   @Input() public id!: string;
-
   @Input() public videoTitle!: string;
 
   constructor() {}

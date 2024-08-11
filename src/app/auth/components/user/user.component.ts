@@ -16,9 +16,9 @@ import { logoOption } from './constants/logo-options';
   templateUrl: './user.component.html',
 })
 export class UserComponent {
-  private router = inject(Router);
-
   @Input() public isLoggedIn: boolean | null = false;
+
+  private router = inject(Router);
 
   public loginService = inject(LoginService);
 

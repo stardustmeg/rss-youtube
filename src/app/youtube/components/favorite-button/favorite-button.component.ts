@@ -23,11 +23,9 @@ import { VideoItem } from '../../models/video-item.model';
 })
 export class FavoriteButtonComponent {
   private snackBarService = inject(SnackBarService);
-
   private store = inject(Store);
 
   @Input() public isFavorite!: boolean;
-
   @Input() public video!: VideoItem;
 
   constructor() {}

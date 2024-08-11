@@ -14,10 +14,7 @@ import { MaterialButtonType, MaterialButtonTypeType } from '../../constants/cust
 })
 export class CustomButtonComponent {
   @Input() public attributeType: MaterialButtonTypeType = MaterialButtonType.RAISED;
-
   @Input() public customClass = '';
-
   @Input() public disabled = false;
-
   @Input() public icon = '';
 }

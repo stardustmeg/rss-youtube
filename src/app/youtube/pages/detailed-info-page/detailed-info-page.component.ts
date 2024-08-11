@@ -41,23 +41,18 @@ const NOT_FOUND_VIDEO_IMAGE = '../../../../../assets/img/video-not-found.jpg';
   templateUrl: './detailed-info-page.component.html',
 })
 export class DetailedInfoPageComponent implements OnDestroy, OnInit {
-  private navigationService = inject(NavigationService);
-
-  private store = inject(Store);
-
   private subscription = new Subscription();
 
-  public imageFailedToLoad = signal(false);
-
-  public imageLoaded = signal(false);
-
-  public isFavorite = signal(false);
-
+  private navigationService = inject(NavigationService);
+  private store = inject(Store);
   public location = inject(Location);
+  public videoService = inject(VideoDataService);
 
   public readonly placeholderImageUrl = NOT_FOUND_VIDEO_IMAGE;
 
-  public videoService = inject(VideoDataService);
+  public imageFailedToLoad = signal(false);
+  public imageLoaded = signal(false);
+  public isFavorite = signal(false);
 
   constructor() {}
 

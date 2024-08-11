@@ -8,11 +8,9 @@ import { filter } from 'rxjs';
 })
 export class NavigationService {
   private activatedRoute = inject(ActivatedRoute);
-
   private router = inject(Router);
 
   public isMainPage = signal(false);
-
   public queryParams = signal<Record<string, string>>({});
 
   constructor() {

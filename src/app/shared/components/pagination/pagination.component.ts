@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-
 import { PaginationService } from '../../services/pagination/pagination.service';
 import { CustomButtonComponent } from '../custom-button/custom-button.component';
 

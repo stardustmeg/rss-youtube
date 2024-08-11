@@ -26,7 +26,7 @@ import { VideoDataService } from '../../services/video-data/video-data.service';
   templateUrl: './filter.component.html',
 })
 export class FilterComponent {
-  public filterControl = new FormControl('');
-
   public videoService = inject(VideoDataService);
+
+  public filterControl = new FormControl('');
 }

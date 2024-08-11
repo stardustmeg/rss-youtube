@@ -19,7 +19,6 @@
         "plugin:import/typescript",
         "plugin:@angular-eslint/template/process-inline-templates",
         "plugin:@typescript-eslint/recommended-type-checked",
-        "plugin:perfectionist/recommended-natural",
         "prettier"
       ],
       "rules": {
@@ -28,6 +27,15 @@
         "@typescript-eslint/no-explicit-any": "error",
         "curly": ["error", "all"],
         "max-lines-per-function": ["error", { "max": 40, "skipBlankLines": true, "skipComments": true }],
+        "lines-between-class-members": [
+          "error",
+          {
+            "enforce": [
+              { "blankLine": "always", "prev": "*", "next": "method" },
+              { "blankLine": "always", "prev": "method", "next": "*" }
+            ]
+          }
+        ],
         "no-shadow": "off",
         "no-useless-constructor": "off",
         "prefer-destructuring": "off",

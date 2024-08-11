@@ -1,7 +1,7 @@
 // TBD: customCard, customCardTwo, customCardThree are for testing; delete later
 
 export const customCard = {
-  id: '11111111',
+  id: 'lw8kOOKitten',
   kind: 'custom#card',
   snippet: {
     description:
@@ -27,7 +27,7 @@ export const customCard = {
 };
 
 export const customCardTwo = {
-  id: '22222',
+  id: 'cUYvfCKitten',
   kind: 'custom#card',
   snippet: {
     description:
@@ -53,7 +53,7 @@ export const customCardTwo = {
 };
 
 export const customCardThree = {
-  id: 'oneMoreKittenCardId',
+  id: 'kittenRzPuJRq',
   kind: 'custom#card',
   snippet: {
     description:

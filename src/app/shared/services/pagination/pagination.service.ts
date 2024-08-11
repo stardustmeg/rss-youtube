@@ -10,17 +10,13 @@ import { Store } from '@ngrx/store';
 })
 export class PaginationService {
   private navigationService = inject(NavigationService);
-
-  private nextPageSignal = toSignal(inject(Store).select(selectNextPage), { initialValue: '' });
-
-  private previousPageSignal = toSignal(inject(Store).select(selectPreviousPage), { initialValue: '' });
-
   private store = inject(Store);
 
+  private nextPageSignal = toSignal(this.store.select(selectNextPage), { initialValue: '' });
+  private previousPageSignal = toSignal(this.store.select(selectPreviousPage), { initialValue: '' });
+
   public currentPage = computed(() => Number(this.navigationService.queryParams()['page'] || 1));
-
   public isFirstPage = computed(() => this.previousPageSignal() === '');
-
   public isLastPage = computed(() => this.nextPageSignal() === '');
 
   constructor() {}

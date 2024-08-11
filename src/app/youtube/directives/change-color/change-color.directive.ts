@@ -11,7 +11,6 @@ import { determineColor } from './helpers/determine-color';
 })
 export class ChangeColorDirective {
   @Input() public publicationDate = '';
-
   @Input() public type: StyleChangeOptionType = styleChangeOption.borderBottom;
 
   private applyColor(): string {

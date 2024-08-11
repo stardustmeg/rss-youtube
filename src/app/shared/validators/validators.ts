@@ -46,7 +46,7 @@ export const isFutureDate = (control: AbstractControl): ValidationErrors | null 
   const date = new Date(control.value);
   const now = new Date();
   now.setHours(0, 0, 0, 0);
-  return date <= now ? null : { futureDate: 'Date must be in the future' };
+  return date <= now ? null : { futureDate: 'Date must not be in the future' };
 };
 
 export const passwordStrengthValidator = (control: AbstractControl): ValidationErrors | null => {

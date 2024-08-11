@@ -6,8 +6,6 @@ import { isValidLocalStorageData } from './helpers/helper';
   providedIn: 'root',
 })
 export class LocalStorageService {
-  private constructor() {}
-
   public getItem(key: string): null | string {
     return localStorage.getItem(key);
   }

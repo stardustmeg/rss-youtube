@@ -11,9 +11,7 @@ import { addYoutubeVideos, searchVideos } from '../actions/actions';
 @Injectable()
 export class VideoEffects {
   private actions$ = inject(Actions);
-
   private snackBarService = inject(SnackBarService);
-
   private videoDataService = inject(VideoDataService);
 
   public searchVideos$ = createEffect(() =>

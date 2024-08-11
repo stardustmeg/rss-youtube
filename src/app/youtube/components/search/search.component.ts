@@ -23,11 +23,8 @@ import { DEBOUNCE_TIME, MIN_LENGTH } from './constants/number-values';
 })
 export class SearchComponent implements OnInit {
   private activatedRoute = inject(ActivatedRoute);
-
   private router = inject(Router);
-
   private store = inject(Store);
-
   public loginService = inject(LoginService);
 
   public searchForm = new FormGroup({

@@ -14,8 +14,6 @@ import { MaterialButtonType, MaterialButtonTypeType } from '../../constants/cust
 })
 export class CustomLinkComponent {
   @Input() public attributeType: MaterialButtonTypeType = MaterialButtonType.FAB;
-
   @Input() public customClass = '';
-
   @Input() public icon = '';
 }

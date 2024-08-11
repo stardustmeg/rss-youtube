@@ -31,9 +31,8 @@ import { NavigationService } from '../services/navigation/navigation.service';
   templateUrl: './header.component.html',
 })
 export class HeaderComponent {
-  public isSortVisible = signal(false);
-
   public loginService = inject(LoginService);
-
   public navigationService = inject(NavigationService);
+
+  public isSortVisible = signal(false);
 }

@@ -19,18 +19,16 @@ export class TagsFormComponent {
   private formBuilder = inject(FormBuilder);
 
   public readonly addOnBlur = true;
-
-  public isNewVideoTagsArrayFull = signal<boolean>(false);
-
   public readonly maxTags = validNumber.MAX_TAGS;
 
   public readonly newVideoTags = signal<string[]>([]);
-
-  @Output() public tagsChange = new EventEmitter<string[]>();
+  public isNewVideoTagsArrayFull = signal<boolean>(false);
 
   public tagsFormGroup = this.formBuilder.group({
     tags: this.formBuilder.array([]),
   });
+
+  @Output() public tagsChange = new EventEmitter<string[]>();
 
   constructor() {}
 

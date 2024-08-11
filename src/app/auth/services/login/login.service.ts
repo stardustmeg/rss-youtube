@@ -11,12 +11,10 @@ import { LOGIN_KEY } from './constants/login-key';
   providedIn: 'root',
 })
 export class LoginService {
-  private fakeAuthTokenService = inject(FakeAuthTokenService);
-
   private readonly localStorageKey = LOGIN_KEY;
 
+  private fakeAuthTokenService = inject(FakeAuthTokenService);
   private localStorageService = inject(LocalStorageService);
-
   private snackBar = inject(SnackBarService);
 
   public isLoggedIn = signal(this.checkIsLoggedIn());

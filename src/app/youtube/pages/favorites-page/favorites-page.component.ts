@@ -20,13 +20,13 @@ import { VideoItem } from '../../models/video-item.model';
   templateUrl: './favorites-page.component.html',
 })
 export class FavoritesPageComponent implements OnInit, OnDestroy {
+  private subscription = new Subscription();
+
   // NOTE: this is how I want it
   private favoriteVideos$ = inject(Store).select(selectFavoriteVideos);
 
   // NOTE: this is to follow the requirements of the project
   // private favoriteVideos$ = inject(Store).select(selectFavoriteVideosFromAllVideos);
-
-  private subscription = new Subscription();
 
   public videos: VideoItem[] = [];
 
