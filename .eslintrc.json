@@ -21,6 +21,15 @@
         "plugin:@typescript-eslint/recommended-type-checked",
         "prettier"
       ],
+      "overrides": [
+        {
+          "files": ["*.spec.ts"],
+          "rules": {
+            "max-lines-per-function": "off",
+            "@typescript-eslint/consistent-type-assertions": "off"
+          }
+        }
+      ],
       "rules": {
         "@typescript-eslint/no-floating-promises": "off",
         "@typescript-eslint/unbound-method": "off",
