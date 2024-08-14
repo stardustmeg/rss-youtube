@@ -5,8 +5,10 @@ import { selectCustomCards, selectVideos } from '@/app/redux/selectors/selectors
 import { PaginationService } from '@/app/shared/services/pagination/pagination.service';
 import { Injectable, inject, signal } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Observable, combineLatest, map, switchMap } from 'rxjs';
+import { EMPTY, Observable, catchError, combineLatest, map, switchMap } from 'rxjs';
 
+import { userMessage } from '@/app/shared/services/snackBar/constants/user-message';
+import { SnackBarService } from '@/app/shared/services/snackBar/snack-bar.service';
 import { SortOptionType } from '../../components/sort/constants/sortCriteria';
 import { BASIC_SORT_OPTION } from '../../constants/sort-option';
 import { VideoItem } from '../../models/video-item.model';
@@ -19,6 +21,7 @@ export class VideoDataService {
   private loginService = inject(LoginService);
   private navigationService = inject(NavigationService);
   private paginationService = inject(PaginationService);
+  private snackBarService = inject(SnackBarService);
   private store = inject(Store);
   private youtubeApiService = inject(YoutubeApiService);
 
@@ -109,6 +112,10 @@ export class VideoDataService {
       map((detailedVideos) => {
         this.setFoundData(detailedVideos);
         return detailedVideos;
+      }),
+      catchError(() => {
+        this.snackBarService.openSnackBar(userMessage.VIDEO_SEARCH_FAILED);
+        return EMPTY;
       }),
     );
   }

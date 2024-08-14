@@ -68,7 +68,7 @@ export class NewVideoItemFormComponent {
   public maxDate = new Date();
 
   constructor() {
-    this.formGroup = this.formBuilder.group({
+    this.formGroup = this.formBuilder.nonNullable.group({
       creationDate: ['', [Validators.required, isFutureDate]],
       description: ['', Validators.maxLength(validNumber.MAX_DESCRIPTION)],
       imageLink: ['', [Validators.required]],
@@ -85,15 +85,15 @@ export class NewVideoItemFormComponent {
     const tags = this.tagsFormComponent?.getNewVideoTags() ?? [];
     this.setVideoTags(tags);
     const videoId = generateRandomVideoId();
-    const videoDate = new Date(this.formGroup.get('creationDate')?.value ?? '');
+    const videoDate = new Date(this.formGroup.controls.creationDate.value);
 
     const newCard = createNewCard({
       id: videoId,
       date: videoDate,
-      description: this.formGroup.get('description')?.value,
-      imageLink: this.formGroup.get('imageLink')?.value,
-      title: this.formGroup.get('title')?.value,
-      videoLink: this.formGroup.get('videoLink')?.value,
+      description: this.formGroup.controls.description.value,
+      imageLink: this.formGroup.controls.imageLink.value,
+      title: this.formGroup.controls.title.value,
+      videoLink: this.formGroup.controls.videoLink.value,
       tags,
     });
 

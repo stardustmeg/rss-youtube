@@ -1,10 +1,10 @@
 import { FormArray, FormControl } from '@angular/forms';
 
 export interface FormData {
-  creationDate: FormControl<null | string>;
-  description: FormControl<null | string>;
-  imageLink: FormControl<null | string>;
+  creationDate: FormControl<string>;
+  description: FormControl<string>;
+  imageLink: FormControl<string>;
   tags: FormArray;
-  title: FormControl<null | string>;
-  videoLink: FormControl<null | string>;
+  title: FormControl<string>;
+  videoLink: FormControl<string>;
 }
